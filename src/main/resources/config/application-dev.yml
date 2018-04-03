@@ -1,0 +1,168 @@
+#logging:
+#  level:
+#    root: info
+
+#spring
+
+#minlia:
+
+#    tcp-server:
+#        port: 20503
+#        autoStart: true
+
+#    i18n:
+#        cachedMilliSecond: 2073600000
+#        i18nTableName: language
+
+spring:
+  profiles: dev
+  application:
+    name: Booted
+
+
+#  cache:
+#    type: redis
+#  redis:
+#    host: localhost
+#    port: 6379
+
+#    redis:
+#      cache-null-values: true
+#      key-prefix: cfpay
+#      time-to-live: 864000
+#      use-key-prefix: true
+
+
+
+  devtools:
+    restart:
+      enabled: false
+
+  # H2 DATABASE CONFIG
+  datasource:
+#    type: com.zaxxer.hikari.HikariDataSource
+#    schema: classpath:/db/schema-mysql.sql
+    data: classpath:/data/cfpay-mysql.sql
+#    initialize: true
+#    url: jdbc:h2:mem:testdb
+    url: jdbc:log4jdbc:mysql://localhost:3306/a_personal_payment?createDatabaseIfNotExist=true&useUnicode=true&useUnicode=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&allowMultiQueries=true
+    username: root
+    password:
+#    username: sa
+#    password: sa
+    platform: mysql
+
+    continue-on-error: true
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.DriverSpy
+
+
+#  h2:
+#    console:
+#      enabled: true
+#      path: /console
+
+
+
+  profiles:
+    active: dev
+#  messages:
+#    fallback-to-system-locale: true
+#    use-code-as-default-message: true
+#    cache-duration: P300DT12H0M
+#    encoding: UTF-8
+#    always-use-message-format: true
+#    basename: classpath:/exceptionApiCode
+
+#mybatis
+mybatis-plus:
+#  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mybatis/*Mapper.xml,classpath:/mybatis/mapper/*Mapper.xml,classpath:/mapper/*Mapper.xml,classpath:/.*/dao/*Dao.xml,classpath:/.*/dao/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.cfpay.api.v1.dialect.entity
+  typeEnumsPackage: com.cfpay.api.v1.dialect.enums
+#  typeAliasesPackage: com.baomidou.springboot.entity
+#  typeEnumsPackage: com.baomidou.springboot.entity.enums
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 2
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    capital-mode: true
+    #序列接口实现类配置
+    #key-generator: com.baomidou.springboot.xxx
+    #逻辑删除配置（下面3个配置）
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.springboot.xxx
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+#swagger:
+#  base-path: /**
+#  exclude-path:
+#    - /ops/**
+#    - /error
+
+
+
+
+#spring.datasource:
+#  url: "jdbc:h2:mem:testdb"
+#  driverClassName: org.h2.Driver
+#  username: sa
+#  password: ""
+#  data: "classpath*:data.sql"
+#spring.jpa:
+#  database-platform: org.hibernate.dialect.H2Dialect
+#spring.h2.console.enabled: true
+
+
+#    i18n:
+#        enable-i18n-annotation-scan: true
+
+
+
+system:
+
+  mvc:
+    loggable:
+      enabled: true
+
+  development:
+    swagger:
+      enabled: true
+
+  api-exception:
+    handler:
+      enabled: true
+
+  context-holder:
+    enabled: true
+
+  i18n:
+    enabled: true
+    select-one-i18n-item-sql: "select message from language where code = ? and language = ? and country = ? limit 1"
+
+
+
+
+swagger:
+    title: ${spring.application.name}接口
+    description: ${spring.application.name}接口
+    version: 1.0
+    contact: cloud@minlia.com
+    path: /api/.*
+    redirect: true
