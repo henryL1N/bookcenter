@@ -17,7 +17,7 @@
 spring:
   profiles: dev
   application:
-    name: Booted
+    name: BookCenter
 
 
 #  cache:
@@ -45,7 +45,7 @@ spring:
     data: classpath:/data/cfpay-mysql.sql
 #    initialize: true
 #    url: jdbc:h2:mem:testdb
-    url: jdbc:log4jdbc:mysql://localhost:3306/a_personal_payment?createDatabaseIfNotExist=true&useUnicode=true&useUnicode=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&allowMultiQueries=true
+    url: jdbc:log4jdbc:mysql://localhost:3306/book_center?createDatabaseIfNotExist=true&useUnicode=true&useUnicode=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&allowMultiQueries=true
     username: root
     password:
 #    username: sa
