@@ -29,6 +29,7 @@ PRIMARY KEY (`guid`)
 
 CREATE TABLE `department` (
 `id` bigint(11) NOT NULL,
+`name` varchar(255) NOT NULL,
 `manager` int(11) NOT NULL,
 `address` varchar(255) NOT NULL,
 `phone` varchar(255) NOT NULL,
@@ -49,21 +50,22 @@ PRIMARY KEY (`id`)
 
 CREATE TABLE `publisher` (
 `id` bigint(11) NOT NULL,
-`name` varchar(255) NULL,
-`phone` varchar(255) NULL,
-`address` varchar(255) NULL,
+`name` varchar(255) NOT NULL,
+`phone` varchar(255) NOT NULL,
+`address` varchar(255) NOT NULL,
 PRIMARY KEY (`id`) 
 );
 
 CREATE TABLE `bookcenter` (
 `id` bigint(11) NOT NULL,
-`name` varchar(255) NULL,
-`general_manager` bigint(255) NULL,
+`name` varchar(255) NOT NULL,
+`general_manager` bigint(255) NOT NULL,
 PRIMARY KEY (`id`) 
 );
 
 CREATE TABLE `warehouse` (
 `id` bigint(11) NOT NULL,
+`name` varchar(255) NOT NULL,
 `manager` int(11) NOT NULL,
 `phone` varchar(255) NOT NULL,
 PRIMARY KEY (`id`) 
