@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Henry Lin badcop@163.com
  */
 @ApiModel(value = "员工")
-public class Employee extends AbstractEntity{
+public class Employee {
 
     @ApiModelProperty(value = "用户id", example = "1234567890")
     private Long guid;
