@@ -79,8 +79,8 @@ mybatis-plus:
 #  mapper-locations: classpath:/mapper/*Mapper.xml
   mapper-locations: classpath:/mybatis/*Mapper.xml,classpath:/mybatis/mapper/*Mapper.xml,classpath:/mapper/*Mapper.xml,classpath:/.*/dao/*Dao.xml,classpath:/.*/dao/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.cfpay.api.v1.dialect.entity
-  typeEnumsPackage: com.cfpay.api.v1.dialect.enums
+  typeAliasesPackage: com.wixdom.bookcenter.domain
+  typeEnumsPackage: com.wixdom.bookcenter.enumeration
 #  typeAliasesPackage: com.baomidou.springboot.entity
 #  typeEnumsPackage: com.baomidou.springboot.entity.enums
   global-config:
