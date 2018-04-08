@@ -1,15 +1,20 @@
 package com.wixdom.bookcenter.domain;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * @author Henry Lin badcop@163.com
  */
 @ApiModel(value = "书")
-public class Book {
+public class Book extends Model<Book> {
+
+    @ApiModelProperty(value = "ID", example = "1")
+    private Long id;
 
     @ApiModelProperty(value = "书名", example = "新华字典")
     private String name;
@@ -32,4 +37,8 @@ public class Book {
     @ApiModelProperty(value = "批发价")
     private BigDecimal wholesalePrice;
 
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 }
