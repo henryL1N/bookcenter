@@ -13,7 +13,6 @@
 #    i18n:
 #        cachedMilliSecond: 2073600000
 #        i18nTableName: language
-
 spring:
   profiles: dev
   application:
