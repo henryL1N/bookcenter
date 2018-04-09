@@ -3,6 +3,7 @@ package com.wixdom.bookcenter.domain;
 import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 /**
  * @author Henry Lin badcop@163.com
  */
+@Data
 @ApiModel(value = "出版商")
 public class Publisher extends Model<Publisher> {
 

@@ -3,12 +3,14 @@ package com.wixdom.bookcenter.domain;
 import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author Henry Lin badcop@163.com
  */
+@Data
 @ApiModel(value = "分类")
 public class Category extends Model<Category> {
 

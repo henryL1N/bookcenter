@@ -5,6 +5,7 @@ import com.minlia.module.data.entity.AbstractEntity;
 import com.wixdom.bookcenter.enumeration.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 /**
  * @author Henry Lin badcop@163.com
  */
+@Data
 @ApiModel(value = "员工")
 public class Employee extends Model<Employee> {
 

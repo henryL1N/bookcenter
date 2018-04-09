@@ -3,6 +3,7 @@ package com.wixdom.bookcenter.domain;
 import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 /**
  * @author Henry Lin badcop@163.com
  */
+@Data
 @ApiModel(value = "仓库")
 public class Warehouse extends Model<Warehouse> {
 

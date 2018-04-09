@@ -3,12 +3,14 @@ package com.wixdom.bookcenter.domain;
 import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author Henry Lin badcop@163.com
  */
+@Data
 @ApiModel(value = "库存项")
 public class StockItem extends Model<StockItem> {
 
