@@ -18,8 +18,8 @@ public class Category extends Model<Category> {
     @ApiModelProperty(value = "名称", example = "工具书")
     private String name;
 
-    @ApiModelProperty(value = "销售部门")
-    private Department salesDepartment;
+    @ApiModelProperty(value = "销售部门Id", example = "1")
+    private Long salesDepartmentId;
 
     @Override
     protected Serializable pkVal() {

@@ -15,14 +15,14 @@ public class StockItem extends Model<StockItem> {
     @ApiModelProperty(value = "ID", example = "1")
     private Long id;
 
-    @ApiModelProperty(value = "书")
-    private Book book;
+    @ApiModelProperty(value = "书ID", example = "1")
+    private Long bookId;
 
     @ApiModelProperty(value = "数量", example = "1")
     private Integer quantity;
 
-    @ApiModelProperty(value = "仓库")
-    private Warehouse warehouse;
+    @ApiModelProperty(value = "仓库ID", example = "1")
+    private Long warehouseId;
 
     @Override
     protected Serializable pkVal() {

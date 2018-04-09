@@ -19,14 +19,11 @@ public class Warehouse extends Model<Warehouse> {
     @ApiModelProperty(value = "名称", example = "商场")
     private String name;
 
-    @ApiModelProperty(value = "管理员")
-    private Employee manager;
+    @ApiModelProperty(value = "管理员工号", example = "1")
+    private Long managerEmployeeId;
 
     @ApiModelProperty(value = "电话")
     private String phone;
-
-    @ApiModelProperty(value = "库存项")
-    private Set<StockItem> stockItems;
 
     @Override
     protected Serializable pkVal() {

@@ -18,8 +18,8 @@ public class BookCenter extends Model<BookCenter> {
     @ApiModelProperty(value = "名称", example = "广州购书中心")
     private String name;
 
-    @ApiModelProperty(value = "总经理")
-    private Employee generalManager;
+    @ApiModelProperty(value = "总经理工号", example = "1")
+    private Long generalManagerEmployeeId;
 
     @ApiModelProperty(value = "地址", example = "广州市天河路123号")
     private String address;

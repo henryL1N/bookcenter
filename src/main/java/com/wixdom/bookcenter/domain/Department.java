@@ -18,8 +18,8 @@ public class Department extends Model<Department> {
     @ApiModelProperty(value = "名称", example = "工具书部")
     private String name;
 
-    @ApiModelProperty(value = "经理")
-    private Employee manager;
+    @ApiModelProperty(value = "经理工号", example = "1")
+    private Long managerEmployeeId;
 
     @ApiModelProperty(value = "地址", example = "广州市天河路123号")
     private String address;

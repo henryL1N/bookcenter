@@ -22,11 +22,11 @@ public class Book extends Model<Book> {
     @ApiModelProperty(value = "规格", example = "64开")
     private String specification;
 
-    @ApiModelProperty(value = "出版商")
-    private Publisher publisher;
+    @ApiModelProperty(value = "出版商ID", example = "1")
+    private Long publisherId;
 
-    @ApiModelProperty(value = "分类")
-    private Category category;
+    @ApiModelProperty(value = "分类ID", example = "1")
+    private Long categoryId;
 
     @ApiModelProperty(value = "成本价")
     private BigDecimal cost;
