@@ -1,12 +1,3 @@
-DROP TABLE IF EXISTS `employee`;
-DROP TABLE IF EXISTS `department`;
-DROP TABLE IF EXISTS `book`;
-DROP TABLE IF EXISTS `publisher`;
-DROP TABLE IF EXISTS `bookcenter`;
-DROP TABLE IF EXISTS `warehouse`;
-DROP TABLE IF EXISTS `stock_item`;
-DROP TABLE IF EXISTS `catagory`;
-
 CREATE TABLE `employee` (
 `id` bigint(11) NOT NULL AUTO_INCREMENT,
 `guid` bigint(11) NOT NULL,
