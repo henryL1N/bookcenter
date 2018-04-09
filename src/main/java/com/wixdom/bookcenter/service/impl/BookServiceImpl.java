@@ -3,7 +3,7 @@ package com.wixdom.bookcenter.service.impl;
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.wixdom.bookcenter.domain.Book;
-import com.wixdom.bookcenter.mapper.BookMapper;
+import com.wixdom.bookcenter.dao.BookMapper;
 import com.wixdom.bookcenter.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +28,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
 
     @Override
     public Boolean save(Book book) {
-        return super.insert(book);
-//        return baseMapper.insert(book)>0;
+//        return super.insert(book);
+        return baseMapper.insert(book)>0;
     }
 
     @Override
