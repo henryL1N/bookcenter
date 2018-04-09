@@ -28,8 +28,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
 
     @Override
     public Boolean save(Book book) {
-//        return super.insert(book);
-        return baseMapper.insert(book)>0;
+        return super.insert(book);
     }
 
     @Override

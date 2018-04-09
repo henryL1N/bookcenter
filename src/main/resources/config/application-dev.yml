@@ -164,5 +164,5 @@ swagger:
     description: ${spring.application.name}接口
     version: 1.0
     contact: badcop@163.com
-    path: /.*
+    path: /api/.*
     redirect: true
