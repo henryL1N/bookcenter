@@ -23,7 +23,7 @@ CREATE TABLE `book` (
 `name` varchar(255) NOT NULL,
 `specification` varchar(255) NOT NULL,
 `publisher_id` bigint(255) NOT NULL,
-`catagory_id` bigint(255) NOT NULL,
+`category_id` bigint(255) NOT NULL,
 `cost` decimal(10,2) NOT NULL,
 `retail_price` decimal(10,2) NOT NULL,
 `wholesale_price` decimal(10,2) NOT NULL,
