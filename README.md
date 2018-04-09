@@ -19,3 +19,9 @@ Authentication: SQL Server Authentication
 Username:       SA
 Password:       <YourStrong!Passw0rd>
 ```
+```DataModeler.ndm```需要使用[Navicat Data Modeler](https://www.navicat.com.cn/products#navicat-data-modeler)打开
+
+使用Navicat Premium 12.0.15自带的Modeler在当前位置双击打开保存时闪退，复制到下面路径并重新启动Navicat，在Modeler选项卡内打开没有问题。
+```
+~/Library/Application Support/PremiumSoft CyberTech/Navicat CC/Navicat Premium/Profiles/
+```
