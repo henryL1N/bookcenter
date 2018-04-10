@@ -25,3 +25,7 @@ Password:       <YourStrong!Passw0rd>
 ```
 ~/Library/Application Support/PremiumSoft CyberTech/Navicat CC/Navicat Premium/Profiles/
 ```
+
+使用Modeler输出建表语句时不要选择生成Drop语句
+
+生成mssql的建表语句后要手动将```GO```替换成```;```分号，否则会抛出sql语法错误（因为错误地使用```\n```换行符分割语句，另外```SQLServerDriver```不接受```GO```语句）
