@@ -47,24 +47,30 @@ spring:
 #    type:
     # Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.
     # mysql
-#    driver-class-name: net.sf.log4jdbc.DriverSpy
+    driver-class-name: net.sf.log4jdbc.DriverSpy
     # sql server
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     # JDBC URL of the database.
     # mysql
-#    url: jdbc:log4jdbc:mysql://localhost:3306/book_center?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&allowMultiQueries=true
+    url: jdbc:log4jdbc:mysql://localhost:3306/book_center?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=false&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false&allowMultiQueries=true
     # sql server
-    url: jdbc:sqlserver://localhost:1433;databaseName=book_center
+#    url: jdbc:sqlserver://localhost:1433;databaseName=book_center
     # Login username of the database.
-    username: SA
+    # mysql
+    username: root
+    # sql server
+#    username: SA
     # Login password of the database.
-    password: <YourStrong!Passw0rd>
+    # mysql
+    password:
+    # sql server
+#    password: <YourStrong!Passw0rd>
     # JNDI location of the datasource. Class, url, username & password are ignored when set.
 #    jndi-name:
     # Initialize the datasource with available DDL and DML scripts.
     initialization-mode: always
     # Platform to use in the DDL or DML scripts (such as schema-${platform}.sql or data-${platform}.sql).
-    platform: mssql
+    platform: mysql
 #    # Schema (DDL) script resource references.
 #    schema:
 #    # Username of the database to execute DDL scripts (if different).
@@ -78,7 +84,7 @@ spring:
 #    # Password of the database to execute DML scripts (if different).
 #    data-password:
     # Whether to stop if an error occurs while initializing the database.
-    continue-on-error: false
+    continue-on-error: true
 #    # Statement separator in SQL initialization scripts.
 #    separator: ";"
 #    # SQL scripts encoding.
