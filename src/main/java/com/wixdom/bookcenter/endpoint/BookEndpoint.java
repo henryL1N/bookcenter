@@ -21,7 +21,7 @@ public class BookEndpoint {
 
     @ApiOperation(value = "create book", notes = "save book to database", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean create(@RequestBody Book book) {
+    public Book create(@RequestBody Book book) {
         return bookService.save(book);
     }
 
@@ -34,8 +34,18 @@ public class BookEndpoint {
     @ApiOperation(value = "update book", notes = "update book in database", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_VALUE)
     @PutMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Book update(@PathVariable Long id, @RequestBody Book book) {
-        book.setId(id);
-        return bookService.update(book);
+        Book updated = bookService.findOneById(id);
+        if (updated != null) {
+            updated.setName(book.getName());
+            updated.setPublisher(book.getPublisher());
+            updated.setCategory(book.getCategory());
+            updated.setSpecification(book.getSpecification());
+            updated.setCost(book.getCost());
+            updated.setRetailPrice(book.getRetailPrice());
+            updated.setWholesalePrice(book.getWholesalePrice());
+            updated = bookService.update(updated);
+        }
+        return updated;
     }
 
     @ApiOperation(value = "delete book", notes = "remove book from database", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_VALUE)

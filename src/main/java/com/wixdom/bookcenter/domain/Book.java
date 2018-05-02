@@ -1,11 +1,12 @@
 package com.wixdom.bookcenter.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 /**
@@ -13,10 +14,8 @@ import java.math.BigDecimal;
  */
 @Data
 @ApiModel(value = "书")
-public class Book extends Model<Book> {
-
-    @ApiModelProperty(value = "ID", example = "1")
-    private Long id;
+@Entity
+public class Book extends AbstractPersistable<Long> {
 
     @ApiModelProperty(value = "书名", example = "新华字典")
     private String name;
@@ -24,11 +23,13 @@ public class Book extends Model<Book> {
     @ApiModelProperty(value = "规格", example = "64开")
     private String specification;
 
-    @ApiModelProperty(value = "出版商ID", example = "1")
-    private Long publisherId;
+    @ApiModelProperty(value = "出版商")
+    @OneToOne
+    private Publisher publisher;
 
-    @ApiModelProperty(value = "分类ID", example = "1")
-    private Long categoryId;
+    @ApiModelProperty(value = "分类")
+    @OneToOne
+    private Category category;
 
     @ApiModelProperty(value = "成本价")
     private BigDecimal cost;
@@ -39,8 +40,4 @@ public class Book extends Model<Book> {
     @ApiModelProperty(value = "批发价")
     private BigDecimal wholesalePrice;
 
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
 }

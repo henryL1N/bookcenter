@@ -1,13 +1,12 @@
 package com.wixdom.bookcenter.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.minlia.module.data.entity.AbstractEntity;
 import com.wixdom.bookcenter.enumeration.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 /**
@@ -15,13 +14,8 @@ import java.math.BigDecimal;
  */
 @Data
 @ApiModel(value = "员工")
-public class Employee extends Model<Employee> {
-
-    @ApiModelProperty(value = "工号", example = "1")
-    private Long id;
-
-    @ApiModelProperty(value = "用户id", example = "1234567890")
-    private Long guid;
+@Entity
+public class Employee extends AbstractPersistable<Long> {
 
     @ApiModelProperty(value = "姓名", example = "张三")
     private String name;
@@ -38,8 +32,4 @@ public class Employee extends Model<Employee> {
     @ApiModelProperty(value = "月工资", example = "8888.88")
     private BigDecimal salary;
 
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
 }

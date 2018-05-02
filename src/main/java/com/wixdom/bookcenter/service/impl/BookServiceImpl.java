@@ -1,43 +1,48 @@
 package com.wixdom.bookcenter.service.impl;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.wixdom.bookcenter.domain.Book;
-import com.wixdom.bookcenter.dao.BookMapper;
+import com.wixdom.bookcenter.repository.BookRepository;
 import com.wixdom.bookcenter.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Henry Lin badcop@163.com
  */
 @Service
-public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements BookService {
+public class BookServiceImpl implements BookService {
+
+    @Autowired
+    BookRepository bookRepository;
 
     @Override
     public Book findOneById(Long id) {
-        return super.selectById(id);
+        return bookRepository.getOne(id);
     }
 
     @Override
     public Book update(Book book) {
-        if (!super.updateById(book)) {
-            return null;
-        }
-        return super.selectById(book.getId());
+        return bookRepository.save(book);
     }
 
     @Override
-    public Boolean save(Book book) {
-        return super.insert(book);
+    public Book save(Book book) {
+        return bookRepository.save(book);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return super.deleteById(id);
+        Book delete = bookRepository.getOne(id);
+        if (null == delete) {
+            return false;
+        } else {
+            bookRepository.delete(delete);
+            return null==bookRepository.getOne(id);
+        }
     }
 
     @Override
     public Boolean isExist(Long id) {
-        return super.selectCount(Condition.create().eq("id", id)) > 0;
+        return null != bookRepository.getOne(id);
     }
 }
