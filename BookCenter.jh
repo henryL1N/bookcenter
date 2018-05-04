@@ -46,16 +46,38 @@ entity Warehouse {
 	name String required
     phone String
 }
+
+entity PurchaseOrder {
+	date ZonedDateTime required
+	supplier String
+	totalAmount BigDecimal required
+}
+
+entity SalesOrder {
+	date ZonedDateTime required
+	customer String
+	totalAmount BigDecimal required
+}
+
+entity OrderItem{
+	price BigDecimal required
+	quantity Long required
+}
+
 relationship OneToOne {
 	Book{publisher required} to Publisher,
 	BookCenter{generalManager required} to Employee,
 	Category{salesDepartment required} to Department,
 	Department{manager required} to Employee,
-	Employee{user} to User{employee}
+	Employee{user} to User{employee},
+	PurchaseOrder{buyer required} to Employee,
+	SalesOrder{seller required} to Employee
 }
 
 relationship OneToMany {
-	BookCenter{department} to Department
+	BookCenter{department} to Department,
+	PurchaseOrder{orderItem} to OrderItem,
+	SalesOrder{orderItem} to OrderItem
 }
 
 relationship ManyToOne {
