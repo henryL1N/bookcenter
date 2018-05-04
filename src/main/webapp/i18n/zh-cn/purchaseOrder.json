@@ -1,0 +1,26 @@
+
+{
+    "bookCenterApp": {
+        "purchaseOrder" : {
+            "home": {
+                "title": "Purchase Orders",
+                "createLabel": "创建新 Purchase Order",
+                "createOrEditLabel": "创建或编辑 Purchase Order"
+            },
+            "created": "Purchase Order {{ param }} 创建成功",
+            "updated": "Purchase Order {{ param }} 更新成功",
+            "deleted": "Purchase Order {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Purchase Order {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Purchase Order"
+            },
+            "date": "Date",
+            "supplier": "Supplier",
+            "totalAmount": "Total Amount",
+            "buyer": "Buyer",
+            "orderItem": "Order Item"
+        }
+    }
+}

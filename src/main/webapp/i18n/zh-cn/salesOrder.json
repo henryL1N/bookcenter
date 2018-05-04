@@ -1,0 +1,26 @@
+
+{
+    "bookCenterApp": {
+        "salesOrder" : {
+            "home": {
+                "title": "Sales Orders",
+                "createLabel": "创建新 Sales Order",
+                "createOrEditLabel": "创建或编辑 Sales Order"
+            },
+            "created": "Sales Order {{ param }} 创建成功",
+            "updated": "Sales Order {{ param }} 更新成功",
+            "deleted": "Sales Order {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Sales Order {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Sales Order"
+            },
+            "date": "Date",
+            "customer": "Customer",
+            "totalAmount": "Total Amount",
+            "seller": "Seller",
+            "orderItem": "Order Item"
+        }
+    }
+}

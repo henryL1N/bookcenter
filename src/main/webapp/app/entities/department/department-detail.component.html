@@ -1,0 +1,42 @@
+
+<div *ngIf="department">
+    <h2><span jhiTranslate="bookCenterApp.department.detail.title">Department</span> {{department.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bookCenterApp.department.name">Name</span></dt>
+        <dd>
+            <span>{{department.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.department.address">Address</span></dt>
+        <dd>
+            <span>{{department.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.department.bookCenter">Book Center</span></dt>
+        <dd>
+            <div *ngIf="department.bookCenter">
+                <a [routerLink]="['/book-center', department.bookCenter?.id]">{{department.bookCenter?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.department.manager">Manager</span></dt>
+        <dd>
+            <div *ngIf="department.manager">
+                <a [routerLink]="['/employee', department.manager?.id]">{{department.manager?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'department/'+ department.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span jhiTranslate="bookCenterApp.bookCenter.home.title">Book Centers</span>
+        <button class="btn btn-primary float-right jh-create-entity create-book-center" [routerLink]="['/', { outlets: { popup: ['book-center-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="bookCenterApp.bookCenter.home.createLabel">
+            Create new Book Center
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="bookCenters">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.bookCenter.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="address"><span jhiTranslate="bookCenterApp.bookCenter.address">Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="generalManager.id"><span jhiTranslate="bookCenterApp.bookCenter.generalManager">General Manager</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let bookCenter of bookCenters ;trackBy: trackId">
+                <td><a [routerLink]="['../book-center', bookCenter.id ]">{{bookCenter.id}}</a></td>
+                <td>{{bookCenter.name}}</td>
+                <td>{{bookCenter.address}}</td>
+                <td>
+                    <div *ngIf="bookCenter.generalManager">
+                        <a [routerLink]="['../employee', bookCenter.generalManager?.id ]" >{{bookCenter.generalManager?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../book-center', bookCenter.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'book-center/'+ bookCenter.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'book-center/'+ bookCenter.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

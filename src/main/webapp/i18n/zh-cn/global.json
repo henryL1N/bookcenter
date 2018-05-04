@@ -7,6 +7,17 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "数据",
+                "book": "Book",
+                "bookCenter": "Book Center",
+                "category": "Category",
+                "department": "Department",
+                "employee": "Employee",
+                "publisher": "Publisher",
+                "stockItem": "Stock Item",
+                "warehouse": "Warehouse",
+                "purchaseOrder": "Purchase Order",
+                "salesOrder": "Sales Order",
+                "orderItem": "Order Item",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

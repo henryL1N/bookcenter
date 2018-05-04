@@ -48,13 +48,13 @@ entity Warehouse {
 }
 
 entity PurchaseOrder {
-	date ZonedDateTime required
+	date LocalDate required
 	supplier String
 	totalAmount BigDecimal required
 }
 
 entity SalesOrder {
-	date ZonedDateTime required
+	date LocalDate required
 	customer String
 	totalAmount BigDecimal required
 }

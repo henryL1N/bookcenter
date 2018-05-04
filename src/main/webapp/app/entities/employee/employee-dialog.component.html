@@ -1,0 +1,85 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEmployeeLabel" jhiTranslate="bookCenterApp.employee.home.createOrEditLabel">Create or edit a Employee</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!employee.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="employee.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="employee.name" required/>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.age" for="field_age">Age</label>
+            <input type="number" class="form-control" name="age" id="field_age"
+                [(ngModel)]="employee.age" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.gender" for="field_gender">Gender</label>
+            <select class="form-control" name="gender" [(ngModel)]="employee.gender" id="field_gender" >
+                <option value="MALE">{{'bookCenterApp.Gender.MALE' | translate}}</option>
+                <option value="FEMALE">{{'bookCenterApp.Gender.FEMALE' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.position" for="field_position">Position</label>
+            <input type="text" class="form-control" name="position" id="field_position"
+                [(ngModel)]="employee.position" required/>
+            <div [hidden]="!(editForm.controls.position?.dirty && editForm.controls.position?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.position?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.salary" for="field_salary">Salary</label>
+            <input type="number" class="form-control" name="salary" id="field_salary"
+                [(ngModel)]="employee.salary" required min="0"/>
+            <div [hidden]="!(editForm.controls.salary?.dirty && editForm.controls.salary?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.salary?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.salary?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.salary?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="employee.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === employee.user?.id ? employee.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

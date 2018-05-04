@@ -1,0 +1,9 @@
+{
+    "bookCenterApp": {
+        "Gender" : {
+            "null": "",
+            "MALE": "MALE",
+            "FEMALE": "FEMALE"
+        }
+    }
+}

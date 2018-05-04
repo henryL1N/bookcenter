@@ -1,0 +1,25 @@
+
+{
+    "bookCenterApp": {
+        "bookCenter" : {
+            "home": {
+                "title": "Book Centers",
+                "createLabel": "创建新 Book Center",
+                "createOrEditLabel": "创建或编辑 Book Center"
+            },
+            "created": "Book Center {{ param }} 创建成功",
+            "updated": "Book Center {{ param }} 更新成功",
+            "deleted": "Book Center {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Book Center {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Book Center"
+            },
+            "name": "Name",
+            "address": "Address",
+            "generalManager": "General Manager",
+            "department": "Department"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+
+<div *ngIf="stockItem">
+    <h2><span jhiTranslate="bookCenterApp.stockItem.detail.title">Stock Item</span> {{stockItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bookCenterApp.stockItem.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{stockItem.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.stockItem.warehouse">Warehouse</span></dt>
+        <dd>
+            <div *ngIf="stockItem.warehouse">
+                <a [routerLink]="['/warehouse', stockItem.warehouse?.id]">{{stockItem.warehouse?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'stock-item/'+ stockItem.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

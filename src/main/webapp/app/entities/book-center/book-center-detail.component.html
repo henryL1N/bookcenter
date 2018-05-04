@@ -1,0 +1,36 @@
+
+<div *ngIf="bookCenter">
+    <h2><span jhiTranslate="bookCenterApp.bookCenter.detail.title">Book Center</span> {{bookCenter.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bookCenterApp.bookCenter.name">Name</span></dt>
+        <dd>
+            <span>{{bookCenter.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.bookCenter.address">Address</span></dt>
+        <dd>
+            <span>{{bookCenter.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.bookCenter.generalManager">General Manager</span></dt>
+        <dd>
+            <div *ngIf="bookCenter.generalManager">
+                <a [routerLink]="['/employee', bookCenter.generalManager?.id]">{{bookCenter.generalManager?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'book-center/'+ bookCenter.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

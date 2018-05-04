@@ -1,0 +1,61 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDepartmentLabel" jhiTranslate="bookCenterApp.department.home.createOrEditLabel">Create or edit a Department</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!department.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="department.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.department.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="department.name" required/>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.department.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                [(ngModel)]="department.address" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.department.bookCenter" for="field_bookCenter">Book Center</label>
+            <select class="form-control" id="field_bookCenter" name="bookCenter" [(ngModel)]="department.bookCenter" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="bookCenterOption.id === department.bookCenter?.id ? department.bookCenter : bookCenterOption" *ngFor="let bookCenterOption of bookcenters; trackBy: trackBookCenterById">{{bookCenterOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.department.manager" for="field_manager">Manager</label>
+            <select class="form-control" id="field_manager" name="manager" [(ngModel)]="department.manager" required>
+                <option *ngIf="!editForm.value.manager" [ngValue]="null" selected></option>
+                <option [ngValue]="employeeOption.id === department.manager?.id ? department.manager : employeeOption" *ngFor="let employeeOption of managers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.manager?.dirty && editForm.controls.manager?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.manager?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
