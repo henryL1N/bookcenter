@@ -51,7 +51,7 @@ relationship OneToOne {
 	BookCenter{generalManager required} to Employee,
 	Category{salesDepartment required} to Department,
 	Department{manager required} to Employee,
-	Employee{user} to User{Employee}
+	Employee{user} to User{employee}
 }
 
 relationship OneToMany {
