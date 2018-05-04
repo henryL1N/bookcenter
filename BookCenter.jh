@@ -1,0 +1,80 @@
+entity Book {
+	name String required
+    specification String
+    cost BigDecimal required min(0)
+    retailPrice BigDecimal required min(0)
+    wholesalePrice BigDecimal required min(0)
+}
+
+relationship OneToOne {
+	Book{publisher required} to Publisher
+}
+
+relationship ManyToOne {
+	Book{category} to Category{book}
+}
+
+entity BookCenter {
+	name String required
+    address String
+}
+
+relationship OneToOne {
+	BookCenter{generalManager required} to Employee
+}
+
+entity Category {
+	name String required
+}
+
+relationship OneToOne {
+	Category{salesDepartment required} to Department
+}
+
+entity Department {
+	name String required
+    address String
+}
+
+relationship OneToOne {
+	Department{manager required} to Employee
+}
+
+entity Employee {
+	name String required
+	age Integer
+	gender Gender
+	position String required
+	salary BigDecimal required min(0)
+}
+
+enum Gender {
+    MALE, FEMALE
+}
+
+entity Publisher {
+	name String required
+    phone String
+    address String
+}
+
+entity StockItem {
+	quantity Long required min(0)
+}
+
+relationship OneToMany{
+	Warehouse{StockItem} to StockItem{warehouse}
+}
+
+entity Warehouse {
+	name String required
+    phone String
+}
+
+paginate all with pager
+
+paginate all with pagination
+
+paginate all with infinite-scroll
+
+service all with serviceImpl
