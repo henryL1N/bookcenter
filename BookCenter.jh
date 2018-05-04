@@ -6,38 +6,18 @@ entity Book {
     wholesalePrice BigDecimal required min(0)
 }
 
-relationship OneToOne {
-	Book{publisher required} to Publisher
-}
-
-relationship ManyToOne {
-	Book{category} to Category{book}
-}
-
 entity BookCenter {
 	name String required
     address String
-}
-
-relationship OneToOne {
-	BookCenter{generalManager required} to Employee
 }
 
 entity Category {
 	name String required
 }
 
-relationship OneToOne {
-	Category{salesDepartment required} to Department
-}
-
 entity Department {
 	name String required
     address String
-}
-
-relationship OneToOne {
-	Department{manager required} to Employee
 }
 
 entity Employee {
@@ -62,13 +42,28 @@ entity StockItem {
 	quantity Long required min(0)
 }
 
-relationship OneToMany{
-	Warehouse{StockItem} to StockItem{warehouse}
-}
-
 entity Warehouse {
 	name String required
     phone String
+}
+relationship OneToOne {
+	Book{publisher required} to Publisher,
+	BookCenter{generalManager required} to Employee,
+	Category{salesDepartment required} to Department,
+	Department{manager required} to Employee,
+	Employee{user} to User{Employee}
+}
+
+relationship OneToMany {
+	BookCenter{department} to Department
+}
+
+relationship ManyToOne {
+	Book{category} to Category{book required}
+}
+
+relationship OneToMany{
+	Warehouse{StockItem required} to StockItem{warehouse}
 }
 
 paginate all with pager
