@@ -20,7 +20,8 @@
             "supplier": "供应商",
             "totalAmount": "总金额",
             "buyer": "采购员",
-            "orderItem": "订单项目"
+            "orderItem": "订单项目",
+            "orderItems": "订单项目"
         }
     }
 }

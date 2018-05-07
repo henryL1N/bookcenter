@@ -32,19 +32,19 @@
                 <td>{{purchaseOrder.totalAmount}}</td>
                 <td>
                     <div *ngIf="purchaseOrder.buyer">
-                        <a [routerLink]="['../employee', purchaseOrder.buyer?.id ]" >{{purchaseOrder.buyer?.id}}</a>
+                        <a [routerLink]="['../employee', purchaseOrder.buyer?.id ]" >{{purchaseOrder.buyer?.name}}({{purchaseOrder.buyer?.id}})</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../purchase-order', purchaseOrder.id ]"
+                                [routerLink]="['../purchase', purchaseOrder.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'purchase/'+ purchaseOrder.id + '/edit'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
@@ -52,7 +52,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'purchase/'+ purchaseOrder.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
