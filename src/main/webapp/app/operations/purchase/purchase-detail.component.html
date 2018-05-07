@@ -1,0 +1,40 @@
+
+<div *ngIf="purchaseOrder">
+    <h2><span jhiTranslate="bookCenterApp.purchaseOrder.detail.title">Purchase Order</span> {{purchaseOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span></dt>
+        <dd>
+            <span>{{purchaseOrder.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span></dt>
+        <dd>
+            <span>{{purchaseOrder.supplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.totalAmount">Total Amount</span></dt>
+        <dd>
+            <span>{{purchaseOrder.totalAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span></dt>
+        <dd>
+            <div *ngIf="purchaseOrder.buyer">
+                <a [routerLink]="['/employee', purchaseOrder.buyer?.id]">{{purchaseOrder.buyer?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

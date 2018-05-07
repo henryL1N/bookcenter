@@ -5,6 +5,12 @@
         "menu": {
             "home": "首页",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "operations": {
+                "main": "操作",
+                "purchase": "采购",
+                "sales": "销售",
+                "inventory": "盘点"
+            },
             "entities": {
                 "main": "数据",
                 "book": "Book",
