@@ -1,6 +1,6 @@
-export * from './purchase.model';
-export * from './purchase-popup.service';
-export * from './purchase.service';
+// export * from '../../entities/purchase-order/purchase-order.model';
+// export * from '../../entities/purchase-order/purchase-order-popup.service';
+// export * from '../../entities/purchase-order/purchase-order.service';
 export * from './purchase-dialog.component';
 export * from './purchase-delete-dialog.component';
 export * from './purchase-detail.component';

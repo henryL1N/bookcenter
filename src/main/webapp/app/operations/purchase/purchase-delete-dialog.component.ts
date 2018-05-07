@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderPopupService } from './purchase-popup.service';
-import { PurchaseOrderService } from './purchase.service';
+import { PurchaseOrder } from '../../entities/purchase-order/purchase-order.model';
+import { PurchaseOrderPopupService } from '../../entities/purchase-order/purchase-order-popup.service';
+import { PurchaseOrderService } from '../../entities/purchase-order/purchase-order.service';
 
 @Component({
     selector: 'jhi-purchase-order-delete-dialog',
     templateUrl: './purchase-delete-dialog.component.html'
 })
-export class PurchaseOrderDeleteDialogComponent {
+export class PurchaseDeleteDialogComponent {
 
     purchaseOrder: PurchaseOrder;
 
@@ -42,7 +42,7 @@ export class PurchaseOrderDeleteDialogComponent {
     selector: 'jhi-purchase-order-delete-popup',
     template: ''
 })
-export class PurchaseOrderDeletePopupComponent implements OnInit, OnDestroy {
+export class PurchaseDeletePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
@@ -54,7 +54,7 @@ export class PurchaseOrderDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.purchaseOrderPopupService
-                .open(PurchaseOrderDeleteDialogComponent as Component, params['id']);
+                .open(PurchaseDeleteDialogComponent as Component, params['id']);
         });
     }
 

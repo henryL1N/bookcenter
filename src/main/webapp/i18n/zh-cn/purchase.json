@@ -1,0 +1,26 @@
+
+{
+    "bookCenterApp": {
+        "purchase" : {
+            "home": {
+                "title": "采购单",
+                "createLabel": "创建新采购单",
+                "createOrEditLabel": "创建或编辑采购单"
+            },
+            "created": "采购单 {{ param }} 创建成功",
+            "updated": "采购单 {{ param }} 更新成功",
+            "deleted": "采购单 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 {{ id }} 号采购单吗？"
+            },
+            "detail": {
+                "title": "采购单"
+            },
+            "date": "日期",
+            "supplier": "供应商",
+            "totalAmount": "总金额",
+            "buyer": "采购员",
+            "orderItem": "订单项目"
+        }
+    }
+}

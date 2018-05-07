@@ -3,15 +3,15 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderService } from './purchase.service';
+import { PurchaseOrder } from '../../entities/purchase-order/purchase-order.model';
+import { PurchaseOrderService } from '../../entities/purchase-order/purchase-order.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-purchase-order',
     templateUrl: './purchase.component.html'
 })
-export class PurchaseOrderComponent implements OnInit, OnDestroy {
+export class PurchaseComponent implements OnInit, OnDestroy {
 
     purchaseOrders: PurchaseOrder[];
     currentAccount: any;

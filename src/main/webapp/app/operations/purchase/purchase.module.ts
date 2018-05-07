@@ -5,19 +5,21 @@ import { BookCenterSharedModule } from '../../shared';
 import {
     PurchaseOrderService,
     PurchaseOrderPopupService,
-    PurchaseOrderComponent,
-    PurchaseOrderDetailComponent,
-    PurchaseOrderDialogComponent,
-    PurchaseOrderPopupComponent,
-    PurchaseOrderDeletePopupComponent,
-    PurchaseOrderDeleteDialogComponent,
-    purchaseOrderRoute,
-    purchaseOrderPopupRoute,
+} from '../../entities/purchase-order';
+import {
+    PurchaseComponent,
+    PurchaseDetailComponent,
+    PurchaseDialogComponent,
+    PurchasePopupComponent,
+    PurchaseDeletePopupComponent,
+    PurchaseDeleteDialogComponent,
+    purchaseRoute,
+    purchasePopupRoute,
 } from './';
 
 const ENTITY_STATES = [
-    ...purchaseOrderRoute,
-    ...purchaseOrderPopupRoute,
+    ...purchaseRoute,
+    ...purchasePopupRoute,
 ];
 
 @NgModule({
@@ -26,19 +28,19 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
-        PurchaseOrderComponent,
-        PurchaseOrderDetailComponent,
-        PurchaseOrderDialogComponent,
-        PurchaseOrderDeleteDialogComponent,
-        PurchaseOrderPopupComponent,
-        PurchaseOrderDeletePopupComponent,
+        PurchaseComponent,
+        PurchaseDetailComponent,
+        PurchaseDialogComponent,
+        PurchaseDeleteDialogComponent,
+        PurchasePopupComponent,
+        PurchaseDeletePopupComponent,
     ],
     entryComponents: [
-        PurchaseOrderComponent,
-        PurchaseOrderDialogComponent,
-        PurchaseOrderPopupComponent,
-        PurchaseOrderDeleteDialogComponent,
-        PurchaseOrderDeletePopupComponent,
+        PurchaseComponent,
+        PurchaseDialogComponent,
+        PurchasePopupComponent,
+        PurchaseDeleteDialogComponent,
+        PurchaseDeletePopupComponent,
     ],
     providers: [
         PurchaseOrderService,
@@ -46,4 +48,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BookCenterPurchaseOrderModule {}
+export class BookCenterPurchaseModule {}

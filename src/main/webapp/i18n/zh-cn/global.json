@@ -96,7 +96,7 @@
             }
         },
         "field": {
-            "id" : "ID"
+            "id" : "编号"
         },
         "ribbon": {
             "dev":"Development"

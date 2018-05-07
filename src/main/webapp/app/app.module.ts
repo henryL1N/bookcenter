@@ -16,6 +16,7 @@ import { BookCenterHomeModule } from './home/home.module';
 import { BookCenterAdminModule } from './admin/admin.module';
 import { BookCenterAccountModule } from './account/account.module';
 import { BookCenterEntityModule } from './entities/entity.module';
+import { BookCenterOperationModule } from './operations/operation.module';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
@@ -38,6 +39,7 @@ import {
         BookCenterAdminModule,
         BookCenterAccountModule,
         BookCenterEntityModule,
+        BookCenterOperationModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
