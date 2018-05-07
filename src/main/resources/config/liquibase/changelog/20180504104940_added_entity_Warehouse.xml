@@ -28,7 +28,9 @@
             <column name="phone" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
+            <column name="keeper_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

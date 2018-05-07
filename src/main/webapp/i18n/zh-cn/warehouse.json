@@ -18,6 +18,7 @@
             },
             "name": "Name",
             "phone": "Phone",
+            "keeper": "Keeper",
             "stockItem": "Stock Item"
         }
     }

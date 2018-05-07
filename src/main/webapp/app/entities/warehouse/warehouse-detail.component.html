@@ -12,6 +12,12 @@
         <dd>
             <span>{{warehouse.phone}}</span>
         </dd>
+        <dt><span jhiTranslate="bookCenterApp.warehouse.keeper">Keeper</span></dt>
+        <dd>
+            <div *ngIf="warehouse.keeper">
+                <a [routerLink]="['/employee', warehouse.keeper?.id]">{{warehouse.keeper?.id}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

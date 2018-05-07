@@ -9,6 +9,7 @@ import { BookCenterTestModule } from '../../../test.module';
 import { WarehouseDialogComponent } from '../../../../../../main/webapp/app/entities/warehouse/warehouse-dialog.component';
 import { WarehouseService } from '../../../../../../main/webapp/app/entities/warehouse/warehouse.service';
 import { Warehouse } from '../../../../../../main/webapp/app/entities/warehouse/warehouse.model';
+import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee';
 
 describe('Component Tests', () => {
 
@@ -24,6 +25,7 @@ describe('Component Tests', () => {
                 imports: [BookCenterTestModule],
                 declarations: [WarehouseDialogComponent],
                 providers: [
+                    EmployeeService,
                     WarehouseService
                 ]
             })

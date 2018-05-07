@@ -31,6 +31,10 @@ public class Warehouse implements Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Employee keeper;
+
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
     private Set<StockItem> stockItems = new HashSet<>();
@@ -68,6 +72,19 @@ public class Warehouse implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Employee getKeeper() {
+        return keeper;
+    }
+
+    public Warehouse keeper(Employee employee) {
+        this.keeper = employee;
+        return this;
+    }
+
+    public void setKeeper(Employee employee) {
+        this.keeper = employee;
     }
 
     public Set<StockItem> getStockItems() {

@@ -29,6 +29,13 @@
                 [(ngModel)]="warehouse.phone" />
         </div>
 
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.warehouse.keeper" for="field_keeper">Keeper</label>
+            <select class="form-control" id="field_keeper" name="keeper" [(ngModel)]="warehouse.keeper">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="employeeOption.id === warehouse.keeper?.id ? warehouse.keeper : employeeOption" *ngFor="let employeeOption of keepers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+            </select>
+        </div>
         <div [hidden]="!(editForm.controls.stockItem?.dirty && editForm.controls.stockItem?.invalid)">
             <small class="form-text text-danger"
                 [hidden]="!editForm.controls.stockItem?.errors?.required" jhiTranslate="entity.validation.required">

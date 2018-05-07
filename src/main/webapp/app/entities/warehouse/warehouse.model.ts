@@ -5,6 +5,7 @@ export class Warehouse implements BaseEntity {
         public id?: number,
         public name?: string,
         public phone?: string,
+        public keeper?: BaseEntity,
         public stockItems?: BaseEntity[],
     ) {
     }

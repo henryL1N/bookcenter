@@ -4,11 +4,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Warehouse } from './warehouse.model';
 import { WarehousePopupService } from './warehouse-popup.service';
 import { WarehouseService } from './warehouse.service';
+import { Employee, EmployeeService } from '../employee';
 
 @Component({
     selector: 'jhi-warehouse-dialog',
@@ -19,15 +20,32 @@ export class WarehouseDialogComponent implements OnInit {
     warehouse: Warehouse;
     isSaving: boolean;
 
+    keepers: Employee[];
+
     constructor(
         public activeModal: NgbActiveModal,
+        private jhiAlertService: JhiAlertService,
         private warehouseService: WarehouseService,
+        private employeeService: EmployeeService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.employeeService
+            .query({filter: 'warehouse-is-null'})
+            .subscribe((res: HttpResponse<Employee[]>) => {
+                if (!this.warehouse.keeper || !this.warehouse.keeper.id) {
+                    this.keepers = res.body;
+                } else {
+                    this.employeeService
+                        .find(this.warehouse.keeper.id)
+                        .subscribe((subRes: HttpResponse<Employee>) => {
+                            this.keepers = [subRes.body].concat(res.body);
+                        }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
+                }
+            }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -58,6 +76,14 @@ export class WarehouseDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
+
+    trackEmployeeById(index: number, item: Employee) {
+        return item.id;
     }
 }
 
