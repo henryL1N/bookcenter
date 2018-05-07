@@ -70,6 +70,7 @@ relationship OneToOne {
 	Category{salesDepartment required} to Department,
 	Department{manager required} to Employee,
 	Employee{user} to User{employee},
+	Warehouse{keeper} to Employee,
 	PurchaseOrder{buyer required} to Employee,
 	SalesOrder{seller required} to Employee
 }
