@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "BookCenter",
+        "title": "购书中心管理系统",
         "browsehappy": "您目前使用<strong>过于老旧</strong>的浏览器, 建议您<a href=\"http://browsehappy.com/?locale=en\">升级浏览器</a>让您有更佳的上网体验.",
         "menu": {
             "home": "首页",
@@ -139,5 +139,5 @@
         "emailexists": "该邮箱已被使用!",
         "idexists": "新建的 {{entityName}} 不能包含ID"
     },
-    "footer": "这里是页脚"
+    "footer": "2017春 大专起点本科 计算机科学与技术 林庆华 学号：201707352013001"
 }
