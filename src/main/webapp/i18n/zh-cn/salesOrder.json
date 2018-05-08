@@ -3,24 +3,24 @@
     "bookCenterApp": {
         "salesOrder" : {
             "home": {
-                "title": "Sales Orders",
-                "createLabel": "创建新 Sales Order",
-                "createOrEditLabel": "创建或编辑 Sales Order"
+                "title": "销售订单",
+                "createLabel": "创建新 销售订单",
+                "createOrEditLabel": "创建或编辑 销售订单"
             },
-            "created": "Sales Order {{ param }} 创建成功",
-            "updated": "Sales Order {{ param }} 更新成功",
-            "deleted": "Sales Order {{ param }} 删除成功",
+            "created": "销售订单 {{ param }} 创建成功",
+            "updated": "销售订单 {{ param }} 更新成功",
+            "deleted": "销售订单 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Sales Order {{ id }} 吗？"
+                "question": "你确定要删除 销售订单 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Sales Order"
+                "title": "销售订单"
             },
-            "date": "Date",
-            "customer": "Customer",
-            "totalAmount": "Total Amount",
-            "seller": "Seller",
-            "orderItem": "Order Item"
+            "date": "日期",
+            "customer": "客户",
+            "totalAmount": "总金额",
+            "seller": "销售员",
+            "orderItem": "订单项目"
         }
     }
 }

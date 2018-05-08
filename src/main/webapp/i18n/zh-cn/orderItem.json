@@ -16,11 +16,11 @@
             "detail": {
                 "title": "订单项目"
             },
-            "price": "Price",
-            "quantity": "Quantity",
-            "purchaseOrder": "Purchase Order",
-            "salesOrder": "Sales Order",
-            "book": "Book"
+            "price": "价格",
+            "quantity": "数量",
+            "purchaseOrder": "采购订单",
+            "salesOrder": "销售订单",
+            "book": "书籍"
         }
     }
 }

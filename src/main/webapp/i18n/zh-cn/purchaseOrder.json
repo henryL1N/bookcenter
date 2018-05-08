@@ -3,24 +3,24 @@
     "bookCenterApp": {
         "purchaseOrder" : {
             "home": {
-                "title": "Purchase Orders",
-                "createLabel": "创建新 Purchase Order",
-                "createOrEditLabel": "创建或编辑 Purchase Order"
+                "title": "采购订单",
+                "createLabel": "创建新 采购订单",
+                "createOrEditLabel": "创建或编辑 采购订单"
             },
-            "created": "Purchase Order {{ param }} 创建成功",
-            "updated": "Purchase Order {{ param }} 更新成功",
-            "deleted": "Purchase Order {{ param }} 删除成功",
+            "created": "采购订单 {{ param }} 创建成功",
+            "updated": "采购订单 {{ param }} 更新成功",
+            "deleted": "采购订单 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Purchase Order {{ id }} 吗？"
+                "question": "你确定要删除 采购订单 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Purchase Order"
+                "title": "采购订单"
             },
-            "date": "Date",
-            "supplier": "Supplier",
-            "totalAmount": "Total Amount",
-            "buyer": "Buyer",
-            "orderItem": "Order Item"
+            "date": "日期",
+            "supplier": "供应商",
+            "totalAmount": "总金额",
+            "buyer": "采购员",
+            "orderItem": "订单项目"
         }
     }
 }

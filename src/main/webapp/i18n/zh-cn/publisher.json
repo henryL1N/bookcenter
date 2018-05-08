@@ -3,18 +3,18 @@
     "bookCenterApp": {
         "publisher" : {
             "home": {
-                "title": "Publishers",
-                "createLabel": "创建新 Publisher",
-                "createOrEditLabel": "创建或编辑 Publisher"
+                "title": "出版商",
+                "createLabel": "创建新 出版商",
+                "createOrEditLabel": "创建或编辑 出版商"
             },
-            "created": "Publisher {{ param }} 创建成功",
-            "updated": "Publisher {{ param }} 更新成功",
-            "deleted": "Publisher {{ param }} 删除成功",
+            "created": "出版商 {{ param }} 创建成功",
+            "updated": "出版商 {{ param }} 更新成功",
+            "deleted": "出版商 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Publisher {{ id }} 吗？"
+                "question": "你确定要删除 出版商 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Publisher"
+                "title": "出版商"
             },
             "name": "Name",
             "phone": "Phone",
