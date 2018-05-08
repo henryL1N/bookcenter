@@ -40,9 +40,11 @@
             <column name="wholesale_price" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
+
             <column name="publisher_id" type="bigint">
-                <constraints unique="true" nullable="false" />
+                <constraints nullable="false" />
             </column>
+
             <column name="category_id" type="bigint">
                 <constraints nullable="true" />
             </column>

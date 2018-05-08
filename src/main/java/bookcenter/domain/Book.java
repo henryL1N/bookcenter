@@ -44,9 +44,8 @@ public class Book implements Serializable {
     @Column(name = "wholesale_price", precision=10, scale=2, nullable = false)
     private BigDecimal wholesalePrice;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private Publisher publisher;
 
     @ManyToOne

@@ -2,13 +2,11 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "publisher",
             "otherEntityName": "publisher",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "book"
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",

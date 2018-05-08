@@ -37,19 +37,8 @@ export class BookDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.publisherService
-            .query({filter: 'book-is-null'})
-            .subscribe((res: HttpResponse<Publisher[]>) => {
-                if (!this.book.publisher || !this.book.publisher.id) {
-                    this.publishers = res.body;
-                } else {
-                    this.publisherService
-                        .find(this.book.publisher.id)
-                        .subscribe((subRes: HttpResponse<Publisher>) => {
-                            this.publishers = [subRes.body].concat(res.body);
-                        }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
-                }
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.publisherService.query()
+            .subscribe((res: HttpResponse<Publisher[]>) => { this.publishers = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.categoryService.query()
             .subscribe((res: HttpResponse<Category[]>) => { this.categories = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }

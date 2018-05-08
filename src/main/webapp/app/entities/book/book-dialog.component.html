@@ -88,7 +88,7 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.book.publisher" for="field_publisher">Publisher</label>
-            <select class="form-control" id="field_publisher" name="publisher" [(ngModel)]="book.publisher" required>
+            <select class="form-control" id="field_publisher" name="publisher" [(ngModel)]="book.publisher"  required>
                 <option *ngIf="!editForm.value.publisher" [ngValue]="null" selected></option>
                 <option [ngValue]="publisherOption.id === book.publisher?.id ? book.publisher : publisherOption" *ngFor="let publisherOption of publishers; trackBy: trackPublisherById">{{publisherOption.id}}</option>
             </select>
