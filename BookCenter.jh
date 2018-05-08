@@ -82,6 +82,7 @@ relationship OneToMany {
 
 relationship ManyToOne {
     OrderItem{book required} to Book,
+	StockItem{book required} to Book,
 	Book{publisher required} to Publisher,
 	Book{category} to Category{book required}
 }
