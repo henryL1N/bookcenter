@@ -1,24 +1,24 @@
 
 {
     "bookCenterApp": {
-        "category" : {
+        "分类" : {
             "home": {
-                "title": "Categories",
-                "createLabel": "创建新 Category",
-                "createOrEditLabel": "创建或编辑 Category"
+                "title": "分类",
+                "createLabel": "创建新 分类",
+                "createOrEditLabel": "创建或编辑 分类"
             },
-            "created": "Category {{ param }} 创建成功",
-            "updated": "Category {{ param }} 更新成功",
-            "deleted": "Category {{ param }} 删除成功",
+            "created": "分类 {{ param }} 创建成功",
+            "updated": "分类 {{ param }} 更新成功",
+            "deleted": "分类 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Category {{ id }} 吗？"
+                "question": "你确定要删除 分类 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Category"
+                "title": "分类"
             },
-            "name": "Name",
-            "salesDepartment": "Sales Department",
-            "book": "Book"
+            "name": "名称",
+            "salesDepartment": "销售部门",
+            "book": "书籍"
         }
     }
 }

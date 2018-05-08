@@ -2,8 +2,8 @@
     "bookCenterApp": {
         "Gender" : {
             "null": "",
-            "MALE": "MALE",
-            "FEMALE": "FEMALE"
+            "MALE": "男",
+            "FEMALE": "女"
         }
     }
 }

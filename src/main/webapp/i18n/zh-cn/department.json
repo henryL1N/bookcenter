@@ -3,23 +3,23 @@
     "bookCenterApp": {
         "department" : {
             "home": {
-                "title": "Departments",
-                "createLabel": "创建新 Department",
-                "createOrEditLabel": "创建或编辑 Department"
+                "title": "部门",
+                "createLabel": "创建新 部门",
+                "createOrEditLabel": "创建或编辑 部门"
             },
-            "created": "Department {{ param }} 创建成功",
-            "updated": "Department {{ param }} 更新成功",
-            "deleted": "Department {{ param }} 删除成功",
+            "created": "部门 {{ param }} 创建成功",
+            "updated": "部门 {{ param }} 更新成功",
+            "deleted": "部门 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Department {{ id }} 吗？"
+                "question": "你确定要删除 部门 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Department"
+                "title": "部门"
             },
-            "name": "Name",
-            "address": "Address",
-            "bookCenter": "Book Center",
-            "manager": "Manager"
+            "name": "名称",
+            "address": "地址",
+            "bookCenter": "所属购书中心",
+            "manager": "经理"
         }
     }
 }
