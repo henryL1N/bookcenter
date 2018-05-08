@@ -91,10 +91,6 @@ relationship OneToMany{
 	Warehouse{StockItem required} to StockItem{warehouse}
 }
 
-paginate all with pager
-
 paginate all with pagination
-
-paginate all with infinite-scroll
 
 service all with serviceImpl
