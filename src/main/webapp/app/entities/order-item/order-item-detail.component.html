@@ -24,6 +24,12 @@
                 <a [routerLink]="['/sales-order', orderItem.salesOrder?.id]">{{orderItem.salesOrder?.id}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></dt>
+        <dd>
+            <div *ngIf="orderItem.book">
+                <a [routerLink]="['/book', orderItem.book?.id]">{{orderItem.book?.id}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

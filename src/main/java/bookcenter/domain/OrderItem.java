@@ -36,6 +36,10 @@ public class OrderItem implements Serializable {
     @ManyToOne
     private SalesOrder salesOrder;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Book book;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -95,6 +99,19 @@ public class OrderItem implements Serializable {
 
     public void setSalesOrder(SalesOrder salesOrder) {
         this.salesOrder = salesOrder;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public OrderItem book(Book book) {
+        this.book = book;
+        return this;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

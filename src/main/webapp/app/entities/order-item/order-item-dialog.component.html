@@ -57,6 +57,19 @@
                 <option [ngValue]="salesOrderOption.id === orderItem.salesOrder?.id ? orderItem.salesOrder : salesOrderOption" *ngFor="let salesOrderOption of salesorders; trackBy: trackSalesOrderById">{{salesOrderOption.id}}</option>
             </select>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.orderItem.book" for="field_book">Book</label>
+            <select class="form-control" id="field_book" name="book" [(ngModel)]="orderItem.book"  required>
+                <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
+                <option [ngValue]="bookOption.id === orderItem.book?.id ? orderItem.book : bookOption" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.book?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

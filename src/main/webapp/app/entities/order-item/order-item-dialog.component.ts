@@ -11,6 +11,7 @@ import { OrderItemPopupService } from './order-item-popup.service';
 import { OrderItemService } from './order-item.service';
 import { PurchaseOrder, PurchaseOrderService } from '../purchase-order';
 import { SalesOrder, SalesOrderService } from '../sales-order';
+import { Book, BookService } from '../book';
 
 @Component({
     selector: 'jhi-order-item-dialog',
@@ -25,12 +26,15 @@ export class OrderItemDialogComponent implements OnInit {
 
     salesorders: SalesOrder[];
 
+    books: Book[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private orderItemService: OrderItemService,
         private purchaseOrderService: PurchaseOrderService,
         private salesOrderService: SalesOrderService,
+        private bookService: BookService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -41,6 +45,8 @@ export class OrderItemDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<PurchaseOrder[]>) => { this.purchaseorders = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.salesOrderService.query()
             .subscribe((res: HttpResponse<SalesOrder[]>) => { this.salesorders = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.bookService.query()
+            .subscribe((res: HttpResponse<Book[]>) => { this.books = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -82,6 +88,10 @@ export class OrderItemDialogComponent implements OnInit {
     }
 
     trackSalesOrderById(index: number, item: SalesOrder) {
+        return item.id;
+    }
+
+    trackBookById(index: number, item: Book) {
         return item.id;
     }
 }

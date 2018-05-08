@@ -19,7 +19,8 @@
             "price": "Price",
             "quantity": "Quantity",
             "purchaseOrder": "Purchase Order",
-            "salesOrder": "Sales Order"
+            "salesOrder": "Sales Order",
+            "book": "Book"
         }
     }
 }

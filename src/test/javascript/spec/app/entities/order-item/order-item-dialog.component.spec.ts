@@ -11,6 +11,7 @@ import { OrderItemService } from '../../../../../../main/webapp/app/entities/ord
 import { OrderItem } from '../../../../../../main/webapp/app/entities/order-item/order-item.model';
 import { PurchaseOrderService } from '../../../../../../main/webapp/app/entities/purchase-order';
 import { SalesOrderService } from '../../../../../../main/webapp/app/entities/sales-order';
+import { BookService } from '../../../../../../main/webapp/app/entities/book';
 
 describe('Component Tests', () => {
 
@@ -28,6 +29,7 @@ describe('Component Tests', () => {
                 providers: [
                     PurchaseOrderService,
                     SalesOrderService,
+                    BookService,
                     OrderItemService
                 ]
             })

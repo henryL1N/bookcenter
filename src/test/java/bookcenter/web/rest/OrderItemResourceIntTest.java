@@ -3,6 +3,7 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.OrderItem;
+import bookcenter.domain.Book;
 import bookcenter.repository.OrderItemRepository;
 import bookcenter.service.OrderItemService;
 import bookcenter.web.rest.errors.ExceptionTranslator;
@@ -89,6 +90,11 @@ public class OrderItemResourceIntTest {
         OrderItem orderItem = new OrderItem()
             .price(DEFAULT_PRICE)
             .quantity(DEFAULT_QUANTITY);
+        // Add required entity
+        Book book = BookResourceIntTest.createEntity(em);
+        em.persist(book);
+        em.flush();
+        orderItem.setBook(book);
         return orderItem;
     }
 

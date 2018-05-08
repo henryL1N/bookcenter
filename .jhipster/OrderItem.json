@@ -12,6 +12,13 @@
             "otherEntityName": "salesOrder",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "book",
+            "otherEntityName": "book",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
