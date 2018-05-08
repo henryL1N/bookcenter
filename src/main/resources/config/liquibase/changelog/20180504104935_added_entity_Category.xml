@@ -29,7 +29,11 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+        <ext:loadData encoding="UTF-8"
+                      file="config/liquibase/categories.csv"
+                      separator=";"
+                      identityInsertEnabled="true"
+                      tableName="category"/>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
