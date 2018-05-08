@@ -1,13 +1,10 @@
 package bookcenter.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -32,10 +29,6 @@ public class Category implements Serializable {
     @NotNull
     @JoinColumn(unique = true)
     private Department salesDepartment;
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    private Set<Book> books = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -70,31 +63,6 @@ public class Category implements Serializable {
 
     public void setSalesDepartment(Department department) {
         this.salesDepartment = department;
-    }
-
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public Category books(Set<Book> books) {
-        this.books = books;
-        return this;
-    }
-
-    public Category addBook(Book book) {
-        this.books.add(book);
-        book.setCategory(this);
-        return this;
-    }
-
-    public Category removeBook(Book book) {
-        this.books.remove(book);
-        book.setCategory(null);
-        return this;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

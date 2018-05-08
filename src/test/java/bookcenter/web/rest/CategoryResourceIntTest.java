@@ -4,7 +4,6 @@ import bookcenter.BookCenterApp;
 
 import bookcenter.domain.Category;
 import bookcenter.domain.Department;
-import bookcenter.domain.Book;
 import bookcenter.repository.CategoryRepository;
 import bookcenter.service.CategoryService;
 import bookcenter.web.rest.errors.ExceptionTranslator;
@@ -91,11 +90,6 @@ public class CategoryResourceIntTest {
         em.persist(salesDepartment);
         em.flush();
         category.setSalesDepartment(salesDepartment);
-        // Add required entity
-        Book book = BookResourceIntTest.createEntity(em);
-        em.persist(book);
-        em.flush();
-        category.getBooks().add(book);
         return category;
     }
 

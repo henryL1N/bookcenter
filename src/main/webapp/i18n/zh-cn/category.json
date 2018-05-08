@@ -17,8 +17,7 @@
                 "title": "分类"
             },
             "name": "名称",
-            "salesDepartment": "销售部门",
-            "book": "书籍"
+            "salesDepartment": "销售部门"
         }
     }
 }

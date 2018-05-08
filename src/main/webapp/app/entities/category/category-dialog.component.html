@@ -37,12 +37,6 @@
                 This field is required.
             </small>
         </div>
-        <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.book?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
