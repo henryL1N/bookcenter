@@ -9,6 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { StockItem } from './stock-item.model';
 import { StockItemPopupService } from './stock-item-popup.service';
 import { StockItemService } from './stock-item.service';
+import { Book, BookService } from '../book';
 import { Warehouse, WarehouseService } from '../warehouse';
 
 @Component({
@@ -20,12 +21,15 @@ export class StockItemDialogComponent implements OnInit {
     stockItem: StockItem;
     isSaving: boolean;
 
+    books: Book[];
+
     warehouses: Warehouse[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private stockItemService: StockItemService,
+        private bookService: BookService,
         private warehouseService: WarehouseService,
         private eventManager: JhiEventManager
     ) {
@@ -33,6 +37,8 @@ export class StockItemDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        this.bookService.query()
+            .subscribe((res: HttpResponse<Book[]>) => { this.books = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.warehouseService.query()
             .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
@@ -69,6 +75,10 @@ export class StockItemDialogComponent implements OnInit {
 
     private onError(error: any) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    trackBookById(index: number, item: Book) {
+        return item.id;
     }
 
     trackWarehouseById(index: number, item: Warehouse) {

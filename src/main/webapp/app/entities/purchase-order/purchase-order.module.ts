@@ -13,6 +13,7 @@ import {
     PurchaseOrderDeleteDialogComponent,
     purchaseOrderRoute,
     purchaseOrderPopupRoute,
+    PurchaseOrderResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         PurchaseOrderService,
         PurchaseOrderPopupService,
+        PurchaseOrderResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

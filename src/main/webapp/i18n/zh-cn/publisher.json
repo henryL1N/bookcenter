@@ -16,9 +16,9 @@
             "detail": {
                 "title": "出版商"
             },
-            "name": "Name",
-            "phone": "Phone",
-            "address": "Address"
+            "name": "名称",
+            "phone": "电话",
+            "address": "地址"
         }
     }
 }

@@ -13,6 +13,7 @@ import {
     BookCenterDeleteDialogComponent,
     bookCenterRoute,
     bookCenterPopupRoute,
+    BookCenterResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         BookCenterService,
         BookCenterPopupService,
+        BookCenterResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

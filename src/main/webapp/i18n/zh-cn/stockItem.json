@@ -17,6 +17,7 @@
                 "title": "库存项目"
             },
             "quantity": "数量",
+            "book": "书籍",
             "warehouse": "仓库"
         }
     }

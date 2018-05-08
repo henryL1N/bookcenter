@@ -3,6 +3,13 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "book",
+            "otherEntityName": "book",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
             "relationshipName": "warehouse",
             "otherEntityName": "warehouse",
             "otherEntityField": "id"
@@ -22,7 +29,7 @@
     "changelogDate": "20180504104939",
     "entityTableName": "stock_item",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false
 }

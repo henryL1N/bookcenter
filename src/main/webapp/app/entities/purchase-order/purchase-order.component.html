@@ -15,7 +15,7 @@
     <div class="table-responsive" *ngIf="purchaseOrders">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
@@ -24,7 +24,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let purchaseOrder of purchaseOrders ;trackBy: trackId">
                 <td><a [routerLink]="['../purchase-order', purchaseOrder.id ]">{{purchaseOrder.id}}</a></td>
                 <td>{{purchaseOrder.date | date:'mediumDate'}}</td>
@@ -64,5 +64,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="purchaseOrders && purchaseOrders.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

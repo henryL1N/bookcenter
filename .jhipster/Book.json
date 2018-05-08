@@ -58,7 +58,7 @@
     "changelogDate": "20180504104933",
     "entityTableName": "book",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false
 }

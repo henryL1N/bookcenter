@@ -40,7 +40,7 @@
     "changelogDate": "20180504104942",
     "entityTableName": "sales_order",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false
 }

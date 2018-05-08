@@ -13,6 +13,7 @@ import {
     WarehouseDeleteDialogComponent,
     warehouseRoute,
     warehousePopupRoute,
+    WarehouseResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         WarehouseService,
         WarehousePopupService,
+        WarehouseResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

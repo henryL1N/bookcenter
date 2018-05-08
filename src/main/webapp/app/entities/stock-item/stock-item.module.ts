@@ -13,6 +13,7 @@ import {
     StockItemDeleteDialogComponent,
     stockItemRoute,
     stockItemPopupRoute,
+    StockItemResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         StockItemService,
         StockItemPopupService,
+        StockItemResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

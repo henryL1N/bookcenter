@@ -9,6 +9,7 @@ import { BookCenterTestModule } from '../../../test.module';
 import { StockItemDialogComponent } from '../../../../../../main/webapp/app/entities/stock-item/stock-item-dialog.component';
 import { StockItemService } from '../../../../../../main/webapp/app/entities/stock-item/stock-item.service';
 import { StockItem } from '../../../../../../main/webapp/app/entities/stock-item/stock-item.model';
+import { BookService } from '../../../../../../main/webapp/app/entities/book';
 import { WarehouseService } from '../../../../../../main/webapp/app/entities/warehouse';
 
 describe('Component Tests', () => {
@@ -25,6 +26,7 @@ describe('Component Tests', () => {
                 imports: [BookCenterTestModule],
                 declarations: [StockItemDialogComponent],
                 providers: [
+                    BookService,
                     WarehouseService,
                     StockItemService
                 ]

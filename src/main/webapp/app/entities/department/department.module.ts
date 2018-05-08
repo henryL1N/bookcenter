@@ -13,6 +13,7 @@ import {
     DepartmentDeleteDialogComponent,
     departmentRoute,
     departmentPopupRoute,
+    DepartmentResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         DepartmentService,
         DepartmentPopupService,
+        DepartmentResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

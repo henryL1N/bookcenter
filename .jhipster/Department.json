@@ -33,7 +33,7 @@
     "changelogDate": "20180504104936",
     "entityTableName": "department",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false
 }

@@ -13,6 +13,7 @@ import {
     PublisherDeleteDialogComponent,
     publisherRoute,
     publisherPopupRoute,
+    PublisherResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         PublisherService,
         PublisherPopupService,
+        PublisherResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

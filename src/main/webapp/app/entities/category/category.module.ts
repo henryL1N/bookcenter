@@ -13,6 +13,7 @@ import {
     CategoryDeleteDialogComponent,
     categoryRoute,
     categoryPopupRoute,
+    CategoryResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         CategoryService,
         CategoryPopupService,
+        CategoryResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

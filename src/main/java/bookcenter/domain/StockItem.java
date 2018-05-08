@@ -26,6 +26,10 @@ public class StockItem implements Serializable {
     @Column(name = "quantity", nullable = false)
     private Long quantity;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Book book;
+
     @ManyToOne
     private Warehouse warehouse;
 
@@ -49,6 +53,19 @@ public class StockItem implements Serializable {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public StockItem book(Book book) {
+        this.book = book;
+        return this;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Warehouse getWarehouse() {

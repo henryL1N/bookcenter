@@ -15,7 +15,7 @@
     <div class="table-responsive" *ngIf="books">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.book.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="specification"><span jhiTranslate="bookCenterApp.book.specification">Specification</span> <span class="fa fa-sort"></span></th>
@@ -27,7 +27,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let book of books ;trackBy: trackId">
                 <td><a [routerLink]="['../book', book.id ]">{{book.id}}</a></td>
                 <td>{{book.name}}</td>
@@ -74,5 +74,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="books && books.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

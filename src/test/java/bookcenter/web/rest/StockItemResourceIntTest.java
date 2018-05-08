@@ -3,6 +3,7 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.StockItem;
+import bookcenter.domain.Book;
 import bookcenter.repository.StockItemRepository;
 import bookcenter.service.StockItemService;
 import bookcenter.web.rest.errors.ExceptionTranslator;
@@ -84,6 +85,11 @@ public class StockItemResourceIntTest {
     public static StockItem createEntity(EntityManager em) {
         StockItem stockItem = new StockItem()
             .quantity(DEFAULT_QUANTITY);
+        // Add required entity
+        Book book = BookResourceIntTest.createEntity(em);
+        em.persist(book);
+        em.flush();
+        stockItem.setBook(book);
         return stockItem;
     }
 
