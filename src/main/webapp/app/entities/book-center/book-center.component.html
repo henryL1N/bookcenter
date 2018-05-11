@@ -30,7 +30,7 @@
                 <td>{{bookCenter.address}}</td>
                 <td>
                     <div *ngIf="bookCenter.generalManager">
-                        <a [routerLink]="['../employee', bookCenter.generalManager?.id ]" >{{bookCenter.generalManager?.id}}</a>
+                        <a [routerLink]="['../employee', bookCenter.generalManager?.id ]" >{{bookCenter.generalManager?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

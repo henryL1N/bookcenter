@@ -32,17 +32,17 @@
                 <td><a [routerLink]="['../book', book.id ]">{{book.id}}</a></td>
                 <td>{{book.name}}</td>
                 <td>{{book.specification}}</td>
-                <td>{{book.cost}}</td>
-                <td>{{book.retailPrice}}</td>
-                <td>{{book.wholesalePrice}}</td>
+                <td>{{book.cost|number:'1.2-2'}}</td>
+                <td>{{book.retailPrice|number:'1.2-2'}}</td>
+                <td>{{book.wholesalePrice|number:'1.2-2'}}</td>
                 <td>
                     <div *ngIf="book.publisher">
-                        <a [routerLink]="['../publisher', book.publisher?.id ]" >{{book.publisher?.id}}</a>
+                        <a [routerLink]="['../publisher', book.publisher?.id ]" >{{book.publisher?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="book.category">
-                        <a [routerLink]="['../category', book.category?.id ]" >{{book.category?.id}}</a>
+                        <a [routerLink]="['../category', book.category?.id ]" >{{book.category?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

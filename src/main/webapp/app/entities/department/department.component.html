@@ -31,12 +31,12 @@
                 <td>{{department.address}}</td>
                 <td>
                     <div *ngIf="department.bookCenter">
-                        <a [routerLink]="['../book-center', department.bookCenter?.id ]" >{{department.bookCenter?.id}}</a>
+                        <a [routerLink]="['../book-center', department.bookCenter?.id ]" >{{department.bookCenter?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="department.manager">
-                        <a [routerLink]="['../employee', department.manager?.id ]" >{{department.manager?.id}}</a>
+                        <a [routerLink]="['../employee', department.manager?.id ]" >{{department.manager?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

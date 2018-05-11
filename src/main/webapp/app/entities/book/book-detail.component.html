@@ -14,26 +14,26 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.cost">Cost</span></dt>
         <dd>
-            <span>{{book.cost}}</span>
+            <span>{{book.cost|number:'1.2-2'}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.retailPrice">Retail Price</span></dt>
         <dd>
-            <span>{{book.retailPrice}}</span>
+            <span>{{book.retailPrice|number:'1.2-2'}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.wholesalePrice">Wholesale Price</span></dt>
         <dd>
-            <span>{{book.wholesalePrice}}</span>
+            <span>{{book.wholesalePrice|number:'1.2-2'}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span></dt>
         <dd>
             <div *ngIf="book.publisher">
-                <a [routerLink]="['/publisher', book.publisher?.id]">{{book.publisher?.id}}</a>
+                <a [routerLink]="['/publisher', book.publisher?.id]">{{book.publisher?.name}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.category">Category</span></dt>
         <dd>
             <div *ngIf="book.category">
-                <a [routerLink]="['/category', book.category?.id]">{{book.category?.id}}</a>
+                <a [routerLink]="['/category', book.category?.id]">{{book.category?.name}}</a>
             </div>
         </dd>
     </dl>

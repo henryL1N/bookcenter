@@ -28,7 +28,7 @@
                 <td>{{category.name}}</td>
                 <td>
                     <div *ngIf="category.salesDepartment">
-                        <a [routerLink]="['../department', category.salesDepartment?.id ]" >{{category.salesDepartment?.id}}</a>
+                        <a [routerLink]="['../department', category.salesDepartment?.id ]" >{{category.salesDepartment?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
