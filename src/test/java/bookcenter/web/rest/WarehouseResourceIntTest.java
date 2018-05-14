@@ -3,7 +3,6 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.Warehouse;
-import bookcenter.domain.StockItem;
 import bookcenter.repository.WarehouseRepository;
 import bookcenter.service.WarehouseService;
 import bookcenter.web.rest.errors.ExceptionTranslator;
@@ -89,11 +88,6 @@ public class WarehouseResourceIntTest {
         Warehouse warehouse = new Warehouse()
             .name(DEFAULT_NAME)
             .phone(DEFAULT_PHONE);
-        // Add required entity
-        StockItem stockItem = StockItemResourceIntTest.createEntity(em);
-        em.persist(stockItem);
-        em.flush();
-        warehouse.getStockItems().add(stockItem);
         return warehouse;
     }
 

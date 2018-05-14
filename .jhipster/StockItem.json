@@ -10,6 +10,7 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "warehouse",
             "otherEntityName": "warehouse",
             "otherEntityField": "id"

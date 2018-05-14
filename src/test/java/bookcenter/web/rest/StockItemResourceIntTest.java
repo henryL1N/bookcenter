@@ -4,6 +4,7 @@ import bookcenter.BookCenterApp;
 
 import bookcenter.domain.StockItem;
 import bookcenter.domain.Book;
+import bookcenter.domain.Warehouse;
 import bookcenter.repository.StockItemRepository;
 import bookcenter.service.StockItemService;
 import bookcenter.web.rest.errors.ExceptionTranslator;
@@ -90,6 +91,11 @@ public class StockItemResourceIntTest {
         em.persist(book);
         em.flush();
         stockItem.setBook(book);
+        // Add required entity
+        Warehouse warehouse = WarehouseResourceIntTest.createEntity(em);
+        em.persist(warehouse);
+        em.flush();
+        stockItem.setWarehouse(warehouse);
         return stockItem;
     }
 

@@ -36,12 +36,6 @@
                 <option [ngValue]="employeeOption.id === warehouse.keeper?.id ? warehouse.keeper : employeeOption" *ngFor="let employeeOption of keepers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.stockItem?.dirty && editForm.controls.stockItem?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.stockItem?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

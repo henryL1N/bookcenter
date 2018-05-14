@@ -47,10 +47,16 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.stockItem.warehouse" for="field_warehouse">Warehouse</label>
-            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="stockItem.warehouse" >
-                <option [ngValue]="null"></option>
+            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="stockItem.warehouse"  required>
+                <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
                 <option [ngValue]="warehouseOption.id === stockItem.warehouse?.id ? stockItem.warehouse : warehouseOption" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.id}}</option>
             </select>
+        </div>
+        <div [hidden]="!(editForm.controls.warehouse?.dirty && editForm.controls.warehouse?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.warehouse?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
         </div>
     </div>
     <div class="modal-footer">

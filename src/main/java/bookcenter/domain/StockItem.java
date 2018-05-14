@@ -30,7 +30,8 @@ public class StockItem implements Serializable {
     @NotNull
     private Book book;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Warehouse warehouse;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
