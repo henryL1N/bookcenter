@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface BookCenterMapper extends EntityMapper<BookCenterDTO, BookCenter> {
 
     @Mapping(source = "generalManager.id", target = "generalManagerId")
+    @Mapping(source = "generalManager.name", target = "generalManagerName")
     BookCenterDTO toDto(BookCenter bookCenter);
 
     @Mapping(source = "generalManagerId", target = "generalManager")

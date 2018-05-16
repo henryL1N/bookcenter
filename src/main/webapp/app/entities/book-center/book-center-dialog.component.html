@@ -33,7 +33,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.bookCenter.generalManager" for="field_generalManager">General Manager</label>
             <select class="form-control" id="field_generalManager" name="generalManager" [(ngModel)]="bookCenter.generalManagerId" required>
                 <option *ngIf="!editForm.value.generalManager" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of generalmanagers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of generalmanagers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.generalManager?.dirty && editForm.controls.generalManager?.invalid)">

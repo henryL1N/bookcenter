@@ -6,6 +6,7 @@ export class BookCenter implements BaseEntity {
         public name?: string,
         public address?: string,
         public generalManagerId?: number,
+        public generalManagerName?: string,
         public departments?: BaseEntity[],
         public employees?: BaseEntity[],
     ) {

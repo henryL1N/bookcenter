@@ -21,6 +21,8 @@ public class BookCenterDTO implements Serializable {
 
     private Long generalManagerId;
 
+    private String generalManagerName;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +53,14 @@ public class BookCenterDTO implements Serializable {
 
     public void setGeneralManagerId(Long employeeId) {
         this.generalManagerId = employeeId;
+    }
+
+    public String getGeneralManagerName() {
+        return generalManagerName;
+    }
+
+    public void setGeneralManagerName(String generralManagerName) {
+        this.generalManagerName = generralManagerName;
     }
 
     @Override
