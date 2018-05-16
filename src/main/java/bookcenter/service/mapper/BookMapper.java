@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface BookMapper extends EntityMapper<BookDTO, Book> {
 
     @Mapping(source = "publisher.id", target = "publisherId")
+    @Mapping(source = "publisher.name", target = "publisherName")
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     BookDTO toDto(Book book);
 
     @Mapping(source = "publisherId", target = "publisher")

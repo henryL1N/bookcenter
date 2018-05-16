@@ -9,7 +9,9 @@ export class Book implements BaseEntity {
         public retailPrice?: number,
         public wholesalePrice?: number,
         public publisherId?: number,
+        public publisherName?: number,
         public categoryId?: number,
+        public categoryName?: number,
     ) {
     }
 }

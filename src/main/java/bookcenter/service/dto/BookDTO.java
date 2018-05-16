@@ -34,7 +34,11 @@ public class BookDTO implements Serializable {
 
     private Long publisherId;
 
+    private String publisherName;
+
     private Long categoryId;
+
+    private String categoryName;
 
     public Long getId() {
         return id;
@@ -92,12 +96,28 @@ public class BookDTO implements Serializable {
         this.publisherId = publisherId;
     }
 
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
+
     public Long getCategoryId() {
         return categoryId;
     }
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override

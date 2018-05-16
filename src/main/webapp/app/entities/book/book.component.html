@@ -22,8 +22,8 @@
             <th jhiSortBy="cost"><span jhiTranslate="bookCenterApp.book.cost">Cost</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="retailPrice"><span jhiTranslate="bookCenterApp.book.retailPrice">Retail Price</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="wholesalePrice"><span jhiTranslate="bookCenterApp.book.wholesalePrice">Wholesale Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="publisherId"><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="categoryId"><span jhiTranslate="bookCenterApp.book.category">Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="publisherName"><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="categoryName"><span jhiTranslate="bookCenterApp.book.category">Category</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,12 +37,12 @@
                 <td>{{book.wholesalePrice}}</td>
                 <td>
                     <div *ngIf="book.publisherId">
-                        <a [routerLink]="['../publisher', book.publisherId  ]" >{{book.publisherId}}</a>
+                        <a [routerLink]="['../publisher', book.publisherId  ]" >{{book.publisherName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="book.categoryId">
-                        <a [routerLink]="['../category', book.categoryId  ]" >{{book.categoryId}}</a>
+                        <a [routerLink]="['../category', book.categoryId  ]" >{{book.categoryName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

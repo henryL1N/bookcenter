@@ -27,13 +27,13 @@
         <dt><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span></dt>
         <dd>
             <div *ngIf="book.publisherId">
-                <a [routerLink]="['/publisher', book.publisherId]">{{book.publisherId}}</a>
+                <a [routerLink]="['/publisher', book.publisherId]">{{book.publisherName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.category">Category</span></dt>
         <dd>
             <div *ngIf="book.categoryId">
-                <a [routerLink]="['/category', book.categoryId]">{{book.categoryId}}</a>
+                <a [routerLink]="['/category', book.categoryId]">{{book.categoryName}}</a>
             </div>
         </dd>
     </dl>
