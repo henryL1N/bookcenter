@@ -76,6 +76,8 @@ relationship OneToOne {
 
 relationship OneToMany {
 	BookCenter{department} to Department,
+	BookCenter{employee} to Employee{bookCenter required},
+	Department{employee} to Employee{department},
 	PurchaseOrder{orderItem} to OrderItem,
 	Warehouse{StockItem} to StockItem{warehouse required},
 	SalesOrder{orderItem} to OrderItem
@@ -89,5 +91,7 @@ relationship ManyToOne {
 }
 
 paginate all with pagination
+
+dto * with mapstruct
 
 service all with serviceImpl
