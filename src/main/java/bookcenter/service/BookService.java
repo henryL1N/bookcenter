@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.Book;
+import bookcenter.service.dto.BookDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface BookService {
     /**
      * Save a book.
      *
-     * @param book the entity to save
+     * @param bookDTO the entity to save
      * @return the persisted entity
      */
-    Book save(Book book);
+    BookDTO save(BookDTO bookDTO);
 
     /**
      * Get all the books.
@@ -23,7 +23,7 @@ public interface BookService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Book> findAll(Pageable pageable);
+    Page<BookDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" book.
@@ -31,7 +31,7 @@ public interface BookService {
      * @param id the id of the entity
      * @return the entity
      */
-    Book findOne(Long id);
+    BookDTO findOne(Long id);
 
     /**
      * Delete the "id" book.

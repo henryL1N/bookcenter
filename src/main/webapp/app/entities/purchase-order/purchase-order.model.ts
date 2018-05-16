@@ -6,7 +6,7 @@ export class PurchaseOrder implements BaseEntity {
         public date?: any,
         public supplier?: string,
         public totalAmount?: number,
-        public buyer?: BaseEntity,
+        public buyerId?: number,
         public orderItems?: BaseEntity[],
     ) {
     }

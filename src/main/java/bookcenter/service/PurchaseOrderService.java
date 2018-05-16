@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.PurchaseOrder;
+import bookcenter.service.dto.PurchaseOrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface PurchaseOrderService {
     /**
      * Save a purchaseOrder.
      *
-     * @param purchaseOrder the entity to save
+     * @param purchaseOrderDTO the entity to save
      * @return the persisted entity
      */
-    PurchaseOrder save(PurchaseOrder purchaseOrder);
+    PurchaseOrderDTO save(PurchaseOrderDTO purchaseOrderDTO);
 
     /**
      * Get all the purchaseOrders.
@@ -23,7 +23,7 @@ public interface PurchaseOrderService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<PurchaseOrder> findAll(Pageable pageable);
+    Page<PurchaseOrderDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" purchaseOrder.
@@ -31,7 +31,7 @@ public interface PurchaseOrderService {
      * @param id the id of the entity
      * @return the entity
      */
-    PurchaseOrder findOne(Long id);
+    PurchaseOrderDTO findOne(Long id);
 
     /**
      * Delete the "id" purchaseOrder.

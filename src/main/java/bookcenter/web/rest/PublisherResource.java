@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import bookcenter.domain.Publisher;
 import bookcenter.service.PublisherService;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
+import bookcenter.service.dto.PublisherDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class PublisherResource {
     /**
      * POST  /publishers : Create a new publisher.
      *
-     * @param publisher the publisher to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new publisher, or with status 400 (Bad Request) if the publisher has already an ID
+     * @param publisherDTO the publisherDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new publisherDTO, or with status 400 (Bad Request) if the publisher has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/publishers")
     @Timed
-    public ResponseEntity<Publisher> createPublisher(@Valid @RequestBody Publisher publisher) throws URISyntaxException {
-        log.debug("REST request to save Publisher : {}", publisher);
-        if (publisher.getId() != null) {
+    public ResponseEntity<PublisherDTO> createPublisher(@Valid @RequestBody PublisherDTO publisherDTO) throws URISyntaxException {
+        log.debug("REST request to save Publisher : {}", publisherDTO);
+        if (publisherDTO.getId() != null) {
             throw new BadRequestAlertException("A new publisher cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Publisher result = publisherService.save(publisher);
+        PublisherDTO result = publisherService.save(publisherDTO);
         return ResponseEntity.created(new URI("/api/publishers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class PublisherResource {
     /**
      * PUT  /publishers : Updates an existing publisher.
      *
-     * @param publisher the publisher to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated publisher,
-     * or with status 400 (Bad Request) if the publisher is not valid,
-     * or with status 500 (Internal Server Error) if the publisher couldn't be updated
+     * @param publisherDTO the publisherDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated publisherDTO,
+     * or with status 400 (Bad Request) if the publisherDTO is not valid,
+     * or with status 500 (Internal Server Error) if the publisherDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/publishers")
     @Timed
-    public ResponseEntity<Publisher> updatePublisher(@Valid @RequestBody Publisher publisher) throws URISyntaxException {
-        log.debug("REST request to update Publisher : {}", publisher);
-        if (publisher.getId() == null) {
-            return createPublisher(publisher);
+    public ResponseEntity<PublisherDTO> updatePublisher(@Valid @RequestBody PublisherDTO publisherDTO) throws URISyntaxException {
+        log.debug("REST request to update Publisher : {}", publisherDTO);
+        if (publisherDTO.getId() == null) {
+            return createPublisher(publisherDTO);
         }
-        Publisher result = publisherService.save(publisher);
+        PublisherDTO result = publisherService.save(publisherDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, publisher.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, publisherDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class PublisherResource {
      */
     @GetMapping("/publishers")
     @Timed
-    public ResponseEntity<List<Publisher>> getAllPublishers(Pageable pageable) {
+    public ResponseEntity<List<PublisherDTO>> getAllPublishers(Pageable pageable) {
         log.debug("REST request to get a page of Publishers");
-        Page<Publisher> page = publisherService.findAll(pageable);
+        Page<PublisherDTO> page = publisherService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/publishers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -100,21 +100,21 @@ public class PublisherResource {
     /**
      * GET  /publishers/:id : get the "id" publisher.
      *
-     * @param id the id of the publisher to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the publisher, or with status 404 (Not Found)
+     * @param id the id of the publisherDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the publisherDTO, or with status 404 (Not Found)
      */
     @GetMapping("/publishers/{id}")
     @Timed
-    public ResponseEntity<Publisher> getPublisher(@PathVariable Long id) {
+    public ResponseEntity<PublisherDTO> getPublisher(@PathVariable Long id) {
         log.debug("REST request to get Publisher : {}", id);
-        Publisher publisher = publisherService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(publisher));
+        PublisherDTO publisherDTO = publisherService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(publisherDTO));
     }
 
     /**
      * DELETE  /publishers/:id : delete the "id" publisher.
      *
-     * @param id the id of the publisher to delete
+     * @param id the id of the publisherDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/publishers/{id}")

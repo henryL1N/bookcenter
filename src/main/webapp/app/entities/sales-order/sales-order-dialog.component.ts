@@ -37,11 +37,11 @@ export class SalesOrderDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'salesorder-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.salesOrder.seller || !this.salesOrder.seller.id) {
+                if (!this.salesOrder.sellerId) {
                     this.sellers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.salesOrder.seller.id)
+                        .find(this.salesOrder.sellerId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.sellers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

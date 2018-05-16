@@ -10,8 +10,8 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.category.salesDepartment">Sales Department</span></dt>
         <dd>
-            <div *ngIf="category.salesDepartment">
-                <a [routerLink]="['/department', category.salesDepartment?.id]">{{category.salesDepartment?.id}}</a>
+            <div *ngIf="category.salesDepartmentId">
+                <a [routerLink]="['/department', category.salesDepartmentId]">{{category.salesDepartmentId}}</a>
             </div>
         </dd>
     </dl>

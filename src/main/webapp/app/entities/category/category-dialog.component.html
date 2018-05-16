@@ -26,9 +26,9 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.category.salesDepartment" for="field_salesDepartment">Sales Department</label>
-            <select class="form-control" id="field_salesDepartment" name="salesDepartment" [(ngModel)]="category.salesDepartment" required>
+            <select class="form-control" id="field_salesDepartment" name="salesDepartment" [(ngModel)]="category.salesDepartmentId" required>
                 <option *ngIf="!editForm.value.salesDepartment" [ngValue]="null" selected></option>
-                <option [ngValue]="departmentOption.id === category.salesDepartment?.id ? category.salesDepartment : departmentOption" *ngFor="let departmentOption of salesdepartments; trackBy: trackDepartmentById">{{departmentOption.id}}</option>
+                <option [ngValue]="departmentOption.id" *ngFor="let departmentOption of salesdepartments; trackBy: trackDepartmentById">{{departmentOption.id}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.salesDepartment?.dirty && editForm.controls.salesDepartment?.invalid)">

@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.PurchaseOrderService;
 import bookcenter.domain.PurchaseOrder;
 import bookcenter.repository.PurchaseOrderRepository;
+import bookcenter.service.dto.PurchaseOrderDTO;
+import bookcenter.service.mapper.PurchaseOrderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     private final PurchaseOrderRepository purchaseOrderRepository;
 
-    public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository) {
+    private final PurchaseOrderMapper purchaseOrderMapper;
+
+    public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderMapper purchaseOrderMapper) {
         this.purchaseOrderRepository = purchaseOrderRepository;
+        this.purchaseOrderMapper = purchaseOrderMapper;
     }
 
     /**
      * Save a purchaseOrder.
      *
-     * @param purchaseOrder the entity to save
+     * @param purchaseOrderDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public PurchaseOrder save(PurchaseOrder purchaseOrder) {
-        log.debug("Request to save PurchaseOrder : {}", purchaseOrder);
-        return purchaseOrderRepository.save(purchaseOrder);
+    public PurchaseOrderDTO save(PurchaseOrderDTO purchaseOrderDTO) {
+        log.debug("Request to save PurchaseOrder : {}", purchaseOrderDTO);
+        PurchaseOrder purchaseOrder = purchaseOrderMapper.toEntity(purchaseOrderDTO);
+        purchaseOrder = purchaseOrderRepository.save(purchaseOrder);
+        return purchaseOrderMapper.toDto(purchaseOrder);
     }
 
     /**
@@ -46,9 +53,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<PurchaseOrder> findAll(Pageable pageable) {
+    public Page<PurchaseOrderDTO> findAll(Pageable pageable) {
         log.debug("Request to get all PurchaseOrders");
-        return purchaseOrderRepository.findAll(pageable);
+        return purchaseOrderRepository.findAll(pageable)
+            .map(purchaseOrderMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      */
     @Override
     @Transactional(readOnly = true)
-    public PurchaseOrder findOne(Long id) {
+    public PurchaseOrderDTO findOne(Long id) {
         log.debug("Request to get PurchaseOrder : {}", id);
-        return purchaseOrderRepository.findOne(id);
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findOne(id);
+        return purchaseOrderMapper.toDto(purchaseOrder);
     }
 
     /**

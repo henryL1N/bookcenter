@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.SalesOrder;
+import bookcenter.service.dto.SalesOrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface SalesOrderService {
     /**
      * Save a salesOrder.
      *
-     * @param salesOrder the entity to save
+     * @param salesOrderDTO the entity to save
      * @return the persisted entity
      */
-    SalesOrder save(SalesOrder salesOrder);
+    SalesOrderDTO save(SalesOrderDTO salesOrderDTO);
 
     /**
      * Get all the salesOrders.
@@ -23,7 +23,7 @@ public interface SalesOrderService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<SalesOrder> findAll(Pageable pageable);
+    Page<SalesOrderDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" salesOrder.
@@ -31,7 +31,7 @@ public interface SalesOrderService {
      * @param id the id of the entity
      * @return the entity
      */
-    SalesOrder findOne(Long id);
+    SalesOrderDTO findOne(Long id);
 
     /**
      * Delete the "id" salesOrder.

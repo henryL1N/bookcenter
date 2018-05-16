@@ -57,7 +57,7 @@
     ],
     "changelogDate": "20180504104933",
     "entityTableName": "book",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

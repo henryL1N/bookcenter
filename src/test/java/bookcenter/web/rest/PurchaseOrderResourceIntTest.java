@@ -6,6 +6,8 @@ import bookcenter.domain.PurchaseOrder;
 import bookcenter.domain.Employee;
 import bookcenter.repository.PurchaseOrderRepository;
 import bookcenter.service.PurchaseOrderService;
+import bookcenter.service.dto.PurchaseOrderDTO;
+import bookcenter.service.mapper.PurchaseOrderMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -54,6 +56,9 @@ public class PurchaseOrderResourceIntTest {
 
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
+
+    @Autowired
+    private PurchaseOrderMapper purchaseOrderMapper;
 
     @Autowired
     private PurchaseOrderService purchaseOrderService;
@@ -115,9 +120,10 @@ public class PurchaseOrderResourceIntTest {
         int databaseSizeBeforeCreate = purchaseOrderRepository.findAll().size();
 
         // Create the PurchaseOrder
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(purchaseOrder);
         restPurchaseOrderMockMvc.perform(post("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(purchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isCreated());
 
         // Validate the PurchaseOrder in the database
@@ -136,11 +142,12 @@ public class PurchaseOrderResourceIntTest {
 
         // Create the PurchaseOrder with an existing ID
         purchaseOrder.setId(1L);
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(purchaseOrder);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPurchaseOrderMockMvc.perform(post("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(purchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the PurchaseOrder in the database
@@ -156,10 +163,11 @@ public class PurchaseOrderResourceIntTest {
         purchaseOrder.setDate(null);
 
         // Create the PurchaseOrder, which fails.
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(purchaseOrder);
 
         restPurchaseOrderMockMvc.perform(post("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(purchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isBadRequest());
 
         List<PurchaseOrder> purchaseOrderList = purchaseOrderRepository.findAll();
@@ -174,10 +182,11 @@ public class PurchaseOrderResourceIntTest {
         purchaseOrder.setTotalAmount(null);
 
         // Create the PurchaseOrder, which fails.
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(purchaseOrder);
 
         restPurchaseOrderMockMvc.perform(post("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(purchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isBadRequest());
 
         List<PurchaseOrder> purchaseOrderList = purchaseOrderRepository.findAll();
@@ -228,8 +237,7 @@ public class PurchaseOrderResourceIntTest {
     @Transactional
     public void updatePurchaseOrder() throws Exception {
         // Initialize the database
-        purchaseOrderService.save(purchaseOrder);
-
+        purchaseOrderRepository.saveAndFlush(purchaseOrder);
         int databaseSizeBeforeUpdate = purchaseOrderRepository.findAll().size();
 
         // Update the purchaseOrder
@@ -240,10 +248,11 @@ public class PurchaseOrderResourceIntTest {
             .date(UPDATED_DATE)
             .supplier(UPDATED_SUPPLIER)
             .totalAmount(UPDATED_TOTAL_AMOUNT);
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(updatedPurchaseOrder);
 
         restPurchaseOrderMockMvc.perform(put("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPurchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isOk());
 
         // Validate the PurchaseOrder in the database
@@ -261,11 +270,12 @@ public class PurchaseOrderResourceIntTest {
         int databaseSizeBeforeUpdate = purchaseOrderRepository.findAll().size();
 
         // Create the PurchaseOrder
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(purchaseOrder);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPurchaseOrderMockMvc.perform(put("/api/purchase-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(purchaseOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseOrderDTO)))
             .andExpect(status().isCreated());
 
         // Validate the PurchaseOrder in the database
@@ -277,8 +287,7 @@ public class PurchaseOrderResourceIntTest {
     @Transactional
     public void deletePurchaseOrder() throws Exception {
         // Initialize the database
-        purchaseOrderService.save(purchaseOrder);
-
+        purchaseOrderRepository.saveAndFlush(purchaseOrder);
         int databaseSizeBeforeDelete = purchaseOrderRepository.findAll().size();
 
         // Get the purchaseOrder
@@ -304,5 +313,28 @@ public class PurchaseOrderResourceIntTest {
         assertThat(purchaseOrder1).isNotEqualTo(purchaseOrder2);
         purchaseOrder1.setId(null);
         assertThat(purchaseOrder1).isNotEqualTo(purchaseOrder2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PurchaseOrderDTO.class);
+        PurchaseOrderDTO purchaseOrderDTO1 = new PurchaseOrderDTO();
+        purchaseOrderDTO1.setId(1L);
+        PurchaseOrderDTO purchaseOrderDTO2 = new PurchaseOrderDTO();
+        assertThat(purchaseOrderDTO1).isNotEqualTo(purchaseOrderDTO2);
+        purchaseOrderDTO2.setId(purchaseOrderDTO1.getId());
+        assertThat(purchaseOrderDTO1).isEqualTo(purchaseOrderDTO2);
+        purchaseOrderDTO2.setId(2L);
+        assertThat(purchaseOrderDTO1).isNotEqualTo(purchaseOrderDTO2);
+        purchaseOrderDTO1.setId(null);
+        assertThat(purchaseOrderDTO1).isNotEqualTo(purchaseOrderDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(purchaseOrderMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(purchaseOrderMapper.fromId(null)).isNull();
     }
 }

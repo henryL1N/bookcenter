@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.CategoryService;
 import bookcenter.domain.Category;
 import bookcenter.repository.CategoryRepository;
+import bookcenter.service.dto.CategoryDTO;
+import bookcenter.service.mapper.CategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    private final CategoryMapper categoryMapper;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
     /**
      * Save a category.
      *
-     * @param category the entity to save
+     * @param categoryDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Category save(Category category) {
-        log.debug("Request to save Category : {}", category);
-        return categoryRepository.save(category);
+    public CategoryDTO save(CategoryDTO categoryDTO) {
+        log.debug("Request to save Category : {}", categoryDTO);
+        Category category = categoryMapper.toEntity(categoryDTO);
+        category = categoryRepository.save(category);
+        return categoryMapper.toDto(category);
     }
 
     /**
@@ -46,9 +53,10 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Category> findAll(Pageable pageable) {
+    public Page<CategoryDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Categories");
-        return categoryRepository.findAll(pageable);
+        return categoryRepository.findAll(pageable)
+            .map(categoryMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Category findOne(Long id) {
+    public CategoryDTO findOne(Long id) {
         log.debug("Request to get Category : {}", id);
-        return categoryRepository.findOne(id);
+        Category category = categoryRepository.findOne(id);
+        return categoryMapper.toDto(category);
     }
 
     /**

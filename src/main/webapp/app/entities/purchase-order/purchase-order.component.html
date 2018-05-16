@@ -20,7 +20,7 @@
             <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="totalAmount"><span jhiTranslate="bookCenterApp.purchaseOrder.totalAmount">Total Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="buyer.id"><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="buyerId"><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -31,8 +31,8 @@
                 <td>{{purchaseOrder.supplier}}</td>
                 <td>{{purchaseOrder.totalAmount}}</td>
                 <td>
-                    <div *ngIf="purchaseOrder.buyer">
-                        <a [routerLink]="['../employee', purchaseOrder.buyer?.id ]" >{{purchaseOrder.buyer?.id}}</a>
+                    <div *ngIf="purchaseOrder.buyerId">
+                        <a [routerLink]="['../employee', purchaseOrder.buyerId  ]" >{{purchaseOrder.buyerId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

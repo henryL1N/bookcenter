@@ -31,16 +31,16 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.department.bookCenter" for="field_bookCenter">Book Center</label>
-            <select class="form-control" id="field_bookCenter" name="bookCenter" [(ngModel)]="department.bookCenter" >
+            <select class="form-control" id="field_bookCenter" name="bookCenter" [(ngModel)]="department.bookCenterId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="bookCenterOption.id === department.bookCenter?.id ? department.bookCenter : bookCenterOption" *ngFor="let bookCenterOption of bookcenters; trackBy: trackBookCenterById">{{bookCenterOption.id}}</option>
+                <option [ngValue]="bookCenterOption.id" *ngFor="let bookCenterOption of bookcenters; trackBy: trackBookCenterById">{{bookCenterOption.id}}</option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.department.manager" for="field_manager">Manager</label>
-            <select class="form-control" id="field_manager" name="manager" [(ngModel)]="department.manager" required>
+            <select class="form-control" id="field_manager" name="manager" [(ngModel)]="department.managerId" required>
                 <option *ngIf="!editForm.value.manager" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id === department.manager?.id ? department.manager : employeeOption" *ngFor="let employeeOption of managers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of managers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.manager?.dirty && editForm.controls.manager?.invalid)">

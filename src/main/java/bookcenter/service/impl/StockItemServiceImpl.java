@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.StockItemService;
 import bookcenter.domain.StockItem;
 import bookcenter.repository.StockItemRepository;
+import bookcenter.service.dto.StockItemDTO;
+import bookcenter.service.mapper.StockItemMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class StockItemServiceImpl implements StockItemService {
 
     private final StockItemRepository stockItemRepository;
 
-    public StockItemServiceImpl(StockItemRepository stockItemRepository) {
+    private final StockItemMapper stockItemMapper;
+
+    public StockItemServiceImpl(StockItemRepository stockItemRepository, StockItemMapper stockItemMapper) {
         this.stockItemRepository = stockItemRepository;
+        this.stockItemMapper = stockItemMapper;
     }
 
     /**
      * Save a stockItem.
      *
-     * @param stockItem the entity to save
+     * @param stockItemDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public StockItem save(StockItem stockItem) {
-        log.debug("Request to save StockItem : {}", stockItem);
-        return stockItemRepository.save(stockItem);
+    public StockItemDTO save(StockItemDTO stockItemDTO) {
+        log.debug("Request to save StockItem : {}", stockItemDTO);
+        StockItem stockItem = stockItemMapper.toEntity(stockItemDTO);
+        stockItem = stockItemRepository.save(stockItem);
+        return stockItemMapper.toDto(stockItem);
     }
 
     /**
@@ -46,9 +53,10 @@ public class StockItemServiceImpl implements StockItemService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<StockItem> findAll(Pageable pageable) {
+    public Page<StockItemDTO> findAll(Pageable pageable) {
         log.debug("Request to get all StockItems");
-        return stockItemRepository.findAll(pageable);
+        return stockItemRepository.findAll(pageable)
+            .map(stockItemMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class StockItemServiceImpl implements StockItemService {
      */
     @Override
     @Transactional(readOnly = true)
-    public StockItem findOne(Long id) {
+    public StockItemDTO findOne(Long id) {
         log.debug("Request to get StockItem : {}", id);
-        return stockItemRepository.findOne(id);
+        StockItem stockItem = stockItemRepository.findOne(id);
+        return stockItemMapper.toDto(stockItem);
     }
 
     /**

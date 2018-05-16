@@ -36,11 +36,11 @@ export class CategoryDialogComponent implements OnInit {
         this.departmentService
             .query({filter: 'category-is-null'})
             .subscribe((res: HttpResponse<Department[]>) => {
-                if (!this.category.salesDepartment || !this.category.salesDepartment.id) {
+                if (!this.category.salesDepartmentId) {
                     this.salesdepartments = res.body;
                 } else {
                     this.departmentService
-                        .find(this.category.salesDepartment.id)
+                        .find(this.category.salesDepartmentId)
                         .subscribe((subRes: HttpResponse<Department>) => {
                             this.salesdepartments = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

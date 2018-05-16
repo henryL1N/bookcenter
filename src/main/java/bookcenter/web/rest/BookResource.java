@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import bookcenter.domain.Book;
 import bookcenter.service.BookService;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
+import bookcenter.service.dto.BookDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class BookResource {
     /**
      * POST  /books : Create a new book.
      *
-     * @param book the book to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new book, or with status 400 (Bad Request) if the book has already an ID
+     * @param bookDTO the bookDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new bookDTO, or with status 400 (Bad Request) if the book has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/books")
     @Timed
-    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) throws URISyntaxException {
-        log.debug("REST request to save Book : {}", book);
-        if (book.getId() != null) {
+    public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) throws URISyntaxException {
+        log.debug("REST request to save Book : {}", bookDTO);
+        if (bookDTO.getId() != null) {
             throw new BadRequestAlertException("A new book cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Book result = bookService.save(book);
+        BookDTO result = bookService.save(bookDTO);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class BookResource {
     /**
      * PUT  /books : Updates an existing book.
      *
-     * @param book the book to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated book,
-     * or with status 400 (Bad Request) if the book is not valid,
-     * or with status 500 (Internal Server Error) if the book couldn't be updated
+     * @param bookDTO the bookDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated bookDTO,
+     * or with status 400 (Bad Request) if the bookDTO is not valid,
+     * or with status 500 (Internal Server Error) if the bookDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/books")
     @Timed
-    public ResponseEntity<Book> updateBook(@Valid @RequestBody Book book) throws URISyntaxException {
-        log.debug("REST request to update Book : {}", book);
-        if (book.getId() == null) {
-            return createBook(book);
+    public ResponseEntity<BookDTO> updateBook(@Valid @RequestBody BookDTO bookDTO) throws URISyntaxException {
+        log.debug("REST request to update Book : {}", bookDTO);
+        if (bookDTO.getId() == null) {
+            return createBook(bookDTO);
         }
-        Book result = bookService.save(book);
+        BookDTO result = bookService.save(bookDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, book.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, bookDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class BookResource {
      */
     @GetMapping("/books")
     @Timed
-    public ResponseEntity<List<Book>> getAllBooks(Pageable pageable) {
+    public ResponseEntity<List<BookDTO>> getAllBooks(Pageable pageable) {
         log.debug("REST request to get a page of Books");
-        Page<Book> page = bookService.findAll(pageable);
+        Page<BookDTO> page = bookService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/books");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -100,21 +100,21 @@ public class BookResource {
     /**
      * GET  /books/:id : get the "id" book.
      *
-     * @param id the id of the book to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the book, or with status 404 (Not Found)
+     * @param id the id of the bookDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the bookDTO, or with status 404 (Not Found)
      */
     @GetMapping("/books/{id}")
     @Timed
-    public ResponseEntity<Book> getBook(@PathVariable Long id) {
+    public ResponseEntity<BookDTO> getBook(@PathVariable Long id) {
         log.debug("REST request to get Book : {}", id);
-        Book book = bookService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(book));
+        BookDTO bookDTO = bookService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(bookDTO));
     }
 
     /**
      * DELETE  /books/:id : delete the "id" book.
      *
-     * @param id the id of the book to delete
+     * @param id the id of the bookDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/books/{id}")

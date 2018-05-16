@@ -19,9 +19,9 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="price"><span jhiTranslate="bookCenterApp.orderItem.price">Price</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="quantity"><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="purchaseOrder.id"><span jhiTranslate="bookCenterApp.orderItem.purchaseOrder">Purchase Order</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="salesOrder.id"><span jhiTranslate="bookCenterApp.orderItem.salesOrder">Sales Order</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="book.id"><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="purchaseOrderId"><span jhiTranslate="bookCenterApp.orderItem.purchaseOrder">Purchase Order</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="salesOrderId"><span jhiTranslate="bookCenterApp.orderItem.salesOrder">Sales Order</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bookId"><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -31,18 +31,18 @@
                 <td>{{orderItem.price}}</td>
                 <td>{{orderItem.quantity}}</td>
                 <td>
-                    <div *ngIf="orderItem.purchaseOrder">
-                        <a [routerLink]="['../purchase-order', orderItem.purchaseOrder?.id ]" >{{orderItem.purchaseOrder?.id}}</a>
+                    <div *ngIf="orderItem.purchaseOrderId">
+                        <a [routerLink]="['../purchase-order', orderItem.purchaseOrderId  ]" >{{orderItem.purchaseOrderId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="orderItem.salesOrder">
-                        <a [routerLink]="['../sales-order', orderItem.salesOrder?.id ]" >{{orderItem.salesOrder?.id}}</a>
+                    <div *ngIf="orderItem.salesOrderId">
+                        <a [routerLink]="['../sales-order', orderItem.salesOrderId  ]" >{{orderItem.salesOrderId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="orderItem.book">
-                        <a [routerLink]="['../book', orderItem.book?.id ]" >{{orderItem.book?.id}}</a>
+                    <div *ngIf="orderItem.bookId">
+                        <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -6,6 +6,8 @@ import bookcenter.domain.BookCenter;
 import bookcenter.domain.Employee;
 import bookcenter.repository.BookCenterRepository;
 import bookcenter.service.BookCenterService;
+import bookcenter.service.dto.BookCenterDTO;
+import bookcenter.service.mapper.BookCenterMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -48,6 +50,9 @@ public class BookCenterResourceIntTest {
 
     @Autowired
     private BookCenterRepository bookCenterRepository;
+
+    @Autowired
+    private BookCenterMapper bookCenterMapper;
 
     @Autowired
     private BookCenterService bookCenterService;
@@ -108,9 +113,10 @@ public class BookCenterResourceIntTest {
         int databaseSizeBeforeCreate = bookCenterRepository.findAll().size();
 
         // Create the BookCenter
+        BookCenterDTO bookCenterDTO = bookCenterMapper.toDto(bookCenter);
         restBookCenterMockMvc.perform(post("/api/book-centers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bookCenter)))
+            .content(TestUtil.convertObjectToJsonBytes(bookCenterDTO)))
             .andExpect(status().isCreated());
 
         // Validate the BookCenter in the database
@@ -128,11 +134,12 @@ public class BookCenterResourceIntTest {
 
         // Create the BookCenter with an existing ID
         bookCenter.setId(1L);
+        BookCenterDTO bookCenterDTO = bookCenterMapper.toDto(bookCenter);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBookCenterMockMvc.perform(post("/api/book-centers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bookCenter)))
+            .content(TestUtil.convertObjectToJsonBytes(bookCenterDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the BookCenter in the database
@@ -148,10 +155,11 @@ public class BookCenterResourceIntTest {
         bookCenter.setName(null);
 
         // Create the BookCenter, which fails.
+        BookCenterDTO bookCenterDTO = bookCenterMapper.toDto(bookCenter);
 
         restBookCenterMockMvc.perform(post("/api/book-centers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bookCenter)))
+            .content(TestUtil.convertObjectToJsonBytes(bookCenterDTO)))
             .andExpect(status().isBadRequest());
 
         List<BookCenter> bookCenterList = bookCenterRepository.findAll();
@@ -200,8 +208,7 @@ public class BookCenterResourceIntTest {
     @Transactional
     public void updateBookCenter() throws Exception {
         // Initialize the database
-        bookCenterService.save(bookCenter);
-
+        bookCenterRepository.saveAndFlush(bookCenter);
         int databaseSizeBeforeUpdate = bookCenterRepository.findAll().size();
 
         // Update the bookCenter
@@ -211,10 +218,11 @@ public class BookCenterResourceIntTest {
         updatedBookCenter
             .name(UPDATED_NAME)
             .address(UPDATED_ADDRESS);
+        BookCenterDTO bookCenterDTO = bookCenterMapper.toDto(updatedBookCenter);
 
         restBookCenterMockMvc.perform(put("/api/book-centers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedBookCenter)))
+            .content(TestUtil.convertObjectToJsonBytes(bookCenterDTO)))
             .andExpect(status().isOk());
 
         // Validate the BookCenter in the database
@@ -231,11 +239,12 @@ public class BookCenterResourceIntTest {
         int databaseSizeBeforeUpdate = bookCenterRepository.findAll().size();
 
         // Create the BookCenter
+        BookCenterDTO bookCenterDTO = bookCenterMapper.toDto(bookCenter);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restBookCenterMockMvc.perform(put("/api/book-centers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bookCenter)))
+            .content(TestUtil.convertObjectToJsonBytes(bookCenterDTO)))
             .andExpect(status().isCreated());
 
         // Validate the BookCenter in the database
@@ -247,8 +256,7 @@ public class BookCenterResourceIntTest {
     @Transactional
     public void deleteBookCenter() throws Exception {
         // Initialize the database
-        bookCenterService.save(bookCenter);
-
+        bookCenterRepository.saveAndFlush(bookCenter);
         int databaseSizeBeforeDelete = bookCenterRepository.findAll().size();
 
         // Get the bookCenter
@@ -274,5 +282,28 @@ public class BookCenterResourceIntTest {
         assertThat(bookCenter1).isNotEqualTo(bookCenter2);
         bookCenter1.setId(null);
         assertThat(bookCenter1).isNotEqualTo(bookCenter2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(BookCenterDTO.class);
+        BookCenterDTO bookCenterDTO1 = new BookCenterDTO();
+        bookCenterDTO1.setId(1L);
+        BookCenterDTO bookCenterDTO2 = new BookCenterDTO();
+        assertThat(bookCenterDTO1).isNotEqualTo(bookCenterDTO2);
+        bookCenterDTO2.setId(bookCenterDTO1.getId());
+        assertThat(bookCenterDTO1).isEqualTo(bookCenterDTO2);
+        bookCenterDTO2.setId(2L);
+        assertThat(bookCenterDTO1).isNotEqualTo(bookCenterDTO2);
+        bookCenterDTO1.setId(null);
+        assertThat(bookCenterDTO1).isNotEqualTo(bookCenterDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(bookCenterMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(bookCenterMapper.fromId(null)).isNull();
     }
 }

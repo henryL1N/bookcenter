@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.Publisher;
+import bookcenter.service.dto.PublisherDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface PublisherService {
     /**
      * Save a publisher.
      *
-     * @param publisher the entity to save
+     * @param publisherDTO the entity to save
      * @return the persisted entity
      */
-    Publisher save(Publisher publisher);
+    PublisherDTO save(PublisherDTO publisherDTO);
 
     /**
      * Get all the publishers.
@@ -23,7 +23,7 @@ public interface PublisherService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Publisher> findAll(Pageable pageable);
+    Page<PublisherDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" publisher.
@@ -31,7 +31,7 @@ public interface PublisherService {
      * @param id the id of the entity
      * @return the entity
      */
-    Publisher findOne(Long id);
+    PublisherDTO findOne(Long id);
 
     /**
      * Delete the "id" publisher.

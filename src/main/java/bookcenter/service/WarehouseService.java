@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.Warehouse;
+import bookcenter.service.dto.WarehouseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface WarehouseService {
     /**
      * Save a warehouse.
      *
-     * @param warehouse the entity to save
+     * @param warehouseDTO the entity to save
      * @return the persisted entity
      */
-    Warehouse save(Warehouse warehouse);
+    WarehouseDTO save(WarehouseDTO warehouseDTO);
 
     /**
      * Get all the warehouses.
@@ -23,7 +23,7 @@ public interface WarehouseService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Warehouse> findAll(Pageable pageable);
+    Page<WarehouseDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" warehouse.
@@ -31,7 +31,7 @@ public interface WarehouseService {
      * @param id the id of the entity
      * @return the entity
      */
-    Warehouse findOne(Long id);
+    WarehouseDTO findOne(Long id);
 
     /**
      * Delete the "id" warehouse.

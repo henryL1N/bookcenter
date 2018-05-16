@@ -14,20 +14,20 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.orderItem.purchaseOrder">Purchase Order</span></dt>
         <dd>
-            <div *ngIf="orderItem.purchaseOrder">
-                <a [routerLink]="['/purchase-order', orderItem.purchaseOrder?.id]">{{orderItem.purchaseOrder?.id}}</a>
+            <div *ngIf="orderItem.purchaseOrderId">
+                <a [routerLink]="['/purchase-order', orderItem.purchaseOrderId]">{{orderItem.purchaseOrderId}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.orderItem.salesOrder">Sales Order</span></dt>
         <dd>
-            <div *ngIf="orderItem.salesOrder">
-                <a [routerLink]="['/sales-order', orderItem.salesOrder?.id]">{{orderItem.salesOrder?.id}}</a>
+            <div *ngIf="orderItem.salesOrderId">
+                <a [routerLink]="['/sales-order', orderItem.salesOrderId]">{{orderItem.salesOrderId}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></dt>
         <dd>
-            <div *ngIf="orderItem.book">
-                <a [routerLink]="['/book', orderItem.book?.id]">{{orderItem.book?.id}}</a>
+            <div *ngIf="orderItem.bookId">
+                <a [routerLink]="['/book', orderItem.bookId]">{{orderItem.bookId}}</a>
             </div>
         </dd>
     </dl>

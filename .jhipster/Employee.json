@@ -8,6 +8,19 @@
             "otherEntityField": "id",
             "ownerSide": true,
             "otherEntityRelationshipName": "employee"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "bookCenter",
+            "otherEntityName": "bookCenter",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "department",
+            "otherEntityName": "department",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -46,7 +59,7 @@
     ],
     "changelogDate": "20180504104937",
     "entityTableName": "employee",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

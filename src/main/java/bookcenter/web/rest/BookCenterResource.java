@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import bookcenter.domain.BookCenter;
 import bookcenter.service.BookCenterService;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
+import bookcenter.service.dto.BookCenterDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class BookCenterResource {
     /**
      * POST  /book-centers : Create a new bookCenter.
      *
-     * @param bookCenter the bookCenter to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new bookCenter, or with status 400 (Bad Request) if the bookCenter has already an ID
+     * @param bookCenterDTO the bookCenterDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new bookCenterDTO, or with status 400 (Bad Request) if the bookCenter has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/book-centers")
     @Timed
-    public ResponseEntity<BookCenter> createBookCenter(@Valid @RequestBody BookCenter bookCenter) throws URISyntaxException {
-        log.debug("REST request to save BookCenter : {}", bookCenter);
-        if (bookCenter.getId() != null) {
+    public ResponseEntity<BookCenterDTO> createBookCenter(@Valid @RequestBody BookCenterDTO bookCenterDTO) throws URISyntaxException {
+        log.debug("REST request to save BookCenter : {}", bookCenterDTO);
+        if (bookCenterDTO.getId() != null) {
             throw new BadRequestAlertException("A new bookCenter cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BookCenter result = bookCenterService.save(bookCenter);
+        BookCenterDTO result = bookCenterService.save(bookCenterDTO);
         return ResponseEntity.created(new URI("/api/book-centers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class BookCenterResource {
     /**
      * PUT  /book-centers : Updates an existing bookCenter.
      *
-     * @param bookCenter the bookCenter to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated bookCenter,
-     * or with status 400 (Bad Request) if the bookCenter is not valid,
-     * or with status 500 (Internal Server Error) if the bookCenter couldn't be updated
+     * @param bookCenterDTO the bookCenterDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated bookCenterDTO,
+     * or with status 400 (Bad Request) if the bookCenterDTO is not valid,
+     * or with status 500 (Internal Server Error) if the bookCenterDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/book-centers")
     @Timed
-    public ResponseEntity<BookCenter> updateBookCenter(@Valid @RequestBody BookCenter bookCenter) throws URISyntaxException {
-        log.debug("REST request to update BookCenter : {}", bookCenter);
-        if (bookCenter.getId() == null) {
-            return createBookCenter(bookCenter);
+    public ResponseEntity<BookCenterDTO> updateBookCenter(@Valid @RequestBody BookCenterDTO bookCenterDTO) throws URISyntaxException {
+        log.debug("REST request to update BookCenter : {}", bookCenterDTO);
+        if (bookCenterDTO.getId() == null) {
+            return createBookCenter(bookCenterDTO);
         }
-        BookCenter result = bookCenterService.save(bookCenter);
+        BookCenterDTO result = bookCenterService.save(bookCenterDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, bookCenter.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, bookCenterDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class BookCenterResource {
      */
     @GetMapping("/book-centers")
     @Timed
-    public ResponseEntity<List<BookCenter>> getAllBookCenters(Pageable pageable) {
+    public ResponseEntity<List<BookCenterDTO>> getAllBookCenters(Pageable pageable) {
         log.debug("REST request to get a page of BookCenters");
-        Page<BookCenter> page = bookCenterService.findAll(pageable);
+        Page<BookCenterDTO> page = bookCenterService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/book-centers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -100,21 +100,21 @@ public class BookCenterResource {
     /**
      * GET  /book-centers/:id : get the "id" bookCenter.
      *
-     * @param id the id of the bookCenter to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the bookCenter, or with status 404 (Not Found)
+     * @param id the id of the bookCenterDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the bookCenterDTO, or with status 404 (Not Found)
      */
     @GetMapping("/book-centers/{id}")
     @Timed
-    public ResponseEntity<BookCenter> getBookCenter(@PathVariable Long id) {
+    public ResponseEntity<BookCenterDTO> getBookCenter(@PathVariable Long id) {
         log.debug("REST request to get BookCenter : {}", id);
-        BookCenter bookCenter = bookCenterService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(bookCenter));
+        BookCenterDTO bookCenterDTO = bookCenterService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(bookCenterDTO));
     }
 
     /**
      * DELETE  /book-centers/:id : delete the "id" bookCenter.
      *
-     * @param id the id of the bookCenter to delete
+     * @param id the id of the bookCenterDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/book-centers/{id}")

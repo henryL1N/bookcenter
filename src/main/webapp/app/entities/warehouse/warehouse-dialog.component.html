@@ -31,9 +31,9 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.warehouse.keeper" for="field_keeper">Keeper</label>
-            <select class="form-control" id="field_keeper" name="keeper" [(ngModel)]="warehouse.keeper">
+            <select class="form-control" id="field_keeper" name="keeper" [(ngModel)]="warehouse.keeperId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="employeeOption.id === warehouse.keeper?.id ? warehouse.keeper : employeeOption" *ngFor="let employeeOption of keepers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of keepers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
             </select>
         </div>
     </div>

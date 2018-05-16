@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.SalesOrderService;
 import bookcenter.domain.SalesOrder;
 import bookcenter.repository.SalesOrderRepository;
+import bookcenter.service.dto.SalesOrderDTO;
+import bookcenter.service.mapper.SalesOrderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 
     private final SalesOrderRepository salesOrderRepository;
 
-    public SalesOrderServiceImpl(SalesOrderRepository salesOrderRepository) {
+    private final SalesOrderMapper salesOrderMapper;
+
+    public SalesOrderServiceImpl(SalesOrderRepository salesOrderRepository, SalesOrderMapper salesOrderMapper) {
         this.salesOrderRepository = salesOrderRepository;
+        this.salesOrderMapper = salesOrderMapper;
     }
 
     /**
      * Save a salesOrder.
      *
-     * @param salesOrder the entity to save
+     * @param salesOrderDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public SalesOrder save(SalesOrder salesOrder) {
-        log.debug("Request to save SalesOrder : {}", salesOrder);
-        return salesOrderRepository.save(salesOrder);
+    public SalesOrderDTO save(SalesOrderDTO salesOrderDTO) {
+        log.debug("Request to save SalesOrder : {}", salesOrderDTO);
+        SalesOrder salesOrder = salesOrderMapper.toEntity(salesOrderDTO);
+        salesOrder = salesOrderRepository.save(salesOrder);
+        return salesOrderMapper.toDto(salesOrder);
     }
 
     /**
@@ -46,9 +53,10 @@ public class SalesOrderServiceImpl implements SalesOrderService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<SalesOrder> findAll(Pageable pageable) {
+    public Page<SalesOrderDTO> findAll(Pageable pageable) {
         log.debug("Request to get all SalesOrders");
-        return salesOrderRepository.findAll(pageable);
+        return salesOrderRepository.findAll(pageable)
+            .map(salesOrderMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class SalesOrderServiceImpl implements SalesOrderService {
      */
     @Override
     @Transactional(readOnly = true)
-    public SalesOrder findOne(Long id) {
+    public SalesOrderDTO findOne(Long id) {
         log.debug("Request to get SalesOrder : {}", id);
-        return salesOrderRepository.findOne(id);
+        SalesOrder salesOrder = salesOrderRepository.findOne(id);
+        return salesOrderMapper.toDto(salesOrder);
     }
 
     /**

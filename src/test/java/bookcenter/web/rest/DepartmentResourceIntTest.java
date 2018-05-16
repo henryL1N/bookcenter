@@ -6,6 +6,8 @@ import bookcenter.domain.Department;
 import bookcenter.domain.Employee;
 import bookcenter.repository.DepartmentRepository;
 import bookcenter.service.DepartmentService;
+import bookcenter.service.dto.DepartmentDTO;
+import bookcenter.service.mapper.DepartmentMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -48,6 +50,9 @@ public class DepartmentResourceIntTest {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @Autowired
     private DepartmentService departmentService;
@@ -108,9 +113,10 @@ public class DepartmentResourceIntTest {
         int databaseSizeBeforeCreate = departmentRepository.findAll().size();
 
         // Create the Department
+        DepartmentDTO departmentDTO = departmentMapper.toDto(department);
         restDepartmentMockMvc.perform(post("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(department)))
+            .content(TestUtil.convertObjectToJsonBytes(departmentDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Department in the database
@@ -128,11 +134,12 @@ public class DepartmentResourceIntTest {
 
         // Create the Department with an existing ID
         department.setId(1L);
+        DepartmentDTO departmentDTO = departmentMapper.toDto(department);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDepartmentMockMvc.perform(post("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(department)))
+            .content(TestUtil.convertObjectToJsonBytes(departmentDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Department in the database
@@ -148,10 +155,11 @@ public class DepartmentResourceIntTest {
         department.setName(null);
 
         // Create the Department, which fails.
+        DepartmentDTO departmentDTO = departmentMapper.toDto(department);
 
         restDepartmentMockMvc.perform(post("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(department)))
+            .content(TestUtil.convertObjectToJsonBytes(departmentDTO)))
             .andExpect(status().isBadRequest());
 
         List<Department> departmentList = departmentRepository.findAll();
@@ -200,8 +208,7 @@ public class DepartmentResourceIntTest {
     @Transactional
     public void updateDepartment() throws Exception {
         // Initialize the database
-        departmentService.save(department);
-
+        departmentRepository.saveAndFlush(department);
         int databaseSizeBeforeUpdate = departmentRepository.findAll().size();
 
         // Update the department
@@ -211,10 +218,11 @@ public class DepartmentResourceIntTest {
         updatedDepartment
             .name(UPDATED_NAME)
             .address(UPDATED_ADDRESS);
+        DepartmentDTO departmentDTO = departmentMapper.toDto(updatedDepartment);
 
         restDepartmentMockMvc.perform(put("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedDepartment)))
+            .content(TestUtil.convertObjectToJsonBytes(departmentDTO)))
             .andExpect(status().isOk());
 
         // Validate the Department in the database
@@ -231,11 +239,12 @@ public class DepartmentResourceIntTest {
         int databaseSizeBeforeUpdate = departmentRepository.findAll().size();
 
         // Create the Department
+        DepartmentDTO departmentDTO = departmentMapper.toDto(department);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restDepartmentMockMvc.perform(put("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(department)))
+            .content(TestUtil.convertObjectToJsonBytes(departmentDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Department in the database
@@ -247,8 +256,7 @@ public class DepartmentResourceIntTest {
     @Transactional
     public void deleteDepartment() throws Exception {
         // Initialize the database
-        departmentService.save(department);
-
+        departmentRepository.saveAndFlush(department);
         int databaseSizeBeforeDelete = departmentRepository.findAll().size();
 
         // Get the department
@@ -274,5 +282,28 @@ public class DepartmentResourceIntTest {
         assertThat(department1).isNotEqualTo(department2);
         department1.setId(null);
         assertThat(department1).isNotEqualTo(department2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(DepartmentDTO.class);
+        DepartmentDTO departmentDTO1 = new DepartmentDTO();
+        departmentDTO1.setId(1L);
+        DepartmentDTO departmentDTO2 = new DepartmentDTO();
+        assertThat(departmentDTO1).isNotEqualTo(departmentDTO2);
+        departmentDTO2.setId(departmentDTO1.getId());
+        assertThat(departmentDTO1).isEqualTo(departmentDTO2);
+        departmentDTO2.setId(2L);
+        assertThat(departmentDTO1).isNotEqualTo(departmentDTO2);
+        departmentDTO1.setId(null);
+        assertThat(departmentDTO1).isNotEqualTo(departmentDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(departmentMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(departmentMapper.fromId(null)).isNull();
     }
 }

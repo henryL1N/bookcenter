@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.PublisherService;
 import bookcenter.domain.Publisher;
 import bookcenter.repository.PublisherRepository;
+import bookcenter.service.dto.PublisherDTO;
+import bookcenter.service.mapper.PublisherMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;
 
-    public PublisherServiceImpl(PublisherRepository publisherRepository) {
+    private final PublisherMapper publisherMapper;
+
+    public PublisherServiceImpl(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
         this.publisherRepository = publisherRepository;
+        this.publisherMapper = publisherMapper;
     }
 
     /**
      * Save a publisher.
      *
-     * @param publisher the entity to save
+     * @param publisherDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Publisher save(Publisher publisher) {
-        log.debug("Request to save Publisher : {}", publisher);
-        return publisherRepository.save(publisher);
+    public PublisherDTO save(PublisherDTO publisherDTO) {
+        log.debug("Request to save Publisher : {}", publisherDTO);
+        Publisher publisher = publisherMapper.toEntity(publisherDTO);
+        publisher = publisherRepository.save(publisher);
+        return publisherMapper.toDto(publisher);
     }
 
     /**
@@ -46,9 +53,10 @@ public class PublisherServiceImpl implements PublisherService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Publisher> findAll(Pageable pageable) {
+    public Page<PublisherDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Publishers");
-        return publisherRepository.findAll(pageable);
+        return publisherRepository.findAll(pageable)
+            .map(publisherMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class PublisherServiceImpl implements PublisherService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Publisher findOne(Long id) {
+    public PublisherDTO findOne(Long id) {
         log.debug("Request to get Publisher : {}", id);
-        return publisherRepository.findOne(id);
+        Publisher publisher = publisherRepository.findOne(id);
+        return publisherMapper.toDto(publisher);
     }
 
     /**

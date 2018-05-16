@@ -10,14 +10,14 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.stockItem.book">Book</span></dt>
         <dd>
-            <div *ngIf="stockItem.book">
-                <a [routerLink]="['/book', stockItem.book?.id]">{{stockItem.book?.id}}</a>
+            <div *ngIf="stockItem.bookId">
+                <a [routerLink]="['/book', stockItem.bookId]">{{stockItem.bookId}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.stockItem.warehouse">Warehouse</span></dt>
         <dd>
-            <div *ngIf="stockItem.warehouse">
-                <a [routerLink]="['/warehouse', stockItem.warehouse?.id]">{{stockItem.warehouse?.id}}</a>
+            <div *ngIf="stockItem.warehouseId">
+                <a [routerLink]="['/warehouse', stockItem.warehouseId]">{{stockItem.warehouseId}}</a>
             </div>
         </dd>
     </dl>

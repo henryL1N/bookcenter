@@ -7,6 +7,8 @@ import bookcenter.domain.Book;
 import bookcenter.domain.Warehouse;
 import bookcenter.repository.StockItemRepository;
 import bookcenter.service.StockItemService;
+import bookcenter.service.dto.StockItemDTO;
+import bookcenter.service.mapper.StockItemMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -46,6 +48,9 @@ public class StockItemResourceIntTest {
 
     @Autowired
     private StockItemRepository stockItemRepository;
+
+    @Autowired
+    private StockItemMapper stockItemMapper;
 
     @Autowired
     private StockItemService stockItemService;
@@ -110,9 +115,10 @@ public class StockItemResourceIntTest {
         int databaseSizeBeforeCreate = stockItemRepository.findAll().size();
 
         // Create the StockItem
+        StockItemDTO stockItemDTO = stockItemMapper.toDto(stockItem);
         restStockItemMockMvc.perform(post("/api/stock-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(stockItem)))
+            .content(TestUtil.convertObjectToJsonBytes(stockItemDTO)))
             .andExpect(status().isCreated());
 
         // Validate the StockItem in the database
@@ -129,11 +135,12 @@ public class StockItemResourceIntTest {
 
         // Create the StockItem with an existing ID
         stockItem.setId(1L);
+        StockItemDTO stockItemDTO = stockItemMapper.toDto(stockItem);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restStockItemMockMvc.perform(post("/api/stock-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(stockItem)))
+            .content(TestUtil.convertObjectToJsonBytes(stockItemDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the StockItem in the database
@@ -149,10 +156,11 @@ public class StockItemResourceIntTest {
         stockItem.setQuantity(null);
 
         // Create the StockItem, which fails.
+        StockItemDTO stockItemDTO = stockItemMapper.toDto(stockItem);
 
         restStockItemMockMvc.perform(post("/api/stock-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(stockItem)))
+            .content(TestUtil.convertObjectToJsonBytes(stockItemDTO)))
             .andExpect(status().isBadRequest());
 
         List<StockItem> stockItemList = stockItemRepository.findAll();
@@ -199,8 +207,7 @@ public class StockItemResourceIntTest {
     @Transactional
     public void updateStockItem() throws Exception {
         // Initialize the database
-        stockItemService.save(stockItem);
-
+        stockItemRepository.saveAndFlush(stockItem);
         int databaseSizeBeforeUpdate = stockItemRepository.findAll().size();
 
         // Update the stockItem
@@ -209,10 +216,11 @@ public class StockItemResourceIntTest {
         em.detach(updatedStockItem);
         updatedStockItem
             .quantity(UPDATED_QUANTITY);
+        StockItemDTO stockItemDTO = stockItemMapper.toDto(updatedStockItem);
 
         restStockItemMockMvc.perform(put("/api/stock-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedStockItem)))
+            .content(TestUtil.convertObjectToJsonBytes(stockItemDTO)))
             .andExpect(status().isOk());
 
         // Validate the StockItem in the database
@@ -228,11 +236,12 @@ public class StockItemResourceIntTest {
         int databaseSizeBeforeUpdate = stockItemRepository.findAll().size();
 
         // Create the StockItem
+        StockItemDTO stockItemDTO = stockItemMapper.toDto(stockItem);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restStockItemMockMvc.perform(put("/api/stock-items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(stockItem)))
+            .content(TestUtil.convertObjectToJsonBytes(stockItemDTO)))
             .andExpect(status().isCreated());
 
         // Validate the StockItem in the database
@@ -244,8 +253,7 @@ public class StockItemResourceIntTest {
     @Transactional
     public void deleteStockItem() throws Exception {
         // Initialize the database
-        stockItemService.save(stockItem);
-
+        stockItemRepository.saveAndFlush(stockItem);
         int databaseSizeBeforeDelete = stockItemRepository.findAll().size();
 
         // Get the stockItem
@@ -271,5 +279,28 @@ public class StockItemResourceIntTest {
         assertThat(stockItem1).isNotEqualTo(stockItem2);
         stockItem1.setId(null);
         assertThat(stockItem1).isNotEqualTo(stockItem2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(StockItemDTO.class);
+        StockItemDTO stockItemDTO1 = new StockItemDTO();
+        stockItemDTO1.setId(1L);
+        StockItemDTO stockItemDTO2 = new StockItemDTO();
+        assertThat(stockItemDTO1).isNotEqualTo(stockItemDTO2);
+        stockItemDTO2.setId(stockItemDTO1.getId());
+        assertThat(stockItemDTO1).isEqualTo(stockItemDTO2);
+        stockItemDTO2.setId(2L);
+        assertThat(stockItemDTO1).isNotEqualTo(stockItemDTO2);
+        stockItemDTO1.setId(null);
+        assertThat(stockItemDTO1).isNotEqualTo(stockItemDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(stockItemMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(stockItemMapper.fromId(null)).isNull();
     }
 }

@@ -39,7 +39,7 @@
     ],
     "changelogDate": "20180504104943",
     "entityTableName": "order_item",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

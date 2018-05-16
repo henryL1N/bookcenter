@@ -36,11 +36,11 @@ export class WarehouseDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'warehouse-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.warehouse.keeper || !this.warehouse.keeper.id) {
+                if (!this.warehouse.keeperId) {
                     this.keepers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.warehouse.keeper.id)
+                        .find(this.warehouse.keeperId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.keepers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

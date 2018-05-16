@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import bookcenter.domain.PurchaseOrder;
 import bookcenter.service.PurchaseOrderService;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
+import bookcenter.service.dto.PurchaseOrderDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class PurchaseOrderResource {
     /**
      * POST  /purchase-orders : Create a new purchaseOrder.
      *
-     * @param purchaseOrder the purchaseOrder to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new purchaseOrder, or with status 400 (Bad Request) if the purchaseOrder has already an ID
+     * @param purchaseOrderDTO the purchaseOrderDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new purchaseOrderDTO, or with status 400 (Bad Request) if the purchaseOrder has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/purchase-orders")
     @Timed
-    public ResponseEntity<PurchaseOrder> createPurchaseOrder(@Valid @RequestBody PurchaseOrder purchaseOrder) throws URISyntaxException {
-        log.debug("REST request to save PurchaseOrder : {}", purchaseOrder);
-        if (purchaseOrder.getId() != null) {
+    public ResponseEntity<PurchaseOrderDTO> createPurchaseOrder(@Valid @RequestBody PurchaseOrderDTO purchaseOrderDTO) throws URISyntaxException {
+        log.debug("REST request to save PurchaseOrder : {}", purchaseOrderDTO);
+        if (purchaseOrderDTO.getId() != null) {
             throw new BadRequestAlertException("A new purchaseOrder cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PurchaseOrder result = purchaseOrderService.save(purchaseOrder);
+        PurchaseOrderDTO result = purchaseOrderService.save(purchaseOrderDTO);
         return ResponseEntity.created(new URI("/api/purchase-orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class PurchaseOrderResource {
     /**
      * PUT  /purchase-orders : Updates an existing purchaseOrder.
      *
-     * @param purchaseOrder the purchaseOrder to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated purchaseOrder,
-     * or with status 400 (Bad Request) if the purchaseOrder is not valid,
-     * or with status 500 (Internal Server Error) if the purchaseOrder couldn't be updated
+     * @param purchaseOrderDTO the purchaseOrderDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated purchaseOrderDTO,
+     * or with status 400 (Bad Request) if the purchaseOrderDTO is not valid,
+     * or with status 500 (Internal Server Error) if the purchaseOrderDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/purchase-orders")
     @Timed
-    public ResponseEntity<PurchaseOrder> updatePurchaseOrder(@Valid @RequestBody PurchaseOrder purchaseOrder) throws URISyntaxException {
-        log.debug("REST request to update PurchaseOrder : {}", purchaseOrder);
-        if (purchaseOrder.getId() == null) {
-            return createPurchaseOrder(purchaseOrder);
+    public ResponseEntity<PurchaseOrderDTO> updatePurchaseOrder(@Valid @RequestBody PurchaseOrderDTO purchaseOrderDTO) throws URISyntaxException {
+        log.debug("REST request to update PurchaseOrder : {}", purchaseOrderDTO);
+        if (purchaseOrderDTO.getId() == null) {
+            return createPurchaseOrder(purchaseOrderDTO);
         }
-        PurchaseOrder result = purchaseOrderService.save(purchaseOrder);
+        PurchaseOrderDTO result = purchaseOrderService.save(purchaseOrderDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, purchaseOrder.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, purchaseOrderDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class PurchaseOrderResource {
      */
     @GetMapping("/purchase-orders")
     @Timed
-    public ResponseEntity<List<PurchaseOrder>> getAllPurchaseOrders(Pageable pageable) {
+    public ResponseEntity<List<PurchaseOrderDTO>> getAllPurchaseOrders(Pageable pageable) {
         log.debug("REST request to get a page of PurchaseOrders");
-        Page<PurchaseOrder> page = purchaseOrderService.findAll(pageable);
+        Page<PurchaseOrderDTO> page = purchaseOrderService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/purchase-orders");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -100,21 +100,21 @@ public class PurchaseOrderResource {
     /**
      * GET  /purchase-orders/:id : get the "id" purchaseOrder.
      *
-     * @param id the id of the purchaseOrder to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the purchaseOrder, or with status 404 (Not Found)
+     * @param id the id of the purchaseOrderDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the purchaseOrderDTO, or with status 404 (Not Found)
      */
     @GetMapping("/purchase-orders/{id}")
     @Timed
-    public ResponseEntity<PurchaseOrder> getPurchaseOrder(@PathVariable Long id) {
+    public ResponseEntity<PurchaseOrderDTO> getPurchaseOrder(@PathVariable Long id) {
         log.debug("REST request to get PurchaseOrder : {}", id);
-        PurchaseOrder purchaseOrder = purchaseOrderService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(purchaseOrder));
+        PurchaseOrderDTO purchaseOrderDTO = purchaseOrderService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(purchaseOrderDTO));
     }
 
     /**
      * DELETE  /purchase-orders/:id : delete the "id" purchaseOrder.
      *
-     * @param id the id of the purchaseOrder to delete
+     * @param id the id of the purchaseOrderDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/purchase-orders/{id}")

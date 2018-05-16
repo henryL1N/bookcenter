@@ -6,6 +6,8 @@ import bookcenter.domain.Category;
 import bookcenter.domain.Department;
 import bookcenter.repository.CategoryRepository;
 import bookcenter.service.CategoryService;
+import bookcenter.service.dto.CategoryDTO;
+import bookcenter.service.mapper.CategoryMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -45,6 +47,9 @@ public class CategoryResourceIntTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Autowired
     private CategoryService categoryService;
@@ -104,9 +109,10 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeCreate = categoryRepository.findAll().size();
 
         // Create the Category
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Category in the database
@@ -123,11 +129,12 @@ public class CategoryResourceIntTest {
 
         // Create the Category with an existing ID
         category.setId(1L);
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Category in the database
@@ -143,10 +150,11 @@ public class CategoryResourceIntTest {
         category.setName(null);
 
         // Create the Category, which fails.
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isBadRequest());
 
         List<Category> categoryList = categoryRepository.findAll();
@@ -193,8 +201,7 @@ public class CategoryResourceIntTest {
     @Transactional
     public void updateCategory() throws Exception {
         // Initialize the database
-        categoryService.save(category);
-
+        categoryRepository.saveAndFlush(category);
         int databaseSizeBeforeUpdate = categoryRepository.findAll().size();
 
         // Update the category
@@ -203,10 +210,11 @@ public class CategoryResourceIntTest {
         em.detach(updatedCategory);
         updatedCategory
             .name(UPDATED_NAME);
+        CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
 
         restCategoryMockMvc.perform(put("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCategory)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isOk());
 
         // Validate the Category in the database
@@ -222,11 +230,12 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeUpdate = categoryRepository.findAll().size();
 
         // Create the Category
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCategoryMockMvc.perform(put("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Category in the database
@@ -238,8 +247,7 @@ public class CategoryResourceIntTest {
     @Transactional
     public void deleteCategory() throws Exception {
         // Initialize the database
-        categoryService.save(category);
-
+        categoryRepository.saveAndFlush(category);
         int databaseSizeBeforeDelete = categoryRepository.findAll().size();
 
         // Get the category
@@ -265,5 +273,28 @@ public class CategoryResourceIntTest {
         assertThat(category1).isNotEqualTo(category2);
         category1.setId(null);
         assertThat(category1).isNotEqualTo(category2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CategoryDTO.class);
+        CategoryDTO categoryDTO1 = new CategoryDTO();
+        categoryDTO1.setId(1L);
+        CategoryDTO categoryDTO2 = new CategoryDTO();
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+        categoryDTO2.setId(categoryDTO1.getId());
+        assertThat(categoryDTO1).isEqualTo(categoryDTO2);
+        categoryDTO2.setId(2L);
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+        categoryDTO1.setId(null);
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(categoryMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(categoryMapper.fromId(null)).isNull();
     }
 }

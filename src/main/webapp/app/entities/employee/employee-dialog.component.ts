@@ -10,6 +10,8 @@ import { Employee } from './employee.model';
 import { EmployeePopupService } from './employee-popup.service';
 import { EmployeeService } from './employee.service';
 import { User, UserService } from '../../shared';
+import { BookCenter, BookCenterService } from '../book-center';
+import { Department, DepartmentService } from '../department';
 
 @Component({
     selector: 'jhi-employee-dialog',
@@ -22,11 +24,17 @@ export class EmployeeDialogComponent implements OnInit {
 
     users: User[];
 
+    bookcenters: BookCenter[];
+
+    departments: Department[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private employeeService: EmployeeService,
         private userService: UserService,
+        private bookCenterService: BookCenterService,
+        private departmentService: DepartmentService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -35,6 +43,10 @@ export class EmployeeDialogComponent implements OnInit {
         this.isSaving = false;
         this.userService.query()
             .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.bookCenterService.query()
+            .subscribe((res: HttpResponse<BookCenter[]>) => { this.bookcenters = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.departmentService.query()
+            .subscribe((res: HttpResponse<Department[]>) => { this.departments = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -72,6 +84,14 @@ export class EmployeeDialogComponent implements OnInit {
     }
 
     trackUserById(index: number, item: User) {
+        return item.id;
+    }
+
+    trackBookCenterById(index: number, item: BookCenter) {
+        return item.id;
+    }
+
+    trackDepartmentById(index: number, item: Department) {
         return item.id;
     }
 }

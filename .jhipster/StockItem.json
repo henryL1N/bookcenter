@@ -29,7 +29,7 @@
     ],
     "changelogDate": "20180504104939",
     "entityTableName": "stock_item",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.DepartmentService;
 import bookcenter.domain.Department;
 import bookcenter.repository.DepartmentRepository;
+import bookcenter.service.dto.DepartmentDTO;
+import bookcenter.service.mapper.DepartmentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+    private final DepartmentMapper departmentMapper;
+
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, DepartmentMapper departmentMapper) {
         this.departmentRepository = departmentRepository;
+        this.departmentMapper = departmentMapper;
     }
 
     /**
      * Save a department.
      *
-     * @param department the entity to save
+     * @param departmentDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Department save(Department department) {
-        log.debug("Request to save Department : {}", department);
-        return departmentRepository.save(department);
+    public DepartmentDTO save(DepartmentDTO departmentDTO) {
+        log.debug("Request to save Department : {}", departmentDTO);
+        Department department = departmentMapper.toEntity(departmentDTO);
+        department = departmentRepository.save(department);
+        return departmentMapper.toDto(department);
     }
 
     /**
@@ -46,9 +53,10 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Department> findAll(Pageable pageable) {
+    public Page<DepartmentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Departments");
-        return departmentRepository.findAll(pageable);
+        return departmentRepository.findAll(pageable)
+            .map(departmentMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class DepartmentServiceImpl implements DepartmentService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Department findOne(Long id) {
+    public DepartmentDTO findOne(Long id) {
         log.debug("Request to get Department : {}", id);
-        return departmentRepository.findOne(id);
+        Department department = departmentRepository.findOne(id);
+        return departmentMapper.toDto(department);
     }
 
     /**

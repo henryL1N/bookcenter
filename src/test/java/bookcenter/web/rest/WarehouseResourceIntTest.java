@@ -5,6 +5,8 @@ import bookcenter.BookCenterApp;
 import bookcenter.domain.Warehouse;
 import bookcenter.repository.WarehouseRepository;
 import bookcenter.service.WarehouseService;
+import bookcenter.service.dto.WarehouseDTO;
+import bookcenter.service.mapper.WarehouseMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,6 +49,9 @@ public class WarehouseResourceIntTest {
 
     @Autowired
     private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private WarehouseMapper warehouseMapper;
 
     @Autowired
     private WarehouseService warehouseService;
@@ -102,9 +107,10 @@ public class WarehouseResourceIntTest {
         int databaseSizeBeforeCreate = warehouseRepository.findAll().size();
 
         // Create the Warehouse
+        WarehouseDTO warehouseDTO = warehouseMapper.toDto(warehouse);
         restWarehouseMockMvc.perform(post("/api/warehouses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(warehouse)))
+            .content(TestUtil.convertObjectToJsonBytes(warehouseDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Warehouse in the database
@@ -122,11 +128,12 @@ public class WarehouseResourceIntTest {
 
         // Create the Warehouse with an existing ID
         warehouse.setId(1L);
+        WarehouseDTO warehouseDTO = warehouseMapper.toDto(warehouse);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWarehouseMockMvc.perform(post("/api/warehouses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(warehouse)))
+            .content(TestUtil.convertObjectToJsonBytes(warehouseDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Warehouse in the database
@@ -142,10 +149,11 @@ public class WarehouseResourceIntTest {
         warehouse.setName(null);
 
         // Create the Warehouse, which fails.
+        WarehouseDTO warehouseDTO = warehouseMapper.toDto(warehouse);
 
         restWarehouseMockMvc.perform(post("/api/warehouses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(warehouse)))
+            .content(TestUtil.convertObjectToJsonBytes(warehouseDTO)))
             .andExpect(status().isBadRequest());
 
         List<Warehouse> warehouseList = warehouseRepository.findAll();
@@ -194,8 +202,7 @@ public class WarehouseResourceIntTest {
     @Transactional
     public void updateWarehouse() throws Exception {
         // Initialize the database
-        warehouseService.save(warehouse);
-
+        warehouseRepository.saveAndFlush(warehouse);
         int databaseSizeBeforeUpdate = warehouseRepository.findAll().size();
 
         // Update the warehouse
@@ -205,10 +212,11 @@ public class WarehouseResourceIntTest {
         updatedWarehouse
             .name(UPDATED_NAME)
             .phone(UPDATED_PHONE);
+        WarehouseDTO warehouseDTO = warehouseMapper.toDto(updatedWarehouse);
 
         restWarehouseMockMvc.perform(put("/api/warehouses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWarehouse)))
+            .content(TestUtil.convertObjectToJsonBytes(warehouseDTO)))
             .andExpect(status().isOk());
 
         // Validate the Warehouse in the database
@@ -225,11 +233,12 @@ public class WarehouseResourceIntTest {
         int databaseSizeBeforeUpdate = warehouseRepository.findAll().size();
 
         // Create the Warehouse
+        WarehouseDTO warehouseDTO = warehouseMapper.toDto(warehouse);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restWarehouseMockMvc.perform(put("/api/warehouses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(warehouse)))
+            .content(TestUtil.convertObjectToJsonBytes(warehouseDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Warehouse in the database
@@ -241,8 +250,7 @@ public class WarehouseResourceIntTest {
     @Transactional
     public void deleteWarehouse() throws Exception {
         // Initialize the database
-        warehouseService.save(warehouse);
-
+        warehouseRepository.saveAndFlush(warehouse);
         int databaseSizeBeforeDelete = warehouseRepository.findAll().size();
 
         // Get the warehouse
@@ -268,5 +276,28 @@ public class WarehouseResourceIntTest {
         assertThat(warehouse1).isNotEqualTo(warehouse2);
         warehouse1.setId(null);
         assertThat(warehouse1).isNotEqualTo(warehouse2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WarehouseDTO.class);
+        WarehouseDTO warehouseDTO1 = new WarehouseDTO();
+        warehouseDTO1.setId(1L);
+        WarehouseDTO warehouseDTO2 = new WarehouseDTO();
+        assertThat(warehouseDTO1).isNotEqualTo(warehouseDTO2);
+        warehouseDTO2.setId(warehouseDTO1.getId());
+        assertThat(warehouseDTO1).isEqualTo(warehouseDTO2);
+        warehouseDTO2.setId(2L);
+        assertThat(warehouseDTO1).isNotEqualTo(warehouseDTO2);
+        warehouseDTO1.setId(null);
+        assertThat(warehouseDTO1).isNotEqualTo(warehouseDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(warehouseMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(warehouseMapper.fromId(null)).isNull();
     }
 }

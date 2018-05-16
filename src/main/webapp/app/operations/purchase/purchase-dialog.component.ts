@@ -37,11 +37,11 @@ export class PurchaseDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'purchaseorder-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.purchaseOrder.buyer || !this.purchaseOrder.buyer.id) {
+                if (!this.purchaseOrder.buyerId || !this.purchaseOrder.buyerId) {
                     this.buyers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.purchaseOrder.buyer.id)
+                        .find(this.purchaseOrder.buyerId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.buyers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

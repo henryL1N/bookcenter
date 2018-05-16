@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.Department;
+import bookcenter.service.dto.DepartmentDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface DepartmentService {
     /**
      * Save a department.
      *
-     * @param department the entity to save
+     * @param departmentDTO the entity to save
      * @return the persisted entity
      */
-    Department save(Department department);
+    DepartmentDTO save(DepartmentDTO departmentDTO);
 
     /**
      * Get all the departments.
@@ -23,7 +23,7 @@ public interface DepartmentService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Department> findAll(Pageable pageable);
+    Page<DepartmentDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" department.
@@ -31,7 +31,7 @@ public interface DepartmentService {
      * @param id the id of the entity
      * @return the entity
      */
-    Department findOne(Long id);
+    DepartmentDTO findOne(Long id);
 
     /**
      * Delete the "id" department.

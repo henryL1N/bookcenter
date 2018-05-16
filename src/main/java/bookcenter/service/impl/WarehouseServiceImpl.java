@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.WarehouseService;
 import bookcenter.domain.Warehouse;
 import bookcenter.repository.WarehouseRepository;
+import bookcenter.service.dto.WarehouseDTO;
+import bookcenter.service.mapper.WarehouseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     private final WarehouseRepository warehouseRepository;
 
-    public WarehouseServiceImpl(WarehouseRepository warehouseRepository) {
+    private final WarehouseMapper warehouseMapper;
+
+    public WarehouseServiceImpl(WarehouseRepository warehouseRepository, WarehouseMapper warehouseMapper) {
         this.warehouseRepository = warehouseRepository;
+        this.warehouseMapper = warehouseMapper;
     }
 
     /**
      * Save a warehouse.
      *
-     * @param warehouse the entity to save
+     * @param warehouseDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Warehouse save(Warehouse warehouse) {
-        log.debug("Request to save Warehouse : {}", warehouse);
-        return warehouseRepository.save(warehouse);
+    public WarehouseDTO save(WarehouseDTO warehouseDTO) {
+        log.debug("Request to save Warehouse : {}", warehouseDTO);
+        Warehouse warehouse = warehouseMapper.toEntity(warehouseDTO);
+        warehouse = warehouseRepository.save(warehouse);
+        return warehouseMapper.toDto(warehouse);
     }
 
     /**
@@ -46,9 +53,10 @@ public class WarehouseServiceImpl implements WarehouseService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Warehouse> findAll(Pageable pageable) {
+    public Page<WarehouseDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Warehouses");
-        return warehouseRepository.findAll(pageable);
+        return warehouseRepository.findAll(pageable)
+            .map(warehouseMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class WarehouseServiceImpl implements WarehouseService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Warehouse findOne(Long id) {
+    public WarehouseDTO findOne(Long id) {
         log.debug("Request to get Warehouse : {}", id);
-        return warehouseRepository.findOne(id);
+        Warehouse warehouse = warehouseRepository.findOne(id);
+        return warehouseMapper.toDto(warehouse);
     }
 
     /**

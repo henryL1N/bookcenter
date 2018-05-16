@@ -15,6 +15,12 @@
             "relationshipName": "department",
             "otherEntityName": "department",
             "otherEntityRelationshipName": "bookCenter"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "otherEntityRelationshipName": "bookCenter"
         }
     ],
     "fields": [
@@ -32,7 +38,7 @@
     ],
     "changelogDate": "20180504104934",
     "entityTableName": "book_center",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

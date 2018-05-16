@@ -19,7 +19,8 @@
             "name": "名称",
             "address": "地址",
             "generalManager": "总经理",
-            "department": "部门"
+            "department": "部门",
+            "employee": "员工"
         }
     }
 }

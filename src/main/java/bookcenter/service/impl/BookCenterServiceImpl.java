@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.BookCenterService;
 import bookcenter.domain.BookCenter;
 import bookcenter.repository.BookCenterRepository;
+import bookcenter.service.dto.BookCenterDTO;
+import bookcenter.service.mapper.BookCenterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class BookCenterServiceImpl implements BookCenterService {
 
     private final BookCenterRepository bookCenterRepository;
 
-    public BookCenterServiceImpl(BookCenterRepository bookCenterRepository) {
+    private final BookCenterMapper bookCenterMapper;
+
+    public BookCenterServiceImpl(BookCenterRepository bookCenterRepository, BookCenterMapper bookCenterMapper) {
         this.bookCenterRepository = bookCenterRepository;
+        this.bookCenterMapper = bookCenterMapper;
     }
 
     /**
      * Save a bookCenter.
      *
-     * @param bookCenter the entity to save
+     * @param bookCenterDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public BookCenter save(BookCenter bookCenter) {
-        log.debug("Request to save BookCenter : {}", bookCenter);
-        return bookCenterRepository.save(bookCenter);
+    public BookCenterDTO save(BookCenterDTO bookCenterDTO) {
+        log.debug("Request to save BookCenter : {}", bookCenterDTO);
+        BookCenter bookCenter = bookCenterMapper.toEntity(bookCenterDTO);
+        bookCenter = bookCenterRepository.save(bookCenter);
+        return bookCenterMapper.toDto(bookCenter);
     }
 
     /**
@@ -46,9 +53,10 @@ public class BookCenterServiceImpl implements BookCenterService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<BookCenter> findAll(Pageable pageable) {
+    public Page<BookCenterDTO> findAll(Pageable pageable) {
         log.debug("Request to get all BookCenters");
-        return bookCenterRepository.findAll(pageable);
+        return bookCenterRepository.findAll(pageable)
+            .map(bookCenterMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class BookCenterServiceImpl implements BookCenterService {
      */
     @Override
     @Transactional(readOnly = true)
-    public BookCenter findOne(Long id) {
+    public BookCenterDTO findOne(Long id) {
         log.debug("Request to get BookCenter : {}", id);
-        return bookCenterRepository.findOne(id);
+        BookCenter bookCenter = bookCenterRepository.findOne(id);
+        return bookCenterMapper.toDto(bookCenter);
     }
 
     /**

@@ -51,9 +51,9 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.salesOrder.seller" for="field_seller">Seller</label>
-            <select class="form-control" id="field_seller" name="seller" [(ngModel)]="salesOrder.seller" required>
+            <select class="form-control" id="field_seller" name="seller" [(ngModel)]="salesOrder.sellerId" required>
                 <option *ngIf="!editForm.value.seller" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id === salesOrder.seller?.id ? salesOrder.seller : employeeOption" *ngFor="let employeeOption of sellers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of sellers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.seller?.dirty && editForm.controls.seller?.invalid)">

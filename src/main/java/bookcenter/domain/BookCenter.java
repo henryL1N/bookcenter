@@ -40,6 +40,10 @@ public class BookCenter implements Serializable {
     @JsonIgnore
     private Set<Department> departments = new HashSet<>();
 
+    @OneToMany(mappedBy = "bookCenter")
+    @JsonIgnore
+    private Set<Employee> employees = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -111,6 +115,31 @@ public class BookCenter implements Serializable {
 
     public void setDepartments(Set<Department> departments) {
         this.departments = departments;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public BookCenter employees(Set<Employee> employees) {
+        this.employees = employees;
+        return this;
+    }
+
+    public BookCenter addEmployee(Employee employee) {
+        this.employees.add(employee);
+        employee.setBookCenter(this);
+        return this;
+    }
+
+    public BookCenter removeEmployee(Employee employee) {
+        this.employees.remove(employee);
+        employee.setBookCenter(null);
+        return this;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

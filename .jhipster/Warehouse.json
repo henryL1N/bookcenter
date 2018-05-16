@@ -31,7 +31,7 @@
     ],
     "changelogDate": "20180504104940",
     "entityTableName": "warehouse",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

@@ -14,8 +14,8 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.bookCenter.generalManager">General Manager</span></dt>
         <dd>
-            <div *ngIf="bookCenter.generalManager">
-                <a [routerLink]="['/employee', bookCenter.generalManager?.id]">{{bookCenter.generalManager?.id}}</a>
+            <div *ngIf="bookCenter.generalManagerId">
+                <a [routerLink]="['/employee', bookCenter.generalManagerId]">{{bookCenter.generalManagerId}}</a>
             </div>
         </dd>
     </dl>

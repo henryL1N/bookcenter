@@ -4,7 +4,7 @@ export class Category implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
-        public salesDepartment?: BaseEntity,
+        public salesDepartmentId?: number,
     ) {
     }
 }

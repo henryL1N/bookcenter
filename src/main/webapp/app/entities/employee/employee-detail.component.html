@@ -26,7 +26,19 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.employee.user">User</span></dt>
         <dd>
-            {{employee.user?.id}}
+            {{employee.userId}}
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.employee.bookCenter">Book Center</span></dt>
+        <dd>
+            <div *ngIf="employee.bookCenterId">
+                <a [routerLink]="['/book-center', employee.bookCenterId]">{{employee.bookCenterId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.employee.department">Department</span></dt>
+        <dd>
+            <div *ngIf="employee.departmentId">
+                <a [routerLink]="['/department', employee.departmentId]">{{employee.departmentId}}</a>
+            </div>
         </dd>
     </dl>
 

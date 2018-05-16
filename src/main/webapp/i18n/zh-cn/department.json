@@ -19,7 +19,8 @@
             "name": "名称",
             "address": "地址",
             "bookCenter": "所属购书中心",
-            "manager": "经理"
+            "manager": "经理",
+            "employee": "员工"
         }
     }
 }

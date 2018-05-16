@@ -51,9 +51,9 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.purchaseOrder.buyer" for="field_buyer">Buyer</label>
-            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="purchaseOrder.buyer" required>
+            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="purchaseOrder.buyerId" required>
                 <option *ngIf="!editForm.value.buyer" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id === purchaseOrder.buyer?.id ? purchaseOrder.buyer : employeeOption" *ngFor="let employeeOption of buyers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of buyers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.buyer?.dirty && editForm.controls.buyer?.invalid)">

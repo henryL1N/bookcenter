@@ -19,7 +19,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.warehouse.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="phone"><span jhiTranslate="bookCenterApp.warehouse.phone">Phone</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="keeper.id"><span jhiTranslate="bookCenterApp.warehouse.keeper">Keeper</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="keeperId"><span jhiTranslate="bookCenterApp.warehouse.keeper">Keeper</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,8 +29,8 @@
                 <td>{{warehouse.name}}</td>
                 <td>{{warehouse.phone}}</td>
                 <td>
-                    <div *ngIf="warehouse.keeper">
-                        <a [routerLink]="['../employee', warehouse.keeper?.id ]" >{{warehouse.keeper?.id}}</a>
+                    <div *ngIf="warehouse.keeperId">
+                        <a [routerLink]="['../employee', warehouse.keeperId  ]" >{{warehouse.keeperId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

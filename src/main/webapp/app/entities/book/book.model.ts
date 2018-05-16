@@ -8,8 +8,8 @@ export class Book implements BaseEntity {
         public cost?: number,
         public retailPrice?: number,
         public wholesalePrice?: number,
-        public publisher?: BaseEntity,
-        public category?: BaseEntity,
+        public publisherId?: number,
+        public categoryId?: number,
     ) {
     }
 }

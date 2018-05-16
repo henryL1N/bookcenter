@@ -21,7 +21,9 @@
             "gender": "性别",
             "position": "职位",
             "salary": "月工资",
-            "user": "登录用户"
+            "user": "登录用户",
+            "bookCenter": "购书中心",
+            "department": "部门"
         }
     }
 }

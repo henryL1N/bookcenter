@@ -6,6 +6,8 @@ import bookcenter.domain.SalesOrder;
 import bookcenter.domain.Employee;
 import bookcenter.repository.SalesOrderRepository;
 import bookcenter.service.SalesOrderService;
+import bookcenter.service.dto.SalesOrderDTO;
+import bookcenter.service.mapper.SalesOrderMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -54,6 +56,9 @@ public class SalesOrderResourceIntTest {
 
     @Autowired
     private SalesOrderRepository salesOrderRepository;
+
+    @Autowired
+    private SalesOrderMapper salesOrderMapper;
 
     @Autowired
     private SalesOrderService salesOrderService;
@@ -115,9 +120,10 @@ public class SalesOrderResourceIntTest {
         int databaseSizeBeforeCreate = salesOrderRepository.findAll().size();
 
         // Create the SalesOrder
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(salesOrder);
         restSalesOrderMockMvc.perform(post("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(salesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isCreated());
 
         // Validate the SalesOrder in the database
@@ -136,11 +142,12 @@ public class SalesOrderResourceIntTest {
 
         // Create the SalesOrder with an existing ID
         salesOrder.setId(1L);
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(salesOrder);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSalesOrderMockMvc.perform(post("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(salesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the SalesOrder in the database
@@ -156,10 +163,11 @@ public class SalesOrderResourceIntTest {
         salesOrder.setDate(null);
 
         // Create the SalesOrder, which fails.
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(salesOrder);
 
         restSalesOrderMockMvc.perform(post("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(salesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isBadRequest());
 
         List<SalesOrder> salesOrderList = salesOrderRepository.findAll();
@@ -174,10 +182,11 @@ public class SalesOrderResourceIntTest {
         salesOrder.setTotalAmount(null);
 
         // Create the SalesOrder, which fails.
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(salesOrder);
 
         restSalesOrderMockMvc.perform(post("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(salesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isBadRequest());
 
         List<SalesOrder> salesOrderList = salesOrderRepository.findAll();
@@ -228,8 +237,7 @@ public class SalesOrderResourceIntTest {
     @Transactional
     public void updateSalesOrder() throws Exception {
         // Initialize the database
-        salesOrderService.save(salesOrder);
-
+        salesOrderRepository.saveAndFlush(salesOrder);
         int databaseSizeBeforeUpdate = salesOrderRepository.findAll().size();
 
         // Update the salesOrder
@@ -240,10 +248,11 @@ public class SalesOrderResourceIntTest {
             .date(UPDATED_DATE)
             .customer(UPDATED_CUSTOMER)
             .totalAmount(UPDATED_TOTAL_AMOUNT);
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(updatedSalesOrder);
 
         restSalesOrderMockMvc.perform(put("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedSalesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isOk());
 
         // Validate the SalesOrder in the database
@@ -261,11 +270,12 @@ public class SalesOrderResourceIntTest {
         int databaseSizeBeforeUpdate = salesOrderRepository.findAll().size();
 
         // Create the SalesOrder
+        SalesOrderDTO salesOrderDTO = salesOrderMapper.toDto(salesOrder);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restSalesOrderMockMvc.perform(put("/api/sales-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(salesOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(salesOrderDTO)))
             .andExpect(status().isCreated());
 
         // Validate the SalesOrder in the database
@@ -277,8 +287,7 @@ public class SalesOrderResourceIntTest {
     @Transactional
     public void deleteSalesOrder() throws Exception {
         // Initialize the database
-        salesOrderService.save(salesOrder);
-
+        salesOrderRepository.saveAndFlush(salesOrder);
         int databaseSizeBeforeDelete = salesOrderRepository.findAll().size();
 
         // Get the salesOrder
@@ -304,5 +313,28 @@ public class SalesOrderResourceIntTest {
         assertThat(salesOrder1).isNotEqualTo(salesOrder2);
         salesOrder1.setId(null);
         assertThat(salesOrder1).isNotEqualTo(salesOrder2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(SalesOrderDTO.class);
+        SalesOrderDTO salesOrderDTO1 = new SalesOrderDTO();
+        salesOrderDTO1.setId(1L);
+        SalesOrderDTO salesOrderDTO2 = new SalesOrderDTO();
+        assertThat(salesOrderDTO1).isNotEqualTo(salesOrderDTO2);
+        salesOrderDTO2.setId(salesOrderDTO1.getId());
+        assertThat(salesOrderDTO1).isEqualTo(salesOrderDTO2);
+        salesOrderDTO2.setId(2L);
+        assertThat(salesOrderDTO1).isNotEqualTo(salesOrderDTO2);
+        salesOrderDTO1.setId(null);
+        assertThat(salesOrderDTO1).isNotEqualTo(salesOrderDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(salesOrderMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(salesOrderMapper.fromId(null)).isNull();
     }
 }

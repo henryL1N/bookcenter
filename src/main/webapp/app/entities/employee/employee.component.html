@@ -22,7 +22,9 @@
             <th jhiSortBy="gender"><span jhiTranslate="bookCenterApp.employee.gender">Gender</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="position"><span jhiTranslate="bookCenterApp.employee.position">Position</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="salary"><span jhiTranslate="bookCenterApp.employee.salary">Salary</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="user.id"><span jhiTranslate="bookCenterApp.employee.user">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userId"><span jhiTranslate="bookCenterApp.employee.user">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bookCenterId"><span jhiTranslate="bookCenterApp.employee.bookCenter">Book Center</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="departmentId"><span jhiTranslate="bookCenterApp.employee.department">Department</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -35,7 +37,17 @@
                 <td>{{employee.position}}</td>
                 <td>{{employee.salary}}</td>
                 <td>
-                    {{employee.user?.login}}
+                    {{employee.userId}}
+                </td>
+                <td>
+                    <div *ngIf="employee.bookCenterId">
+                        <a [routerLink]="['../book-center', employee.bookCenterId  ]" >{{employee.bookCenterId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="employee.departmentId">
+                        <a [routerLink]="['../department', employee.departmentId  ]" >{{employee.departmentId}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

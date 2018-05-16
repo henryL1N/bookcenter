@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import bookcenter.domain.SalesOrder;
 import bookcenter.service.SalesOrderService;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
+import bookcenter.service.dto.SalesOrderDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +43,18 @@ public class SalesOrderResource {
     /**
      * POST  /sales-orders : Create a new salesOrder.
      *
-     * @param salesOrder the salesOrder to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new salesOrder, or with status 400 (Bad Request) if the salesOrder has already an ID
+     * @param salesOrderDTO the salesOrderDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new salesOrderDTO, or with status 400 (Bad Request) if the salesOrder has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/sales-orders")
     @Timed
-    public ResponseEntity<SalesOrder> createSalesOrder(@Valid @RequestBody SalesOrder salesOrder) throws URISyntaxException {
-        log.debug("REST request to save SalesOrder : {}", salesOrder);
-        if (salesOrder.getId() != null) {
+    public ResponseEntity<SalesOrderDTO> createSalesOrder(@Valid @RequestBody SalesOrderDTO salesOrderDTO) throws URISyntaxException {
+        log.debug("REST request to save SalesOrder : {}", salesOrderDTO);
+        if (salesOrderDTO.getId() != null) {
             throw new BadRequestAlertException("A new salesOrder cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        SalesOrder result = salesOrderService.save(salesOrder);
+        SalesOrderDTO result = salesOrderService.save(salesOrderDTO);
         return ResponseEntity.created(new URI("/api/sales-orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -63,22 +63,22 @@ public class SalesOrderResource {
     /**
      * PUT  /sales-orders : Updates an existing salesOrder.
      *
-     * @param salesOrder the salesOrder to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated salesOrder,
-     * or with status 400 (Bad Request) if the salesOrder is not valid,
-     * or with status 500 (Internal Server Error) if the salesOrder couldn't be updated
+     * @param salesOrderDTO the salesOrderDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated salesOrderDTO,
+     * or with status 400 (Bad Request) if the salesOrderDTO is not valid,
+     * or with status 500 (Internal Server Error) if the salesOrderDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/sales-orders")
     @Timed
-    public ResponseEntity<SalesOrder> updateSalesOrder(@Valid @RequestBody SalesOrder salesOrder) throws URISyntaxException {
-        log.debug("REST request to update SalesOrder : {}", salesOrder);
-        if (salesOrder.getId() == null) {
-            return createSalesOrder(salesOrder);
+    public ResponseEntity<SalesOrderDTO> updateSalesOrder(@Valid @RequestBody SalesOrderDTO salesOrderDTO) throws URISyntaxException {
+        log.debug("REST request to update SalesOrder : {}", salesOrderDTO);
+        if (salesOrderDTO.getId() == null) {
+            return createSalesOrder(salesOrderDTO);
         }
-        SalesOrder result = salesOrderService.save(salesOrder);
+        SalesOrderDTO result = salesOrderService.save(salesOrderDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, salesOrder.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, salesOrderDTO.getId().toString()))
             .body(result);
     }
 
@@ -90,9 +90,9 @@ public class SalesOrderResource {
      */
     @GetMapping("/sales-orders")
     @Timed
-    public ResponseEntity<List<SalesOrder>> getAllSalesOrders(Pageable pageable) {
+    public ResponseEntity<List<SalesOrderDTO>> getAllSalesOrders(Pageable pageable) {
         log.debug("REST request to get a page of SalesOrders");
-        Page<SalesOrder> page = salesOrderService.findAll(pageable);
+        Page<SalesOrderDTO> page = salesOrderService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sales-orders");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -100,21 +100,21 @@ public class SalesOrderResource {
     /**
      * GET  /sales-orders/:id : get the "id" salesOrder.
      *
-     * @param id the id of the salesOrder to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the salesOrder, or with status 404 (Not Found)
+     * @param id the id of the salesOrderDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the salesOrderDTO, or with status 404 (Not Found)
      */
     @GetMapping("/sales-orders/{id}")
     @Timed
-    public ResponseEntity<SalesOrder> getSalesOrder(@PathVariable Long id) {
+    public ResponseEntity<SalesOrderDTO> getSalesOrder(@PathVariable Long id) {
         log.debug("REST request to get SalesOrder : {}", id);
-        SalesOrder salesOrder = salesOrderService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(salesOrder));
+        SalesOrderDTO salesOrderDTO = salesOrderService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(salesOrderDTO));
     }
 
     /**
      * DELETE  /sales-orders/:id : delete the "id" salesOrder.
      *
-     * @param id the id of the salesOrder to delete
+     * @param id the id of the salesOrderDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/sales-orders/{id}")

@@ -45,23 +45,23 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.orderItem.purchaseOrder" for="field_purchaseOrder">Purchase Order</label>
-            <select class="form-control" id="field_purchaseOrder" name="purchaseOrder" [(ngModel)]="orderItem.purchaseOrder" >
+            <select class="form-control" id="field_purchaseOrder" name="purchaseOrder" [(ngModel)]="orderItem.purchaseOrderId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="purchaseOrderOption.id === orderItem.purchaseOrder?.id ? orderItem.purchaseOrder : purchaseOrderOption" *ngFor="let purchaseOrderOption of purchaseorders; trackBy: trackPurchaseOrderById">{{purchaseOrderOption.id}}</option>
+                <option [ngValue]="purchaseOrderOption.id" *ngFor="let purchaseOrderOption of purchaseorders; trackBy: trackPurchaseOrderById">{{purchaseOrderOption.id}}</option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.orderItem.salesOrder" for="field_salesOrder">Sales Order</label>
-            <select class="form-control" id="field_salesOrder" name="salesOrder" [(ngModel)]="orderItem.salesOrder" >
+            <select class="form-control" id="field_salesOrder" name="salesOrder" [(ngModel)]="orderItem.salesOrderId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="salesOrderOption.id === orderItem.salesOrder?.id ? orderItem.salesOrder : salesOrderOption" *ngFor="let salesOrderOption of salesorders; trackBy: trackSalesOrderById">{{salesOrderOption.id}}</option>
+                <option [ngValue]="salesOrderOption.id" *ngFor="let salesOrderOption of salesorders; trackBy: trackSalesOrderById">{{salesOrderOption.id}}</option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.orderItem.book" for="field_book">Book</label>
-            <select class="form-control" id="field_book" name="book" [(ngModel)]="orderItem.book"  required>
+            <select class="form-control" id="field_book" name="book" [(ngModel)]="orderItem.bookId"  required>
                 <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
-                <option [ngValue]="bookOption.id === orderItem.book?.id ? orderItem.book : bookOption" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.id}}</option>
+                <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.id}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">

@@ -19,7 +19,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.bookCenter.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="address"><span jhiTranslate="bookCenterApp.bookCenter.address">Address</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="generalManager.id"><span jhiTranslate="bookCenterApp.bookCenter.generalManager">General Manager</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="generalManagerId"><span jhiTranslate="bookCenterApp.bookCenter.generalManager">General Manager</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,8 +29,8 @@
                 <td>{{bookCenter.name}}</td>
                 <td>{{bookCenter.address}}</td>
                 <td>
-                    <div *ngIf="bookCenter.generalManager">
-                        <a [routerLink]="['../employee', bookCenter.generalManager?.id ]" >{{bookCenter.generalManager?.name}}</a>
+                    <div *ngIf="bookCenter.generalManagerId">
+                        <a [routerLink]="['../employee', bookCenter.generalManagerId  ]" >{{bookCenter.generalManagerId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

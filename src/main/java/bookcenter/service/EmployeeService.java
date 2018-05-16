@@ -1,6 +1,6 @@
 package bookcenter.service;
 
-import bookcenter.domain.Employee;
+import bookcenter.service.dto.EmployeeDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +12,10 @@ public interface EmployeeService {
     /**
      * Save a employee.
      *
-     * @param employee the entity to save
+     * @param employeeDTO the entity to save
      * @return the persisted entity
      */
-    Employee save(Employee employee);
+    EmployeeDTO save(EmployeeDTO employeeDTO);
 
     /**
      * Get all the employees.
@@ -23,7 +23,7 @@ public interface EmployeeService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Employee> findAll(Pageable pageable);
+    Page<EmployeeDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" employee.
@@ -31,7 +31,7 @@ public interface EmployeeService {
      * @param id the id of the entity
      * @return the entity
      */
-    Employee findOne(Long id);
+    EmployeeDTO findOne(Long id);
 
     /**
      * Delete the "id" employee.

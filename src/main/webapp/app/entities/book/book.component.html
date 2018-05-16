@@ -22,8 +22,8 @@
             <th jhiSortBy="cost"><span jhiTranslate="bookCenterApp.book.cost">Cost</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="retailPrice"><span jhiTranslate="bookCenterApp.book.retailPrice">Retail Price</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="wholesalePrice"><span jhiTranslate="bookCenterApp.book.wholesalePrice">Wholesale Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="publisher.id"><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="category.id"><span jhiTranslate="bookCenterApp.book.category">Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="publisherId"><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="categoryId"><span jhiTranslate="bookCenterApp.book.category">Category</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -32,17 +32,17 @@
                 <td><a [routerLink]="['../book', book.id ]">{{book.id}}</a></td>
                 <td>{{book.name}}</td>
                 <td>{{book.specification}}</td>
-                <td>{{book.cost|number:'1.2-2'}}</td>
-                <td>{{book.retailPrice|number:'1.2-2'}}</td>
-                <td>{{book.wholesalePrice|number:'1.2-2'}}</td>
+                <td>{{book.cost}}</td>
+                <td>{{book.retailPrice}}</td>
+                <td>{{book.wholesalePrice}}</td>
                 <td>
-                    <div *ngIf="book.publisher">
-                        <a [routerLink]="['../publisher', book.publisher?.id ]" >{{book.publisher?.name}}</a>
+                    <div *ngIf="book.publisherId">
+                        <a [routerLink]="['../publisher', book.publisherId  ]" >{{book.publisherId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="book.category">
-                        <a [routerLink]="['../category', book.category?.id ]" >{{book.category?.name}}</a>
+                    <div *ngIf="book.categoryId">
+                        <a [routerLink]="['../category', book.categoryId  ]" >{{book.categoryId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -10,6 +10,8 @@ import { EmployeeDialogComponent } from '../../../../../../main/webapp/app/entit
 import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee/employee.service';
 import { Employee } from '../../../../../../main/webapp/app/entities/employee/employee.model';
 import { UserService } from '../../../../../../main/webapp/app/shared';
+import { BookCenterService } from '../../../../../../main/webapp/app/entities/book-center';
+import { DepartmentService } from '../../../../../../main/webapp/app/entities/department';
 
 describe('Component Tests', () => {
 
@@ -26,6 +28,8 @@ describe('Component Tests', () => {
                 declarations: [EmployeeDialogComponent],
                 providers: [
                     UserService,
+                    BookCenterService,
+                    DepartmentService,
                     EmployeeService
                 ]
             })

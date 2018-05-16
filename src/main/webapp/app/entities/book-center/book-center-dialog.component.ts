@@ -36,11 +36,11 @@ export class BookCenterDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'bookcenter-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.bookCenter.generalManager || !this.bookCenter.generalManager.id) {
+                if (!this.bookCenter.generalManagerId) {
                     this.generalmanagers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.bookCenter.generalManager.id)
+                        .find(this.bookCenter.generalManagerId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.generalmanagers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

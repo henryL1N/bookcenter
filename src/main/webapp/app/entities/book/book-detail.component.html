@@ -14,26 +14,26 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.cost">Cost</span></dt>
         <dd>
-            <span>{{book.cost|number:'1.2-2'}}</span>
+            <span>{{book.cost}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.retailPrice">Retail Price</span></dt>
         <dd>
-            <span>{{book.retailPrice|number:'1.2-2'}}</span>
+            <span>{{book.retailPrice}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.wholesalePrice">Wholesale Price</span></dt>
         <dd>
-            <span>{{book.wholesalePrice|number:'1.2-2'}}</span>
+            <span>{{book.wholesalePrice}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.publisher">Publisher</span></dt>
         <dd>
-            <div *ngIf="book.publisher">
-                <a [routerLink]="['/publisher', book.publisher?.id]">{{book.publisher?.name}}</a>
+            <div *ngIf="book.publisherId">
+                <a [routerLink]="['/publisher', book.publisherId]">{{book.publisherId}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.book.category">Category</span></dt>
         <dd>
-            <div *ngIf="book.category">
-                <a [routerLink]="['/category', book.category?.id]">{{book.category?.name}}</a>
+            <div *ngIf="book.categoryId">
+                <a [routerLink]="['/category', book.categoryId]">{{book.categoryId}}</a>
             </div>
         </dd>
     </dl>

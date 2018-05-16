@@ -18,8 +18,8 @@
         </dd>
         <dt><span jhiTranslate="bookCenterApp.salesOrder.seller">Seller</span></dt>
         <dd>
-            <div *ngIf="salesOrder.seller">
-                <a [routerLink]="['/employee', salesOrder.seller?.id]">{{salesOrder.seller?.id}}</a>
+            <div *ngIf="salesOrder.sellerId">
+                <a [routerLink]="['/employee', salesOrder.sellerId]">{{salesOrder.sellerId}}</a>
             </div>
         </dd>
     </dl>

@@ -22,7 +22,7 @@
     ],
     "changelogDate": "20180504104935",
     "entityTableName": "category",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

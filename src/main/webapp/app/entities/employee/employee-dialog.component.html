@@ -68,9 +68,29 @@
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.employee.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" [(ngModel)]="employee.user" >
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="employee.userId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === employee.user?.id ? employee.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.bookCenter" for="field_bookCenter">Book Center</label>
+            <select class="form-control" id="field_bookCenter" name="bookCenter" [(ngModel)]="employee.bookCenterId"  required>
+                <option *ngIf="!editForm.value.bookCenter" [ngValue]="null" selected></option>
+                <option [ngValue]="bookCenterOption.id" *ngFor="let bookCenterOption of bookcenters; trackBy: trackBookCenterById">{{bookCenterOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.bookCenter?.dirty && editForm.controls.bookCenter?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.bookCenter?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.employee.department" for="field_department">Department</label>
+            <select class="form-control" id="field_department" name="department" [(ngModel)]="employee.departmentId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="departmentOption.id" *ngFor="let departmentOption of departments; trackBy: trackDepartmentById">{{departmentOption.id}}</option>
             </select>
         </div>
     </div>

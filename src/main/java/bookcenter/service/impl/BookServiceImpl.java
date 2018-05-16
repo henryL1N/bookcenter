@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.BookService;
 import bookcenter.domain.Book;
 import bookcenter.repository.BookRepository;
+import bookcenter.service.dto.BookDTO;
+import bookcenter.service.mapper.BookMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    private final BookMapper bookMapper;
+
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     /**
      * Save a book.
      *
-     * @param book the entity to save
+     * @param bookDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Book save(Book book) {
-        log.debug("Request to save Book : {}", book);
-        return bookRepository.save(book);
+    public BookDTO save(BookDTO bookDTO) {
+        log.debug("Request to save Book : {}", bookDTO);
+        Book book = bookMapper.toEntity(bookDTO);
+        book = bookRepository.save(book);
+        return bookMapper.toDto(book);
     }
 
     /**
@@ -46,9 +53,10 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Book> findAll(Pageable pageable) {
+    public Page<BookDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Books");
-        return bookRepository.findAll(pageable);
+        return bookRepository.findAll(pageable)
+            .map(bookMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Book findOne(Long id) {
+    public BookDTO findOne(Long id) {
         log.debug("Request to get Book : {}", id);
-        return bookRepository.findOne(id);
+        Book book = bookRepository.findOne(id);
+        return bookMapper.toDto(book);
     }
 
     /**

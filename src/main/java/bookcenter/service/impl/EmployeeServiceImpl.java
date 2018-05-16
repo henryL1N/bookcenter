@@ -3,6 +3,8 @@ package bookcenter.service.impl;
 import bookcenter.service.EmployeeService;
 import bookcenter.domain.Employee;
 import bookcenter.repository.EmployeeRepository;
+import bookcenter.service.dto.EmployeeDTO;
+import bookcenter.service.mapper.EmployeeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,20 +24,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    private final EmployeeMapper employeeMapper;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
         this.employeeRepository = employeeRepository;
+        this.employeeMapper = employeeMapper;
     }
 
     /**
      * Save a employee.
      *
-     * @param employee the entity to save
+     * @param employeeDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Employee save(Employee employee) {
-        log.debug("Request to save Employee : {}", employee);
-        return employeeRepository.save(employee);
+    public EmployeeDTO save(EmployeeDTO employeeDTO) {
+        log.debug("Request to save Employee : {}", employeeDTO);
+        Employee employee = employeeMapper.toEntity(employeeDTO);
+        employee = employeeRepository.save(employee);
+        return employeeMapper.toDto(employee);
     }
 
     /**
@@ -46,9 +53,10 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Employee> findAll(Pageable pageable) {
+    public Page<EmployeeDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Employees");
-        return employeeRepository.findAll(pageable);
+        return employeeRepository.findAll(pageable)
+            .map(employeeMapper::toDto);
     }
 
     /**
@@ -59,9 +67,10 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Employee findOne(Long id) {
+    public EmployeeDTO findOne(Long id) {
         log.debug("Request to get Employee : {}", id);
-        return employeeRepository.findOne(id);
+        Employee employee = employeeRepository.findOne(id);
+        return employeeMapper.toDto(employee);
     }
 
     /**

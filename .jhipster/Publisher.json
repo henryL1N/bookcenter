@@ -20,7 +20,7 @@
     ],
     "changelogDate": "20180504104938",
     "entityTableName": "publisher",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

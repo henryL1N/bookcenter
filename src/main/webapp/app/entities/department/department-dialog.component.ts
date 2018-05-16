@@ -42,11 +42,11 @@ export class DepartmentDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'department-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.department.manager || !this.department.manager.id) {
+                if (!this.department.managerId) {
                     this.managers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.department.manager.id)
+                        .find(this.department.managerId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.managers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));

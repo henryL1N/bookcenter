@@ -39,7 +39,7 @@
     ],
     "changelogDate": "20180504104942",
     "entityTableName": "sales_order",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false

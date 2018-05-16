@@ -1,4 +1,4 @@
-import { BaseEntity, User } from './../../shared';
+import { BaseEntity } from './../../shared';
 
 export const enum Gender {
     'MALE',
@@ -13,7 +13,9 @@ export class Employee implements BaseEntity {
         public gender?: Gender,
         public position?: string,
         public salary?: number,
-        public user?: User,
+        public userId?: number,
+        public bookCenterId?: number,
+        public departmentId?: number,
     ) {
     }
 }

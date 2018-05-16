@@ -3,8 +3,11 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.Employee;
+import bookcenter.domain.BookCenter;
 import bookcenter.repository.EmployeeRepository;
 import bookcenter.service.EmployeeService;
+import bookcenter.service.dto.EmployeeDTO;
+import bookcenter.service.mapper.EmployeeMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -60,6 +63,9 @@ public class EmployeeResourceIntTest {
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
     private EmployeeService employeeService;
 
     @Autowired
@@ -102,6 +108,11 @@ public class EmployeeResourceIntTest {
             .gender(DEFAULT_GENDER)
             .position(DEFAULT_POSITION)
             .salary(DEFAULT_SALARY);
+        // Add required entity
+        BookCenter bookCenter = BookCenterResourceIntTest.createEntity(em);
+        em.persist(bookCenter);
+        em.flush();
+        employee.setBookCenter(bookCenter);
         return employee;
     }
 
@@ -116,9 +127,10 @@ public class EmployeeResourceIntTest {
         int databaseSizeBeforeCreate = employeeRepository.findAll().size();
 
         // Create the Employee
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
         restEmployeeMockMvc.perform(post("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Employee in the database
@@ -139,11 +151,12 @@ public class EmployeeResourceIntTest {
 
         // Create the Employee with an existing ID
         employee.setId(1L);
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restEmployeeMockMvc.perform(post("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Employee in the database
@@ -159,10 +172,11 @@ public class EmployeeResourceIntTest {
         employee.setName(null);
 
         // Create the Employee, which fails.
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
 
         restEmployeeMockMvc.perform(post("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Employee> employeeList = employeeRepository.findAll();
@@ -177,10 +191,11 @@ public class EmployeeResourceIntTest {
         employee.setPosition(null);
 
         // Create the Employee, which fails.
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
 
         restEmployeeMockMvc.perform(post("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Employee> employeeList = employeeRepository.findAll();
@@ -195,10 +210,11 @@ public class EmployeeResourceIntTest {
         employee.setSalary(null);
 
         // Create the Employee, which fails.
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
 
         restEmployeeMockMvc.perform(post("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Employee> employeeList = employeeRepository.findAll();
@@ -253,8 +269,7 @@ public class EmployeeResourceIntTest {
     @Transactional
     public void updateEmployee() throws Exception {
         // Initialize the database
-        employeeService.save(employee);
-
+        employeeRepository.saveAndFlush(employee);
         int databaseSizeBeforeUpdate = employeeRepository.findAll().size();
 
         // Update the employee
@@ -267,10 +282,11 @@ public class EmployeeResourceIntTest {
             .gender(UPDATED_GENDER)
             .position(UPDATED_POSITION)
             .salary(UPDATED_SALARY);
+        EmployeeDTO employeeDTO = employeeMapper.toDto(updatedEmployee);
 
         restEmployeeMockMvc.perform(put("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedEmployee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isOk());
 
         // Validate the Employee in the database
@@ -290,11 +306,12 @@ public class EmployeeResourceIntTest {
         int databaseSizeBeforeUpdate = employeeRepository.findAll().size();
 
         // Create the Employee
+        EmployeeDTO employeeDTO = employeeMapper.toDto(employee);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restEmployeeMockMvc.perform(put("/api/employees")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(employee)))
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Employee in the database
@@ -306,8 +323,7 @@ public class EmployeeResourceIntTest {
     @Transactional
     public void deleteEmployee() throws Exception {
         // Initialize the database
-        employeeService.save(employee);
-
+        employeeRepository.saveAndFlush(employee);
         int databaseSizeBeforeDelete = employeeRepository.findAll().size();
 
         // Get the employee
@@ -333,5 +349,28 @@ public class EmployeeResourceIntTest {
         assertThat(employee1).isNotEqualTo(employee2);
         employee1.setId(null);
         assertThat(employee1).isNotEqualTo(employee2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(EmployeeDTO.class);
+        EmployeeDTO employeeDTO1 = new EmployeeDTO();
+        employeeDTO1.setId(1L);
+        EmployeeDTO employeeDTO2 = new EmployeeDTO();
+        assertThat(employeeDTO1).isNotEqualTo(employeeDTO2);
+        employeeDTO2.setId(employeeDTO1.getId());
+        assertThat(employeeDTO1).isEqualTo(employeeDTO2);
+        employeeDTO2.setId(2L);
+        assertThat(employeeDTO1).isNotEqualTo(employeeDTO2);
+        employeeDTO1.setId(null);
+        assertThat(employeeDTO1).isNotEqualTo(employeeDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(employeeMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(employeeMapper.fromId(null)).isNull();
     }
 }

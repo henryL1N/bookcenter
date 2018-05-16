@@ -5,6 +5,8 @@ import bookcenter.BookCenterApp;
 import bookcenter.domain.Publisher;
 import bookcenter.repository.PublisherRepository;
 import bookcenter.service.PublisherService;
+import bookcenter.service.dto.PublisherDTO;
+import bookcenter.service.mapper.PublisherMapper;
 import bookcenter.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -50,6 +52,9 @@ public class PublisherResourceIntTest {
 
     @Autowired
     private PublisherRepository publisherRepository;
+
+    @Autowired
+    private PublisherMapper publisherMapper;
 
     @Autowired
     private PublisherService publisherService;
@@ -106,9 +111,10 @@ public class PublisherResourceIntTest {
         int databaseSizeBeforeCreate = publisherRepository.findAll().size();
 
         // Create the Publisher
+        PublisherDTO publisherDTO = publisherMapper.toDto(publisher);
         restPublisherMockMvc.perform(post("/api/publishers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(publisher)))
+            .content(TestUtil.convertObjectToJsonBytes(publisherDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Publisher in the database
@@ -127,11 +133,12 @@ public class PublisherResourceIntTest {
 
         // Create the Publisher with an existing ID
         publisher.setId(1L);
+        PublisherDTO publisherDTO = publisherMapper.toDto(publisher);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPublisherMockMvc.perform(post("/api/publishers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(publisher)))
+            .content(TestUtil.convertObjectToJsonBytes(publisherDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Publisher in the database
@@ -147,10 +154,11 @@ public class PublisherResourceIntTest {
         publisher.setName(null);
 
         // Create the Publisher, which fails.
+        PublisherDTO publisherDTO = publisherMapper.toDto(publisher);
 
         restPublisherMockMvc.perform(post("/api/publishers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(publisher)))
+            .content(TestUtil.convertObjectToJsonBytes(publisherDTO)))
             .andExpect(status().isBadRequest());
 
         List<Publisher> publisherList = publisherRepository.findAll();
@@ -201,8 +209,7 @@ public class PublisherResourceIntTest {
     @Transactional
     public void updatePublisher() throws Exception {
         // Initialize the database
-        publisherService.save(publisher);
-
+        publisherRepository.saveAndFlush(publisher);
         int databaseSizeBeforeUpdate = publisherRepository.findAll().size();
 
         // Update the publisher
@@ -213,10 +220,11 @@ public class PublisherResourceIntTest {
             .name(UPDATED_NAME)
             .phone(UPDATED_PHONE)
             .address(UPDATED_ADDRESS);
+        PublisherDTO publisherDTO = publisherMapper.toDto(updatedPublisher);
 
         restPublisherMockMvc.perform(put("/api/publishers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPublisher)))
+            .content(TestUtil.convertObjectToJsonBytes(publisherDTO)))
             .andExpect(status().isOk());
 
         // Validate the Publisher in the database
@@ -234,11 +242,12 @@ public class PublisherResourceIntTest {
         int databaseSizeBeforeUpdate = publisherRepository.findAll().size();
 
         // Create the Publisher
+        PublisherDTO publisherDTO = publisherMapper.toDto(publisher);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPublisherMockMvc.perform(put("/api/publishers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(publisher)))
+            .content(TestUtil.convertObjectToJsonBytes(publisherDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Publisher in the database
@@ -250,8 +259,7 @@ public class PublisherResourceIntTest {
     @Transactional
     public void deletePublisher() throws Exception {
         // Initialize the database
-        publisherService.save(publisher);
-
+        publisherRepository.saveAndFlush(publisher);
         int databaseSizeBeforeDelete = publisherRepository.findAll().size();
 
         // Get the publisher
@@ -277,5 +285,28 @@ public class PublisherResourceIntTest {
         assertThat(publisher1).isNotEqualTo(publisher2);
         publisher1.setId(null);
         assertThat(publisher1).isNotEqualTo(publisher2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PublisherDTO.class);
+        PublisherDTO publisherDTO1 = new PublisherDTO();
+        publisherDTO1.setId(1L);
+        PublisherDTO publisherDTO2 = new PublisherDTO();
+        assertThat(publisherDTO1).isNotEqualTo(publisherDTO2);
+        publisherDTO2.setId(publisherDTO1.getId());
+        assertThat(publisherDTO1).isEqualTo(publisherDTO2);
+        publisherDTO2.setId(2L);
+        assertThat(publisherDTO1).isNotEqualTo(publisherDTO2);
+        publisherDTO1.setId(null);
+        assertThat(publisherDTO1).isNotEqualTo(publisherDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(publisherMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(publisherMapper.fromId(null)).isNull();
     }
 }

@@ -48,6 +48,13 @@ public class Employee implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private BookCenter bookCenter;
+
+    @ManyToOne
+    private Department department;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -133,6 +140,32 @@ public class Employee implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public BookCenter getBookCenter() {
+        return bookCenter;
+    }
+
+    public Employee bookCenter(BookCenter bookCenter) {
+        this.bookCenter = bookCenter;
+        return this;
+    }
+
+    public void setBookCenter(BookCenter bookCenter) {
+        this.bookCenter = bookCenter;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Employee department(Department department) {
+        this.department = department;
+        return this;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
