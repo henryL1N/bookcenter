@@ -46,6 +46,10 @@ public class SalesOrder implements Serializable {
     @JsonIgnore
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Warehouse warehouse;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -130,6 +134,19 @@ public class SalesOrder implements Serializable {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public SalesOrder warehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+        return this;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

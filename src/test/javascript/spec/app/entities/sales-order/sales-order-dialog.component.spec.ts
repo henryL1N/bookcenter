@@ -10,6 +10,7 @@ import { SalesOrderDialogComponent } from '../../../../../../main/webapp/app/ent
 import { SalesOrderService } from '../../../../../../main/webapp/app/entities/sales-order/sales-order.service';
 import { SalesOrder } from '../../../../../../main/webapp/app/entities/sales-order/sales-order.model';
 import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee';
+import { WarehouseService } from '../../../../../../main/webapp/app/entities/warehouse';
 
 describe('Component Tests', () => {
 
@@ -26,6 +27,7 @@ describe('Component Tests', () => {
                 declarations: [SalesOrderDialogComponent],
                 providers: [
                     EmployeeService,
+                    WarehouseService,
                     SalesOrderService
                 ]
             })

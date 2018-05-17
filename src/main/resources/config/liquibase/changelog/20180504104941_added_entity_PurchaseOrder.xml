@@ -35,6 +35,10 @@
             <column name="buyer_id" type="bigint">
                 <constraints unique="true" nullable="false" />
             </column>
+            <column name="warehouse_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="purchase_order" columnName="jhi_date" columnDataType="datetime"/>

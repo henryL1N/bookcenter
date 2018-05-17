@@ -10,6 +10,7 @@ import { PurchaseOrder } from './purchase-order.model';
 import { PurchaseOrderPopupService } from './purchase-order-popup.service';
 import { PurchaseOrderService } from './purchase-order.service';
 import { Employee, EmployeeService } from '../employee';
+import { Warehouse, WarehouseService } from '../warehouse';
 
 @Component({
     selector: 'jhi-purchase-order-dialog',
@@ -22,11 +23,14 @@ export class PurchaseOrderDialogComponent implements OnInit {
 
     buyers: Employee[];
 
+    warehouses: Warehouse[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private purchaseOrderService: PurchaseOrderService,
         private employeeService: EmployeeService,
+        private warehouseService: WarehouseService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -46,6 +50,8 @@ export class PurchaseOrderDialogComponent implements OnInit {
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
                 }
             }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.warehouseService.query()
+            .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -83,6 +89,10 @@ export class PurchaseOrderDialogComponent implements OnInit {
     }
 
     trackEmployeeById(index: number, item: Employee) {
+        return item.id;
+    }
+
+    trackWarehouseById(index: number, item: Warehouse) {
         return item.id;
     }
 }

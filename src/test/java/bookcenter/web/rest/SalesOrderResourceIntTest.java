@@ -4,6 +4,7 @@ import bookcenter.BookCenterApp;
 
 import bookcenter.domain.SalesOrder;
 import bookcenter.domain.Employee;
+import bookcenter.domain.Warehouse;
 import bookcenter.repository.SalesOrderRepository;
 import bookcenter.service.SalesOrderService;
 import bookcenter.service.dto.SalesOrderDTO;
@@ -106,6 +107,11 @@ public class SalesOrderResourceIntTest {
         em.persist(seller);
         em.flush();
         salesOrder.setSeller(seller);
+        // Add required entity
+        Warehouse warehouse = WarehouseResourceIntTest.createEntity(em);
+        em.persist(warehouse);
+        em.flush();
+        salesOrder.setWarehouse(warehouse);
         return salesOrder;
     }
 

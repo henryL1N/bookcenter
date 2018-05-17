@@ -10,6 +10,7 @@ import { PurchaseOrderDialogComponent } from '../../../../../../main/webapp/app/
 import { PurchaseOrderService } from '../../../../../../main/webapp/app/entities/purchase-order/purchase-order.service';
 import { PurchaseOrder } from '../../../../../../main/webapp/app/entities/purchase-order/purchase-order.model';
 import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee';
+import { WarehouseService } from '../../../../../../main/webapp/app/entities/warehouse';
 
 describe('Component Tests', () => {
 
@@ -26,6 +27,7 @@ describe('Component Tests', () => {
                 declarations: [PurchaseOrderDialogComponent],
                 providers: [
                     EmployeeService,
+                    WarehouseService,
                     PurchaseOrderService
                 ]
             })

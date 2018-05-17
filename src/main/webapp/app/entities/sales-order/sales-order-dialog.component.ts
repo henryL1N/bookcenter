@@ -10,6 +10,7 @@ import { SalesOrder } from './sales-order.model';
 import { SalesOrderPopupService } from './sales-order-popup.service';
 import { SalesOrderService } from './sales-order.service';
 import { Employee, EmployeeService } from '../employee';
+import { Warehouse, WarehouseService } from '../warehouse';
 
 @Component({
     selector: 'jhi-sales-order-dialog',
@@ -22,11 +23,14 @@ export class SalesOrderDialogComponent implements OnInit {
 
     sellers: Employee[];
 
+    warehouses: Warehouse[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private salesOrderService: SalesOrderService,
         private employeeService: EmployeeService,
+        private warehouseService: WarehouseService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -46,6 +50,8 @@ export class SalesOrderDialogComponent implements OnInit {
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
                 }
             }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.warehouseService.query()
+            .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -83,6 +89,10 @@ export class SalesOrderDialogComponent implements OnInit {
     }
 
     trackEmployeeById(index: number, item: Employee) {
+        return item.id;
+    }
+
+    trackWarehouseById(index: number, item: Warehouse) {
         return item.id;
     }
 }

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>
 
+        <addForeignKeyConstraint baseColumnNames="warehouse_id"
+                                 baseTableName="purchase_order"
+                                 constraintName="fk_purchase_order_warehouse_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="warehouse"/>
+
     </changeSet>
 </databaseChangeLog>

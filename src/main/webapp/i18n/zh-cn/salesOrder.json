@@ -20,7 +20,8 @@
             "customer": "客户",
             "totalAmount": "总金额",
             "seller": "销售员",
-            "orderItem": "订单项目"
+            "orderItem": "订单项目",
+            "warehouse": "仓库"
         }
     }
 }

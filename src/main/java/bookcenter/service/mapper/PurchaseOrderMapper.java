@@ -8,14 +8,16 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity PurchaseOrder and its DTO PurchaseOrderDTO.
  */
-@Mapper(componentModel = "spring", uses = {EmployeeMapper.class})
+@Mapper(componentModel = "spring", uses = {EmployeeMapper.class, WarehouseMapper.class})
 public interface PurchaseOrderMapper extends EntityMapper<PurchaseOrderDTO, PurchaseOrder> {
 
     @Mapping(source = "buyer.id", target = "buyerId")
+    @Mapping(source = "warehouse.id", target = "warehouseId")
     PurchaseOrderDTO toDto(PurchaseOrder purchaseOrder);
 
     @Mapping(source = "buyerId", target = "buyer")
     @Mapping(target = "orderItems", ignore = true)
+    @Mapping(source = "warehouseId", target = "warehouse")
     PurchaseOrder toEntity(PurchaseOrderDTO purchaseOrderDTO);
 
     default PurchaseOrder fromId(Long id) {
