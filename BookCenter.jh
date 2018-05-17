@@ -66,7 +66,6 @@ entity OrderItem{
 
 relationship OneToOne {
 	BookCenter{generalManager required} to Employee,
-	Category{salesDepartment required} to Department,
 	Department{manager required} to Employee,
 	Employee{user} to User{employee},
 	Warehouse{keeper} to Employee,
@@ -84,6 +83,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
+	Category{salesDepartment required} to Department,
     OrderItem{book required} to Book,
 	StockItem{book required} to Book,
 	Book{publisher required} to Publisher,
