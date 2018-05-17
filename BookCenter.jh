@@ -87,7 +87,7 @@ relationship ManyToOne {
     OrderItem{book required} to Book,
 	StockItem{book required} to Book,
 	Book{publisher required} to Publisher,
-	Book{category} to Category
+	Book{category required} to Category
 }
 
 paginate all with pagination
