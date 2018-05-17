@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface PurchaseOrderMapper extends EntityMapper<PurchaseOrderDTO, PurchaseOrder> {
 
     @Mapping(source = "buyer.id", target = "buyerId")
+    @Mapping(source = "buyer.name", target = "buyerName")
     @Mapping(source = "warehouse.id", target = "warehouseId")
+    @Mapping(source = "warehouse.name", target = "warehouseName")
     PurchaseOrderDTO toDto(PurchaseOrder purchaseOrder);
 
     @Mapping(source = "buyerId", target = "buyer")

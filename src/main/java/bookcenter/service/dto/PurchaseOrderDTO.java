@@ -26,7 +26,11 @@ public class PurchaseOrderDTO implements Serializable {
 
     private Long buyerId;
 
+    private String buyerName;
+
     private Long warehouseId;
+
+    private String warehouseName;
 
     public Long getId() {
         return id;
@@ -68,12 +72,28 @@ public class PurchaseOrderDTO implements Serializable {
         this.buyerId = employeeId;
     }
 
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
     public Long getWarehouseId() {
         return warehouseId;
     }
 
     public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
     @Override

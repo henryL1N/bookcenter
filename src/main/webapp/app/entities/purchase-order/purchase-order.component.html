@@ -20,8 +20,8 @@
             <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="totalAmount"><span jhiTranslate="bookCenterApp.purchaseOrder.totalAmount">Total Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="buyerId"><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="warehouseId"><span jhiTranslate="bookCenterApp.purchaseOrder.warehouse">Warehouse</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="buyerName"><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="warehouseName"><span jhiTranslate="bookCenterApp.purchaseOrder.warehouse">Warehouse</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -33,12 +33,12 @@
                 <td>{{purchaseOrder.totalAmount}}</td>
                 <td>
                     <div *ngIf="purchaseOrder.buyerId">
-                        <a [routerLink]="['../employee', purchaseOrder.buyerId  ]" >{{purchaseOrder.buyerId}}</a>
+                        <a [routerLink]="['../employee', purchaseOrder.buyerId  ]" >{{purchaseOrder.buyerName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="purchaseOrder.warehouseId">
-                        <a [routerLink]="['../warehouse', purchaseOrder.warehouseId  ]" >{{purchaseOrder.warehouseId}}</a>
+                        <a [routerLink]="['../warehouse', purchaseOrder.warehouseId  ]" >{{purchaseOrder.warehouseName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
