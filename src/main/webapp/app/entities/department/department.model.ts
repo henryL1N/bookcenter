@@ -6,7 +6,9 @@ export class Department implements BaseEntity {
         public name?: string,
         public address?: string,
         public bookCenterId?: number,
+        public bookCenterName?: string,
         public managerId?: number,
+        public managerName?: string,
         public employees?: BaseEntity[],
     ) {
     }

@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface DepartmentMapper extends EntityMapper<DepartmentDTO, Department> {
 
     @Mapping(source = "bookCenter.id", target = "bookCenterId")
+    @Mapping(source = "bookCenter.name", target = "bookCenterName")
     @Mapping(source = "manager.id", target = "managerId")
+    @Mapping(source = "manager.name", target = "managerName")
     DepartmentDTO toDto(Department department);
 
     @Mapping(source = "bookCenterId", target = "bookCenter")

@@ -19,8 +19,8 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.department.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="address"><span jhiTranslate="bookCenterApp.department.address">Address</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="bookCenterId"><span jhiTranslate="bookCenterApp.department.bookCenter">Book Center</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="managerId"><span jhiTranslate="bookCenterApp.department.manager">Manager</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bookCenterName"><span jhiTranslate="bookCenterApp.department.bookCenter">Book Center</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="managerName"><span jhiTranslate="bookCenterApp.department.manager">Manager</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -31,12 +31,12 @@
                 <td>{{department.address}}</td>
                 <td>
                     <div *ngIf="department.bookCenterId">
-                        <a [routerLink]="['../book-center', department.bookCenterId  ]" >{{department.bookCenterId}}</a>
+                        <a [routerLink]="['../book-center', department.bookCenterId  ]" >{{department.bookCenterName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="department.managerId">
-                        <a [routerLink]="['../employee', department.managerId  ]" >{{department.managerId}}</a>
+                        <a [routerLink]="['../employee', department.managerId  ]" >{{department.managerName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -21,7 +21,11 @@ public class DepartmentDTO implements Serializable {
 
     private Long bookCenterId;
 
+    private String bookCenterName;
+
     private Long managerId;
+
+    private String managerName;
 
     public Long getId() {
         return id;
@@ -55,12 +59,28 @@ public class DepartmentDTO implements Serializable {
         this.bookCenterId = bookCenterId;
     }
 
+    public String getBookCenterName() {
+        return bookCenterName;
+    }
+
+    public void setBookCenterName(String bookCenterName) {
+        this.bookCenterName = bookCenterName;
+    }
+
     public Long getManagerId() {
         return managerId;
     }
 
     public void setManagerId(Long employeeId) {
         this.managerId = employeeId;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
     @Override
@@ -73,7 +93,7 @@ public class DepartmentDTO implements Serializable {
         }
 
         DepartmentDTO departmentDTO = (DepartmentDTO) o;
-        if(departmentDTO.getId() == null || getId() == null) {
+        if (departmentDTO.getId() == null || getId() == null) {
             return false;
         }
         return Objects.equals(getId(), departmentDTO.getId());

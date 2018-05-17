@@ -15,13 +15,13 @@
         <dt><span jhiTranslate="bookCenterApp.department.bookCenter">Book Center</span></dt>
         <dd>
             <div *ngIf="department.bookCenterId">
-                <a [routerLink]="['/book-center', department.bookCenterId]">{{department.bookCenterId}}</a>
+                <a [routerLink]="['/book-center', department.bookCenterId]">{{department.bookCenterName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.department.manager">Manager</span></dt>
         <dd>
             <div *ngIf="department.managerId">
-                <a [routerLink]="['/employee', department.managerId]">{{department.managerId}}</a>
+                <a [routerLink]="['/employee', department.managerId]">{{department.managerName}}</a>
             </div>
         </dd>
     </dl>
