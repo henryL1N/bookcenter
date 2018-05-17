@@ -7,8 +7,10 @@ export class SalesOrder implements BaseEntity {
         public customer?: string,
         public totalAmount?: number,
         public sellerId?: number,
+        public sellerName?: string,
         public orderItems?: BaseEntity[],
         public warehouseId?: number,
+        public warehouseName?: string,
     ) {
     }
 }

@@ -54,7 +54,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.salesOrder.seller" for="field_seller">Seller</label>
             <select class="form-control" id="field_seller" name="seller" [(ngModel)]="salesOrder.sellerId" required>
                 <option *ngIf="!editForm.value.seller" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of sellers; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of sellers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.seller?.dirty && editForm.controls.seller?.invalid)">
@@ -67,7 +67,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.salesOrder.warehouse" for="field_warehouse">Warehouse</label>
             <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="salesOrder.warehouseId"  required>
                 <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
-                <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.id}}</option>
+                <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.warehouse?.dirty && editForm.controls.warehouse?.invalid)">

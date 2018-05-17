@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface SalesOrderMapper extends EntityMapper<SalesOrderDTO, SalesOrder> {
 
     @Mapping(source = "seller.id", target = "sellerId")
+    @Mapping(source = "seller.name", target = "sellerName")
     @Mapping(source = "warehouse.id", target = "warehouseId")
+    @Mapping(source = "warehouse.name", target = "warehouseName")
     SalesOrderDTO toDto(SalesOrder salesOrder);
 
     @Mapping(source = "sellerId", target = "seller")
