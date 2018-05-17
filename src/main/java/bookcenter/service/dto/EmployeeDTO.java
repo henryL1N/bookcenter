@@ -32,9 +32,15 @@ public class EmployeeDTO implements Serializable {
 
     private Long userId;
 
+    private String userLogin;
+
     private Long bookCenterId;
 
+    private String bookCenterName;
+
     private Long departmentId;
+
+    private String departmentName;
 
     public Long getId() {
         return id;
@@ -92,6 +98,14 @@ public class EmployeeDTO implements Serializable {
         this.userId = userId;
     }
 
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
     public Long getBookCenterId() {
         return bookCenterId;
     }
@@ -100,12 +114,28 @@ public class EmployeeDTO implements Serializable {
         this.bookCenterId = bookCenterId;
     }
 
+    public String getBookCenterName() {
+        return bookCenterName;
+    }
+
+    public void setBookCenterName(String bookCenterName) {
+        this.bookCenterName = bookCenterName;
+    }
+
     public Long getDepartmentId() {
         return departmentId;
     }
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     @Override

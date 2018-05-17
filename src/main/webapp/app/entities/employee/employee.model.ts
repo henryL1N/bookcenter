@@ -14,8 +14,11 @@ export class Employee implements BaseEntity {
         public position?: string,
         public salary?: number,
         public userId?: number,
+        public userLogin?: string,
         public bookCenterId?: number,
+        public bookCenterName?: string,
         public departmentId?: number,
+        public departmentName?: string,
     ) {
     }
 }
