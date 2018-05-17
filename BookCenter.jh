@@ -86,6 +86,8 @@ relationship ManyToOne {
 	Category{salesDepartment required} to Department,
     OrderItem{book required} to Book,
 	StockItem{book required} to Book,
+	PurchaseOrder{warehouse required} to Warehouse,
+	SalesOrder{warehouse required} to Warehouse,
 	Book{publisher required} to Publisher,
 	Book{category required} to Category
 }
