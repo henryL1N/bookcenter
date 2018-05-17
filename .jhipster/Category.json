@@ -2,13 +2,11 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "salesDepartment",
             "otherEntityName": "department",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "category"
+            "otherEntityField": "id"
         }
     ],
     "fields": [

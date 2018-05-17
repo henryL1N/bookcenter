@@ -25,9 +25,8 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
     private Department salesDepartment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

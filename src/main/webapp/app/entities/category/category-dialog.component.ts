@@ -20,7 +20,7 @@ export class CategoryDialogComponent implements OnInit {
     category: Category;
     isSaving: boolean;
 
-    salesdepartments: Department[];
+    departments: Department[];
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -33,19 +33,8 @@ export class CategoryDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.departmentService
-            .query({filter: 'category-is-null'})
-            .subscribe((res: HttpResponse<Department[]>) => {
-                if (!this.category.salesDepartmentId) {
-                    this.salesdepartments = res.body;
-                } else {
-                    this.departmentService
-                        .find(this.category.salesDepartmentId)
-                        .subscribe((subRes: HttpResponse<Department>) => {
-                            this.salesdepartments = [subRes.body].concat(res.body);
-                        }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
-                }
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.departmentService.query()
+            .subscribe((res: HttpResponse<Department[]>) => { this.departments = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
