@@ -15,7 +15,7 @@
         <dt><span jhiTranslate="bookCenterApp.warehouse.keeper">Keeper</span></dt>
         <dd>
             <div *ngIf="warehouse.keeperId">
-                <a [routerLink]="['/employee', warehouse.keeperId]">{{warehouse.keeperId}}</a>
+                <a [routerLink]="['/employee', warehouse.keeperId]">{{warehouse.keeperName}}</a>
             </div>
         </dd>
     </dl>

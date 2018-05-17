@@ -21,6 +21,8 @@ public class WarehouseDTO implements Serializable {
 
     private Long keeperId;
 
+    private String keeperName;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +53,14 @@ public class WarehouseDTO implements Serializable {
 
     public void setKeeperId(Long employeeId) {
         this.keeperId = employeeId;
+    }
+
+    public String getKeeperName() {
+        return keeperName;
+    }
+
+    public void setKeeperName(String keeperName) {
+        this.keeperName = keeperName;
     }
 
     @Override
