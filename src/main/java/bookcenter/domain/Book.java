@@ -48,7 +48,8 @@ public class Book implements Serializable {
     @NotNull
     private Publisher publisher;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Category category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

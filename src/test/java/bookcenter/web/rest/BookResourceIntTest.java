@@ -4,6 +4,7 @@ import bookcenter.BookCenterApp;
 
 import bookcenter.domain.Book;
 import bookcenter.domain.Publisher;
+import bookcenter.domain.Category;
 import bookcenter.repository.BookRepository;
 import bookcenter.service.BookService;
 import bookcenter.service.dto.BookDTO;
@@ -112,6 +113,11 @@ public class BookResourceIntTest {
         em.persist(publisher);
         em.flush();
         book.setPublisher(publisher);
+        // Add required entity
+        Category category = CategoryResourceIntTest.createEntity(em);
+        em.persist(category);
+        em.flush();
+        book.setCategory(category);
         return book;
     }
 
