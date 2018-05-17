@@ -1,7 +1,7 @@
 package bookcenter.service.dto;
 
 
-import java.time.LocalDate;
+import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ public class PurchaseOrderDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private LocalDate date;
+    private Instant date;
 
     private String supplier;
 
@@ -34,11 +34,11 @@ public class PurchaseOrderDTO implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public Instant getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Instant date) {
         this.date = date;
     }
 

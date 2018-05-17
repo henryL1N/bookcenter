@@ -64,7 +64,7 @@ export class PurchaseOrderService {
     private convertItemFromServer(purchaseOrder: PurchaseOrder): PurchaseOrder {
         const copy: PurchaseOrder = Object.assign({}, purchaseOrder);
         copy.date = this.dateUtils
-            .convertLocalDateFromServer(purchaseOrder.date);
+            .convertDateTimeFromServer(purchaseOrder.date);
         return copy;
     }
 
@@ -73,8 +73,8 @@ export class PurchaseOrderService {
      */
     private convert(purchaseOrder: PurchaseOrder): PurchaseOrder {
         const copy: PurchaseOrder = Object.assign({}, purchaseOrder);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(purchaseOrder.date);
+
+        copy.date = this.dateUtils.toDate(purchaseOrder.date);
         return copy;
     }
 }

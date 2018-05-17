@@ -27,7 +27,7 @@
             <tbody>
             <tr *ngFor="let salesOrder of salesOrders ;trackBy: trackId">
                 <td><a [routerLink]="['../sales-order', salesOrder.id ]">{{salesOrder.id}}</a></td>
-                <td>{{salesOrder.date | date:'mediumDate'}}</td>
+                <td>{{salesOrder.date | date:'medium'}}</td>
                 <td>{{salesOrder.customer}}</td>
                 <td>{{salesOrder.totalAmount}}</td>
                 <td>

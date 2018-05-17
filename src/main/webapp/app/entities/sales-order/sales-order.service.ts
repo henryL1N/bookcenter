@@ -64,7 +64,7 @@ export class SalesOrderService {
     private convertItemFromServer(salesOrder: SalesOrder): SalesOrder {
         const copy: SalesOrder = Object.assign({}, salesOrder);
         copy.date = this.dateUtils
-            .convertLocalDateFromServer(salesOrder.date);
+            .convertDateTimeFromServer(salesOrder.date);
         return copy;
     }
 
@@ -73,8 +73,8 @@ export class SalesOrderService {
      */
     private convert(salesOrder: SalesOrder): SalesOrder {
         const copy: SalesOrder = Object.assign({}, salesOrder);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(salesOrder.date);
+
+        copy.date = this.dateUtils.toDate(salesOrder.date);
         return copy;
     }
 }

@@ -21,7 +21,6 @@ export class PurchaseOrderDialogComponent implements OnInit {
     isSaving: boolean;
 
     buyers: Employee[];
-    dateDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

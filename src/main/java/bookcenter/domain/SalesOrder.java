@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -28,7 +28,7 @@ public class SalesOrder implements Serializable {
 
     @NotNull
     @Column(name = "jhi_date", nullable = false)
-    private LocalDate date;
+    private Instant date;
 
     @Column(name = "customer")
     private String customer;
@@ -55,16 +55,16 @@ public class SalesOrder implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public Instant getDate() {
         return date;
     }
 
-    public SalesOrder date(LocalDate date) {
+    public SalesOrder date(Instant date) {
         this.date = date;
         return this;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Instant date) {
         this.date = date;
     }
 

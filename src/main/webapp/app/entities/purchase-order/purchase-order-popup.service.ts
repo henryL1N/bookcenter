@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { PurchaseOrder } from './purchase-order.model';
 import { PurchaseOrderService } from './purchase-order.service';
 
@@ -10,6 +11,7 @@ export class PurchaseOrderPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private purchaseOrderService: PurchaseOrderService
@@ -29,13 +31,8 @@ export class PurchaseOrderPopupService {
                 this.purchaseOrderService.find(id)
                     .subscribe((purchaseOrderResponse: HttpResponse<PurchaseOrder>) => {
                         const purchaseOrder: PurchaseOrder = purchaseOrderResponse.body;
-                        if (purchaseOrder.date) {
-                            purchaseOrder.date = {
-                                year: purchaseOrder.date.getFullYear(),
-                                month: purchaseOrder.date.getMonth() + 1,
-                                day: purchaseOrder.date.getDate()
-                            };
-                        }
+                        purchaseOrder.date = this.datePipe
+                            .transform(purchaseOrder.date, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.purchaseOrderModalRef(component, purchaseOrder);
                         resolve(this.ngbModalRef);
                     });
