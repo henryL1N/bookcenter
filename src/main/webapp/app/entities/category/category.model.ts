@@ -5,6 +5,7 @@ export class Category implements BaseEntity {
         public id?: number,
         public name?: string,
         public salesDepartmentId?: number,
+        public salesDepartmentName?: string,
     ) {
     }
 }

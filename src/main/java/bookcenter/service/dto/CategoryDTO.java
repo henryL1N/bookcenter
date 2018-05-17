@@ -3,8 +3,6 @@ package bookcenter.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -18,6 +16,8 @@ public class CategoryDTO implements Serializable {
     private String name;
 
     private Long salesDepartmentId;
+
+    private String salesDepartmentName;
 
     public Long getId() {
         return id;
@@ -41,6 +41,14 @@ public class CategoryDTO implements Serializable {
 
     public void setSalesDepartmentId(Long departmentId) {
         this.salesDepartmentId = departmentId;
+    }
+
+    public String getSalesDepartmentName() {
+        return salesDepartmentName;
+    }
+
+    public void setSalesDepartmentName(String salesDepartmentName) {
+        this.salesDepartmentName = salesDepartmentName;
     }
 
     @Override

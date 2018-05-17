@@ -18,7 +18,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="bookCenterApp.category.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="salesDepartmentId"><span jhiTranslate="bookCenterApp.category.salesDepartment">Sales Department</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="salesDepartmentName"><span jhiTranslate="bookCenterApp.category.salesDepartment">Sales Department</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -28,7 +28,7 @@
                 <td>{{category.name}}</td>
                 <td>
                     <div *ngIf="category.salesDepartmentId">
-                        <a [routerLink]="['../department', category.salesDepartmentId  ]" >{{category.salesDepartmentId}}</a>
+                        <a [routerLink]="['../department', category.salesDepartmentId  ]" >{{category.salesDepartmentName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
