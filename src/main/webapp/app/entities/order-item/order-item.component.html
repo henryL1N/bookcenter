@@ -21,7 +21,7 @@
             <th jhiSortBy="quantity"><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="purchaseOrderId"><span jhiTranslate="bookCenterApp.orderItem.purchaseOrder">Purchase Order</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="salesOrderId"><span jhiTranslate="bookCenterApp.orderItem.salesOrder">Sales Order</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="bookId"><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bookName"><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -42,7 +42,7 @@
                 </td>
                 <td>
                     <div *ngIf="orderItem.bookId">
-                        <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookId}}</a>
+                        <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

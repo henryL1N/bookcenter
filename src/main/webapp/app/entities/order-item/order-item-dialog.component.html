@@ -61,7 +61,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.orderItem.book" for="field_book">Book</label>
             <select class="form-control" id="field_book" name="book" [(ngModel)]="orderItem.bookId"  required>
                 <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
-                <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.id}}</option>
+                <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">

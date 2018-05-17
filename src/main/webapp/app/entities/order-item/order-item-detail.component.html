@@ -27,7 +27,7 @@
         <dt><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></dt>
         <dd>
             <div *ngIf="orderItem.bookId">
-                <a [routerLink]="['/book', orderItem.bookId]">{{orderItem.bookId}}</a>
+                <a [routerLink]="['/book', orderItem.bookId]">{{orderItem.bookName}}</a>
             </div>
         </dd>
     </dl>

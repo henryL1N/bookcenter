@@ -27,6 +27,8 @@ public class OrderItemDTO implements Serializable {
 
     private Long bookId;
 
+    private String bookName;
+
     public Long getId() {
         return id;
     }
@@ -73,6 +75,14 @@ public class OrderItemDTO implements Serializable {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
     @Override
