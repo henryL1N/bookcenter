@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface StockItemMapper extends EntityMapper<StockItemDTO, StockItem> {
 
     @Mapping(source = "book.id", target = "bookId")
+    @Mapping(source = "book.name", target = "bookName")
     @Mapping(source = "warehouse.id", target = "warehouseId")
+    @Mapping(source = "warehouse.name", target = "warehouseName")
     StockItemDTO toDto(StockItem stockItem);
 
     @Mapping(source = "bookId", target = "book")

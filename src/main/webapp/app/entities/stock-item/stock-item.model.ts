@@ -5,7 +5,9 @@ export class StockItem implements BaseEntity {
         public id?: number,
         public quantity?: number,
         public bookId?: number,
+        public bookName?: string,
         public warehouseId?: number,
+        public warehouseName?: string,
     ) {
     }
 }

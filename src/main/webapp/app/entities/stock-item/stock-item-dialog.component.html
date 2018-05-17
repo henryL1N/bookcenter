@@ -36,7 +36,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.stockItem.book" for="field_book">Book</label>
             <select class="form-control" id="field_book" name="book" [(ngModel)]="stockItem.bookId"  required>
                 <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
-                <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.id}}</option>
+                <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
@@ -49,7 +49,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.stockItem.warehouse" for="field_warehouse">Warehouse</label>
             <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="stockItem.warehouseId"  required>
                 <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
-                <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.id}}</option>
+                <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.warehouse?.dirty && editForm.controls.warehouse?.invalid)">

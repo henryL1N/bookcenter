@@ -11,13 +11,13 @@
         <dt><span jhiTranslate="bookCenterApp.stockItem.book">Book</span></dt>
         <dd>
             <div *ngIf="stockItem.bookId">
-                <a [routerLink]="['/book', stockItem.bookId]">{{stockItem.bookId}}</a>
+                <a [routerLink]="['/book', stockItem.bookId]">{{stockItem.bookName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.stockItem.warehouse">Warehouse</span></dt>
         <dd>
             <div *ngIf="stockItem.warehouseId">
-                <a [routerLink]="['/warehouse', stockItem.warehouseId]">{{stockItem.warehouseId}}</a>
+                <a [routerLink]="['/warehouse', stockItem.warehouseId]">{{stockItem.warehouseName}}</a>
             </div>
         </dd>
     </dl>

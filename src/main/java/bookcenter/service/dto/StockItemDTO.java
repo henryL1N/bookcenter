@@ -20,7 +20,11 @@ public class StockItemDTO implements Serializable {
 
     private Long bookId;
 
+    private String bookName;
+
     private Long warehouseId;
+
+    private String warehouseName;
 
     public Long getId() {
         return id;
@@ -46,12 +50,28 @@ public class StockItemDTO implements Serializable {
         this.bookId = bookId;
     }
 
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
     public Long getWarehouseId() {
         return warehouseId;
     }
 
     public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
     @Override
