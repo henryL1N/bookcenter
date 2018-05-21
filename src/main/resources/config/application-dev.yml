@@ -18,6 +18,10 @@ logging:
         ROOT: DEBUG
         bookcenter: DEBUG
         io.github.jhipster: DEBUG
+        log4jdbc: off
+        jdbc: off
+        jdbc.sqlonly: info
+        jdbc.resultsettable: info
 
 spring:
     profiles:
@@ -31,8 +35,9 @@ spring:
     jackson:
         serialization.indent_output: true
     datasource:
+        driverClassName: net.sf.log4jdbc.DriverSpy
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:sqlserver://localhost:1433;database=BookCenter
+        url: jdbc:log4jdbc:sqlserver://localhost:1433;database=BookCenter
         username: SA
         password: <YourStrong!Passw0rd>
         hikari:
@@ -50,6 +55,7 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
+            hibernate.show_sql: true
     mail:
         host: localhost
         port: 25
