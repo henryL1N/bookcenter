@@ -1,6 +1,6 @@
 import { BaseEntity } from './../../shared';
 
-export class PurchaseOrder implements BaseEntity {
+export class Purchase implements BaseEntity {
     constructor(
         public id?: number,
         public date?: any,

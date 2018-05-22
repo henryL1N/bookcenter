@@ -5,39 +5,39 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
+import { Purchase } from './purchase.model';
 import { createRequestOption } from '../../shared';
 
-export type EntityResponseType = HttpResponse<PurchaseOrder>;
+export type EntityResponseType = HttpResponse<Purchase>;
 
 @Injectable()
-export class PurchaseOrderService {
+export class PurchaseService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/purchase-orders';
+    private resourceUrl =  SERVER_API_URL + 'api/purchases';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
-    create(purchaseOrder: PurchaseOrder): Observable<EntityResponseType> {
-        const copy = this.convert(purchaseOrder);
-        return this.http.post<PurchaseOrder>(this.resourceUrl, copy, { observe: 'response' })
+    create(purchase: Purchase): Observable<EntityResponseType> {
+        const copy = this.convert(purchase);
+        return this.http.post<Purchase>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(purchaseOrder: PurchaseOrder): Observable<EntityResponseType> {
-        const copy = this.convert(purchaseOrder);
-        return this.http.put<PurchaseOrder>(this.resourceUrl, copy, { observe: 'response' })
+    update(purchase: Purchase): Observable<EntityResponseType> {
+        const copy = this.convert(purchase);
+        return this.http.put<Purchase>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<PurchaseOrder>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Purchase>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<HttpResponse<PurchaseOrder[]>> {
+    query(req?: any): Observable<HttpResponse<Purchase[]>> {
         const options = createRequestOption(req);
-        return this.http.get<PurchaseOrder[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .map((res: HttpResponse<PurchaseOrder[]>) => this.convertArrayResponse(res));
+        return this.http.get<Purchase[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Purchase[]>) => this.convertArrayResponse(res));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
@@ -45,13 +45,13 @@ export class PurchaseOrderService {
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
-        const body: PurchaseOrder = this.convertItemFromServer(res.body);
+        const body: Purchase = this.convertItemFromServer(res.body);
         return res.clone({body});
     }
 
-    private convertArrayResponse(res: HttpResponse<PurchaseOrder[]>): HttpResponse<PurchaseOrder[]> {
-        const jsonResponse: PurchaseOrder[] = res.body;
-        const body: PurchaseOrder[] = [];
+    private convertArrayResponse(res: HttpResponse<Purchase[]>): HttpResponse<Purchase[]> {
+        const jsonResponse: Purchase[] = res.body;
+        const body: Purchase[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
@@ -59,22 +59,22 @@ export class PurchaseOrderService {
     }
 
     /**
-     * Convert a returned JSON object to PurchaseOrder.
+     * Convert a returned JSON object to Purchase.
      */
-    private convertItemFromServer(purchaseOrder: PurchaseOrder): PurchaseOrder {
-        const copy: PurchaseOrder = Object.assign({}, purchaseOrder);
+    private convertItemFromServer(purchase: Purchase): Purchase {
+        const copy: Purchase = Object.assign({}, purchase);
         copy.date = this.dateUtils
-            .convertDateTimeFromServer(purchaseOrder.date);
+            .convertDateTimeFromServer(purchase.date);
         return copy;
     }
 
     /**
-     * Convert a PurchaseOrder to a JSON which can be sent to the server.
+     * Convert a Purchase to a JSON which can be sent to the server.
      */
-    private convert(purchaseOrder: PurchaseOrder): PurchaseOrder {
-        const copy: PurchaseOrder = Object.assign({}, purchaseOrder);
+    private convert(purchase: Purchase): Purchase {
+        const copy: Purchase = Object.assign({}, purchase);
 
-        copy.date = this.dateUtils.toDate(purchaseOrder.date);
+        copy.date = this.dateUtils.toDate(purchase.date);
         return copy;
     }
 }

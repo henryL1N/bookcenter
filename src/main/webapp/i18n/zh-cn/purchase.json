@@ -21,7 +21,7 @@
             "totalAmount": "总金额",
             "buyer": "采购员",
             "orderItem": "订单项目",
-            "orderItems": "订单项目"
+            "warehouse": "仓库"
         }
     }
 }

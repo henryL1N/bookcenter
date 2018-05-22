@@ -4,22 +4,22 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderService } from './purchase.service';
+import { Purchase } from './purchase.model';
+import { PurchaseService } from './purchase.service';
 
 @Component({
-    selector: 'jhi-purchase-order-detail',
+    selector: 'jhi-purchase-detail',
     templateUrl: './purchase-detail.component.html'
 })
-export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
+export class PurchaseDetailComponent implements OnInit, OnDestroy {
 
-    purchaseOrder: PurchaseOrder;
+    purchase: Purchase;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: JhiEventManager,
-        private purchaseOrderService: PurchaseOrderService,
+        private purchaseService: PurchaseService,
         private route: ActivatedRoute
     ) {
     }
@@ -28,13 +28,13 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
-        this.registerChangeInPurchaseOrders();
+        this.registerChangeInPurchases();
     }
 
     load(id) {
-        this.purchaseOrderService.find(id)
-            .subscribe((purchaseOrderResponse: HttpResponse<PurchaseOrder>) => {
-                this.purchaseOrder = purchaseOrderResponse.body;
+        this.purchaseService.find(id)
+            .subscribe((purchaseResponse: HttpResponse<Purchase>) => {
+                this.purchase = purchaseResponse.body;
             });
     }
     previousState() {
@@ -46,10 +46,10 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    registerChangeInPurchaseOrders() {
+    registerChangeInPurchases() {
         this.eventSubscriber = this.eventManager.subscribe(
-            'purchaseOrderListModification',
-            (response) => this.load(this.purchaseOrder.id)
+            'purchaseListModification',
+            (response) => this.load(this.purchase.id)
         );
     }
 }

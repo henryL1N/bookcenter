@@ -4,18 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderService } from './purchase.service';
+import { Purchase } from './purchase.model';
+import { PurchaseService } from './purchase.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
-    selector: 'jhi-purchase-order',
+    selector: 'jhi-purchase',
     templateUrl: './purchase.component.html'
 })
-export class PurchaseOrderComponent implements OnInit, OnDestroy {
+export class PurchaseComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
-    purchaseOrders: PurchaseOrder[];
+    purchase: Purchase[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -30,7 +30,7 @@ currentAccount: any;
     reverse: any;
 
     constructor(
-        private purchaseOrderService: PurchaseOrderService,
+        private purchaseService: PurchaseService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -48,11 +48,11 @@ currentAccount: any;
     }
 
     loadAll() {
-        this.purchaseOrderService.query({
+        this.purchaseService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()}).subscribe(
-                (res: HttpResponse<PurchaseOrder[]>) => this.onSuccess(res.body, res.headers),
+                (res: HttpResponse<Purchase[]>) => this.onSuccess(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
@@ -63,7 +63,7 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/purchase-order'], {queryParams:
+        this.router.navigate(['/purchase'], {queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -75,7 +75,7 @@ currentAccount: any;
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/purchase-order', {
+        this.router.navigate(['/purchase', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
@@ -86,18 +86,18 @@ currentAccount: any;
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInPurchaseOrders();
+        this.registerChangeInPurchases();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: PurchaseOrder) {
+    trackId(index: number, item: Purchase) {
         return item.id;
     }
-    registerChangeInPurchaseOrders() {
-        this.eventSubscriber = this.eventManager.subscribe('purchaseOrderListModification', (response) => this.loadAll());
+    registerChangeInPurchases() {
+        this.eventSubscriber = this.eventManager.subscribe('purchaseListModification', (response) => this.loadAll());
     }
 
     sort() {
@@ -113,7 +113,7 @@ currentAccount: any;
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
-        this.purchaseOrders = data;
+        this.purchase = data;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);

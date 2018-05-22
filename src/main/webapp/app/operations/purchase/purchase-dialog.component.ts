@@ -6,19 +6,19 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderPopupService } from './purchase-popup.service';
-import { PurchaseOrderService } from './purchase.service';
-import { Employee, EmployeeService } from '../employee';
-import { Warehouse, WarehouseService } from '../warehouse';
+import { Purchase } from './purchase.model';
+import { PurchasePopupService } from './purchase-popup.service';
+import { PurchaseService } from './purchase.service';
+import { Employee, EmployeeService } from '../../entities/employee';
+import { Warehouse, WarehouseService } from '../../entities/warehouse';
 
 @Component({
-    selector: 'jhi-purchase-order-dialog',
+    selector: 'jhi-purchase-dialog',
     templateUrl: './purchase-dialog.component.html'
 })
-export class PurchaseOrderDialogComponent implements OnInit {
+export class PurchaseDialogComponent implements OnInit {
 
-    purchaseOrder: PurchaseOrder;
+    purchase: Purchase;
     isSaving: boolean;
 
     buyers: Employee[];
@@ -28,7 +28,7 @@ export class PurchaseOrderDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
-        private purchaseOrderService: PurchaseOrderService,
+        private purchaseService: PurchaseService,
         private employeeService: EmployeeService,
         private warehouseService: WarehouseService,
         private eventManager: JhiEventManager
@@ -38,13 +38,13 @@ export class PurchaseOrderDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.employeeService
-            .query({filter: 'purchaseorder-is-null'})
+            .query({filter: 'purchase-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.purchaseOrder.buyerId) {
+                if (!this.purchase.buyerId) {
                     this.buyers = res.body;
                 } else {
                     this.employeeService
-                        .find(this.purchaseOrder.buyerId)
+                        .find(this.purchase.buyerId)
                         .subscribe((subRes: HttpResponse<Employee>) => {
                             this.buyers = [subRes.body].concat(res.body);
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
@@ -60,22 +60,22 @@ export class PurchaseOrderDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.purchaseOrder.id !== undefined) {
+        if (this.purchase.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.purchaseOrderService.update(this.purchaseOrder));
+                this.purchaseService.update(this.purchase));
         } else {
             this.subscribeToSaveResponse(
-                this.purchaseOrderService.create(this.purchaseOrder));
+                this.purchaseService.create(this.purchase));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<PurchaseOrder>>) {
-        result.subscribe((res: HttpResponse<PurchaseOrder>) =>
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Purchase>>) {
+        result.subscribe((res: HttpResponse<Purchase>) =>
             this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: PurchaseOrder) {
-        this.eventManager.broadcast({ name: 'purchaseOrderListModification', content: 'OK'});
+    private onSaveSuccess(result: Purchase) {
+        this.eventManager.broadcast({ name: 'purchaseListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -98,26 +98,26 @@ export class PurchaseOrderDialogComponent implements OnInit {
 }
 
 @Component({
-    selector: 'jhi-purchase-order-popup',
+    selector: 'jhi-purchase-popup',
     template: ''
 })
-export class PurchaseOrderPopupComponent implements OnInit, OnDestroy {
+export class PurchasePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private purchaseOrderPopupService: PurchaseOrderPopupService
+        private purchasePopupService: PurchasePopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.purchaseOrderPopupService
-                    .open(PurchaseOrderDialogComponent as Component, params['id']);
+                this.purchasePopupService
+                    .open(PurchaseDialogComponent as Component, params['id']);
             } else {
-                this.purchaseOrderPopupService
-                    .open(PurchaseOrderDialogComponent as Component);
+                this.purchasePopupService
+                    .open(PurchaseDialogComponent as Component);
             }
         });
     }

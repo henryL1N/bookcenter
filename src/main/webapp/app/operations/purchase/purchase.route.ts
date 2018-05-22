@@ -3,13 +3,13 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
 import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { UserRouteAccessService } from '../../shared';
-import { PurchaseOrderComponent } from './purchase.component';
-import { PurchaseOrderDetailComponent } from './purchase-detail.component';
-import { PurchaseOrderPopupComponent } from './purchase-dialog.component';
-import { PurchaseOrderDeletePopupComponent } from './purchase-delete-dialog.component';
+import { PurchaseComponent } from './purchase.component';
+import { PurchaseDetailComponent } from './purchase-detail.component';
+import { PurchasePopupComponent } from './purchase-dialog.component';
+import { PurchaseDeletePopupComponent } from './purchase-delete-dialog.component';
 
 @Injectable()
-export class PurchaseOrderResolvePagingParams implements Resolve<any> {
+export class PurchaseResolvePagingParams implements Resolve<any> {
 
     constructor(private paginationUtil: JhiPaginationUtil) {}
 
@@ -24,56 +24,56 @@ export class PurchaseOrderResolvePagingParams implements Resolve<any> {
     }
 }
 
-export const purchaseOrderRoute: Routes = [
+export const purchaseRoute: Routes = [
     {
-        path: 'purchase-order',
-        component: PurchaseOrderComponent,
+        path: 'purchase',
+        component: PurchaseComponent,
         resolve: {
-            'pagingParams': PurchaseOrderResolvePagingParams
+            'pagingParams': PurchaseResolvePagingParams
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
+            pageTitle: 'bookCenterApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService]
     }, {
-        path: 'purchase-order/:id',
-        component: PurchaseOrderDetailComponent,
+        path: 'purchase/:id',
+        component: PurchaseDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
+            pageTitle: 'bookCenterApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
 ];
 
-export const purchaseOrderPopupRoute: Routes = [
+export const purchasePopupRoute: Routes = [
     {
-        path: 'purchase-order-new',
-        component: PurchaseOrderPopupComponent,
+        path: 'purchase-new',
+        component: PurchasePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
+            pageTitle: 'bookCenterApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
-        path: 'purchase-order/:id/edit',
-        component: PurchaseOrderPopupComponent,
+        path: 'purchase/:id/edit',
+        component: PurchasePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
+            pageTitle: 'bookCenterApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
-        path: 'purchase-order/:id/delete',
-        component: PurchaseOrderDeletePopupComponent,
+        path: 'purchase/:id/delete',
+        component: PurchaseDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
+            pageTitle: 'bookCenterApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

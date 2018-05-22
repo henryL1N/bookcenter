@@ -4,20 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { PurchaseOrder } from './purchase.model';
-import { PurchaseOrderPopupService } from './purchase-popup.service';
-import { PurchaseOrderService } from './purchase.service';
+import { Purchase } from './purchase.model';
+import { PurchasePopupService } from './purchase-popup.service';
+import { PurchaseService } from './purchase.service';
 
 @Component({
-    selector: 'jhi-purchase-order-delete-dialog',
+    selector: 'jhi-purchase-delete-dialog',
     templateUrl: './purchase-delete-dialog.component.html'
 })
-export class PurchaseOrderDeleteDialogComponent {
+export class PurchaseDeleteDialogComponent {
 
-    purchaseOrder: PurchaseOrder;
+    purchase: Purchase;
 
     constructor(
-        private purchaseOrderService: PurchaseOrderService,
+        private purchaseService: PurchaseService,
         public activeModal: NgbActiveModal,
         private eventManager: JhiEventManager
     ) {
@@ -28,10 +28,10 @@ export class PurchaseOrderDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
-        this.purchaseOrderService.delete(id).subscribe((response) => {
+        this.purchaseService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
-                name: 'purchaseOrderListModification',
-                content: 'Deleted an purchaseOrder'
+                name: 'purchaseListModification',
+                content: 'Deleted an purchase'
             });
             this.activeModal.dismiss(true);
         });
@@ -39,22 +39,22 @@ export class PurchaseOrderDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-purchase-order-delete-popup',
+    selector: 'jhi-purchase-delete-popup',
     template: ''
 })
-export class PurchaseOrderDeletePopupComponent implements OnInit, OnDestroy {
+export class PurchaseDeletePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private purchaseOrderPopupService: PurchaseOrderPopupService
+        private purchasePopupService: PurchasePopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.purchaseOrderPopupService
-                .open(PurchaseOrderDeleteDialogComponent as Component, params['id']);
+            this.purchasePopupService
+                .open(PurchaseDeleteDialogComponent as Component, params['id']);
         });
     }
 

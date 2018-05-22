@@ -1,31 +1,31 @@
 
-<div *ngIf="purchaseOrder">
-    <h2><span jhiTranslate="bookCenterApp.purchaseOrder.detail.title">Purchase Order</span> {{purchaseOrder.id}}</h2>
+<div *ngIf="purchase">
+    <h2><span jhiTranslate="bookCenterApp.purchase.detail.title">Purchase</span> {{purchase.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.purchase.date">Date</span></dt>
         <dd>
-            <span>{{purchaseOrder.date | date:'medium'}}</span>
+            <span>{{purchase.date | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.purchase.supplier">Supplier</span></dt>
         <dd>
-            <span>{{purchaseOrder.supplier}}</span>
+            <span>{{purchase.supplier}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.totalAmount">Total Amount</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.purchase.totalAmount">Total Amount</span></dt>
         <dd>
-            <span>{{purchaseOrder.totalAmount}}</span>
+            <span>{{purchase.totalAmount}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.purchase.buyer">Buyer</span></dt>
         <dd>
-            <div *ngIf="purchaseOrder.buyerId">
-                <a [routerLink]="['/employee', purchaseOrder.buyerId]">{{purchaseOrder.buyerName}}</a>
+            <div *ngIf="purchase.buyerId">
+                <a [routerLink]="['/employee', purchase.buyerId]">{{purchase.buyerName}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.warehouse">Warehouse</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.purchase.warehouse">Warehouse</span></dt>
         <dd>
-            <div *ngIf="purchaseOrder.warehouseId">
-                <a [routerLink]="['/warehouse', purchaseOrder.warehouseId]">{{purchaseOrder.warehouseName}}</a>
+            <div *ngIf="purchase.warehouseId">
+                <a [routerLink]="['/warehouse', purchase.warehouseId]">{{purchase.warehouseName}}</a>
             </div>
         </dd>
     </dl>
@@ -37,7 +37,7 @@
     </button>
 
     <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/edit'} }]"
+            [routerLink]="['/', { outlets: { popup: 'purchase/'+ purchase.id + '/edit'} }]"
             replaceUrl="true"
             queryParamsHandling="merge"
             class="btn btn-primary">
