@@ -1,58 +1,79 @@
-import { Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { UserRouteAccessService } from '../../shared';
-import { PurchaseComponent } from './purchase.component';
-import { PurchaseDetailComponent } from './purchase-detail.component';
-import { PurchasePopupComponent } from './purchase-dialog.component';
-import { PurchaseDeletePopupComponent } from './purchase-delete-dialog.component';
+import { PurchaseOrderComponent } from './purchase.component';
+import { PurchaseOrderDetailComponent } from './purchase-detail.component';
+import { PurchaseOrderPopupComponent } from './purchase-dialog.component';
+import { PurchaseOrderDeletePopupComponent } from './purchase-delete-dialog.component';
 
-export const purchaseRoute: Routes = [
+@Injectable()
+export class PurchaseOrderResolvePagingParams implements Resolve<any> {
+
+    constructor(private paginationUtil: JhiPaginationUtil) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        return {
+            page: this.paginationUtil.parsePage(page),
+            predicate: this.paginationUtil.parsePredicate(sort),
+            ascending: this.paginationUtil.parseAscending(sort)
+      };
+    }
+}
+
+export const purchaseOrderRoute: Routes = [
     {
-        path: 'purchase',
-        component: PurchaseComponent,
+        path: 'purchase-order',
+        component: PurchaseOrderComponent,
+        resolve: {
+            'pagingParams': PurchaseOrderResolvePagingParams
+        },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchase.home.title'
+            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
         },
         canActivate: [UserRouteAccessService]
     }, {
-        path: 'purchase/:id',
-        component: PurchaseDetailComponent,
+        path: 'purchase-order/:id',
+        component: PurchaseOrderDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchase.home.title'
+            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
 ];
 
-export const purchasePopupRoute: Routes = [
+export const purchaseOrderPopupRoute: Routes = [
     {
-        path: 'purchase-new',
-        component: PurchasePopupComponent,
+        path: 'purchase-order-new',
+        component: PurchaseOrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchase.home.title'
+            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
-        path: 'purchase/:id/edit',
-        component: PurchasePopupComponent,
+        path: 'purchase-order/:id/edit',
+        component: PurchaseOrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchase.home.title'
+            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
-        path: 'purchase/:id/delete',
-        component: PurchaseDeletePopupComponent,
+        path: 'purchase-order/:id/delete',
+        component: PurchaseOrderDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'bookCenterApp.purchase.home.title'
+            pageTitle: 'bookCenterApp.purchaseOrder.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

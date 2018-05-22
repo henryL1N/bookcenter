@@ -5,21 +5,20 @@ import { BookCenterSharedModule } from '../../shared';
 import {
     PurchaseOrderService,
     PurchaseOrderPopupService,
-} from '../../entities/purchase-order';
-import {
-    PurchaseComponent,
-    PurchaseDetailComponent,
-    PurchaseDialogComponent,
-    PurchasePopupComponent,
-    PurchaseDeletePopupComponent,
-    PurchaseDeleteDialogComponent,
-    purchaseRoute,
-    purchasePopupRoute,
+    PurchaseOrderComponent,
+    PurchaseOrderDetailComponent,
+    PurchaseOrderDialogComponent,
+    PurchaseOrderPopupComponent,
+    PurchaseOrderDeletePopupComponent,
+    PurchaseOrderDeleteDialogComponent,
+    purchaseOrderRoute,
+    purchaseOrderPopupRoute,
+    PurchaseOrderResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
-    ...purchaseRoute,
-    ...purchasePopupRoute,
+    ...purchaseOrderRoute,
+    ...purchaseOrderPopupRoute,
 ];
 
 @NgModule({
@@ -28,24 +27,25 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
-        PurchaseComponent,
-        PurchaseDetailComponent,
-        PurchaseDialogComponent,
-        PurchaseDeleteDialogComponent,
-        PurchasePopupComponent,
-        PurchaseDeletePopupComponent,
+        PurchaseOrderComponent,
+        PurchaseOrderDetailComponent,
+        PurchaseOrderDialogComponent,
+        PurchaseOrderDeleteDialogComponent,
+        PurchaseOrderPopupComponent,
+        PurchaseOrderDeletePopupComponent,
     ],
     entryComponents: [
-        PurchaseComponent,
-        PurchaseDialogComponent,
-        PurchasePopupComponent,
-        PurchaseDeleteDialogComponent,
-        PurchaseDeletePopupComponent,
+        PurchaseOrderComponent,
+        PurchaseOrderDialogComponent,
+        PurchaseOrderPopupComponent,
+        PurchaseOrderDeleteDialogComponent,
+        PurchaseOrderDeletePopupComponent,
     ],
     providers: [
         PurchaseOrderService,
         PurchaseOrderPopupService,
+        PurchaseOrderResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BookCenterPurchaseModule {}
+export class BookCenterPurchaseOrderModule {}

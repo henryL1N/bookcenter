@@ -1,9 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="bookCenterApp.purchase.home.title">Purchase Orders</span>
-        <button class="btn btn-primary float-right jh-create-entity create-purchase" [routerLink]="['/', { outlets: { popup: ['purchase-new'] } }]">
+        <span jhiTranslate="bookCenterApp.purchaseOrder.home.title">Purchase Orders</span>
+        <button class="btn btn-primary float-right jh-create-entity create-purchase-order" [routerLink]="['/', { outlets: { popup: ['purchase-order-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="bookCenterApp.purchase.home.createLabel">
+            <span  jhiTranslate="bookCenterApp.purchaseOrder.home.createLabel">
             Create new Purchase Order
             </span>
         </button>
@@ -15,36 +15,42 @@
     <div class="table-responsive" *ngIf="purchaseOrders">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.purchase.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.purchase.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="totalAmount"><span jhiTranslate="bookCenterApp.purchase.totalAmount">Total Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="buyer.id"><span jhiTranslate="bookCenterApp.purchase.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.purchaseOrder.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.purchaseOrder.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalAmount"><span jhiTranslate="bookCenterApp.purchaseOrder.totalAmount">Total Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="buyerName"><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="warehouseName"><span jhiTranslate="bookCenterApp.purchaseOrder.warehouse">Warehouse</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody>
             <tr *ngFor="let purchaseOrder of purchaseOrders ;trackBy: trackId">
-                <td><a [routerLink]="['../purchase', purchaseOrder.id ]">{{purchaseOrder.id}}</a></td>
-                <td>{{purchaseOrder.date | date:'mediumDate'}}</td>
+                <td><a [routerLink]="['../purchase-order', purchaseOrder.id ]">{{purchaseOrder.id}}</a></td>
+                <td>{{purchaseOrder.date | date:'medium'}}</td>
                 <td>{{purchaseOrder.supplier}}</td>
                 <td>{{purchaseOrder.totalAmount}}</td>
                 <td>
-                    <div *ngIf="purchaseOrder.buyer">
-                        <a [routerLink]="['../employee', purchaseOrder.buyer?.id ]" >{{purchaseOrder.buyer?.name}}({{purchaseOrder.buyer?.id}})</a>
+                    <div *ngIf="purchaseOrder.buyerId">
+                        <a [routerLink]="['../employee', purchaseOrder.buyerId  ]" >{{purchaseOrder.buyerName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="purchaseOrder.warehouseId">
+                        <a [routerLink]="['../warehouse', purchaseOrder.warehouseId  ]" >{{purchaseOrder.warehouseName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../purchase', purchaseOrder.id ]"
+                                [routerLink]="['../purchase-order', purchaseOrder.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'purchase/'+ purchaseOrder.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/edit'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
@@ -52,7 +58,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'purchase/'+ purchaseOrder.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'purchase-order/'+ purchaseOrder.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
@@ -64,5 +70,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="purchaseOrders && purchaseOrders.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

@@ -4,14 +4,14 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { PurchaseOrder } from '../../entities/purchase-order/purchase-order.model';
-import { PurchaseOrderService } from '../../entities/purchase-order/purchase-order.service';
+import { PurchaseOrder } from './purchase.model';
+import { PurchaseOrderService } from './purchase.service';
 
 @Component({
     selector: 'jhi-purchase-order-detail',
     templateUrl: './purchase-detail.component.html'
 })
-export class PurchaseDetailComponent implements OnInit, OnDestroy {
+export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
 
     purchaseOrder: PurchaseOrder;
     private subscription: Subscription;

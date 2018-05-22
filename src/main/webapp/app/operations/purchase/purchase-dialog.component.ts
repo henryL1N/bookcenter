@@ -6,28 +6,31 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { PurchaseOrder } from '../../entities/purchase-order/purchase-order.model';
-import { PurchaseOrderPopupService } from '../../entities/purchase-order/purchase-order-popup.service';
-import { PurchaseOrderService } from '../../entities/purchase-order/purchase-order.service';
-import { Employee, EmployeeService } from '../../entities/employee';
+import { PurchaseOrder } from './purchase.model';
+import { PurchaseOrderPopupService } from './purchase-popup.service';
+import { PurchaseOrderService } from './purchase.service';
+import { Employee, EmployeeService } from '../employee';
+import { Warehouse, WarehouseService } from '../warehouse';
 
 @Component({
     selector: 'jhi-purchase-order-dialog',
     templateUrl: './purchase-dialog.component.html'
 })
-export class PurchaseDialogComponent implements OnInit {
+export class PurchaseOrderDialogComponent implements OnInit {
 
     purchaseOrder: PurchaseOrder;
     isSaving: boolean;
 
     buyers: Employee[];
-    dateDp: any;
+
+    warehouses: Warehouse[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private purchaseOrderService: PurchaseOrderService,
         private employeeService: EmployeeService,
+        private warehouseService: WarehouseService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -37,7 +40,7 @@ export class PurchaseDialogComponent implements OnInit {
         this.employeeService
             .query({filter: 'purchaseorder-is-null'})
             .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.purchaseOrder.buyerId || !this.purchaseOrder.buyerId) {
+                if (!this.purchaseOrder.buyerId) {
                     this.buyers = res.body;
                 } else {
                     this.employeeService
@@ -47,6 +50,8 @@ export class PurchaseDialogComponent implements OnInit {
                         }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
                 }
             }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.warehouseService.query()
+            .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -86,13 +91,17 @@ export class PurchaseDialogComponent implements OnInit {
     trackEmployeeById(index: number, item: Employee) {
         return item.id;
     }
+
+    trackWarehouseById(index: number, item: Warehouse) {
+        return item.id;
+    }
 }
 
 @Component({
     selector: 'jhi-purchase-order-popup',
     template: ''
 })
-export class PurchasePopupComponent implements OnInit, OnDestroy {
+export class PurchaseOrderPopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
@@ -105,10 +114,10 @@ export class PurchasePopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.purchaseOrderPopupService
-                    .open(PurchaseDialogComponent as Component, params['id']);
+                    .open(PurchaseOrderDialogComponent as Component, params['id']);
             } else {
                 this.purchaseOrderPopupService
-                    .open(PurchaseDialogComponent as Component);
+                    .open(PurchaseOrderDialogComponent as Component);
             }
         });
     }
