@@ -9,8 +9,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { PurchaseOrder } from './purchase-order.model';
 import { PurchaseOrderPopupService } from './purchase-order-popup.service';
 import { PurchaseOrderService } from './purchase-order.service';
-import { Employee, EmployeeService } from '../employee';
 import { Warehouse, WarehouseService } from '../warehouse';
+import { Employee, EmployeeService } from '../employee';
 
 @Component({
     selector: 'jhi-purchase-order-dialog',
@@ -21,37 +21,26 @@ export class PurchaseOrderDialogComponent implements OnInit {
     purchaseOrder: PurchaseOrder;
     isSaving: boolean;
 
-    buyers: Employee[];
-
     warehouses: Warehouse[];
+
+    employees: Employee[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private purchaseOrderService: PurchaseOrderService,
-        private employeeService: EmployeeService,
         private warehouseService: WarehouseService,
+        private employeeService: EmployeeService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.employeeService
-            .query({filter: 'purchaseorder-is-null'})
-            .subscribe((res: HttpResponse<Employee[]>) => {
-                if (!this.purchaseOrder.buyerId) {
-                    this.buyers = res.body;
-                } else {
-                    this.employeeService
-                        .find(this.purchaseOrder.buyerId)
-                        .subscribe((subRes: HttpResponse<Employee>) => {
-                            this.buyers = [subRes.body].concat(res.body);
-                        }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
-                }
-            }, (res: HttpErrorResponse) => this.onError(res.message));
         this.warehouseService.query()
             .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.employeeService.query()
+            .subscribe((res: HttpResponse<Employee[]>) => { this.employees = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -88,11 +77,11 @@ export class PurchaseOrderDialogComponent implements OnInit {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    trackEmployeeById(index: number, item: Employee) {
+    trackWarehouseById(index: number, item: Warehouse) {
         return item.id;
     }
 
-    trackWarehouseById(index: number, item: Warehouse) {
+    trackEmployeeById(index: number, item: Employee) {
         return item.id;
     }
 }

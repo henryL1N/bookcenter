@@ -16,16 +16,16 @@
         <dd>
             <span>{{purchaseOrder.totalAmount}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span></dt>
-        <dd>
-            <div *ngIf="purchaseOrder.buyerId">
-                <a [routerLink]="['/employee', purchaseOrder.buyerId]">{{purchaseOrder.buyerName}}</a>
-            </div>
-        </dd>
         <dt><span jhiTranslate="bookCenterApp.purchaseOrder.warehouse">Warehouse</span></dt>
         <dd>
             <div *ngIf="purchaseOrder.warehouseId">
                 <a [routerLink]="['/warehouse', purchaseOrder.warehouseId]">{{purchaseOrder.warehouseName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.purchaseOrder.buyer">Buyer</span></dt>
+        <dd>
+            <div *ngIf="purchaseOrder.buyerId">
+                <a [routerLink]="['/employee', purchaseOrder.buyerId]">{{purchaseOrder.buyerName}}</a>
             </div>
         </dd>
     </dl>

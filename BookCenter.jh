@@ -68,10 +68,7 @@ relationship OneToOne {
 	BookCenter{generalManager required} to Employee,
 	Department{manager required} to Employee,
 	Employee{user} to User{employee},
-	Warehouse{keeper} to Employee,
-	PurchaseOrder{buyer required} to Employee,
-	SalesOrder{seller required} to Employee
-}
+	Warehouse{keeper} to Employee}
 
 relationship OneToMany {
 	BookCenter{department} to Department,
@@ -89,7 +86,9 @@ relationship ManyToOne {
 	PurchaseOrder{warehouse required} to Warehouse,
 	SalesOrder{warehouse required} to Warehouse,
 	Book{publisher required} to Publisher,
-	Book{category required} to Category
+	Book{category required} to Category,
+    PurchaseOrder{buyer required} to Employee,
+    SalesOrder{seller required} to Employee
 }
 
 paginate all with pagination

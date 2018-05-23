@@ -37,11 +37,6 @@ public class SalesOrder implements Serializable {
     @Column(name = "total_amount", precision=10, scale=2, nullable = false)
     private BigDecimal totalAmount;
 
-    @OneToOne(optional = false)
-    @NotNull
-    @JoinColumn(unique = true)
-    private Employee seller;
-
     @OneToMany(mappedBy = "salesOrder")
     @JsonIgnore
     private Set<OrderItem> orderItems = new HashSet<>();
@@ -49,6 +44,10 @@ public class SalesOrder implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private Warehouse warehouse;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Employee seller;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,19 +97,6 @@ public class SalesOrder implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Employee getSeller() {
-        return seller;
-    }
-
-    public SalesOrder seller(Employee employee) {
-        this.seller = employee;
-        return this;
-    }
-
-    public void setSeller(Employee employee) {
-        this.seller = employee;
-    }
-
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -147,6 +133,19 @@ public class SalesOrder implements Serializable {
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    public Employee getSeller() {
+        return seller;
+    }
+
+    public SalesOrder seller(Employee employee) {
+        this.seller = employee;
+        return this;
+    }
+
+    public void setSeller(Employee employee) {
+        this.seller = employee;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

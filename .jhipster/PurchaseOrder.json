@@ -2,15 +2,6 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "relationshipValidateRules": "required",
-            "relationshipName": "buyer",
-            "otherEntityName": "employee",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "purchaseOrder"
-        },
-        {
             "relationshipType": "one-to-many",
             "relationshipName": "orderItem",
             "otherEntityName": "orderItem",
@@ -21,6 +12,13 @@
             "relationshipValidateRules": "required",
             "relationshipName": "warehouse",
             "otherEntityName": "warehouse",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "buyer",
+            "otherEntityName": "employee",
             "otherEntityField": "id"
         }
     ],

@@ -24,13 +24,13 @@ public class SalesOrderDTO implements Serializable {
     @NotNull
     private BigDecimal totalAmount;
 
-    private Long sellerId;
-
-    private String sellerName;
-
     private Long warehouseId;
 
     private String warehouseName;
+
+    private Long sellerId;
+
+    private String sellerName;
 
     public Long getId() {
         return id;
@@ -64,22 +64,6 @@ public class SalesOrderDTO implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Long getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(Long employeeId) {
-        this.sellerId = employeeId;
-    }
-
-    public String getSellerName() {
-        return sellerName;
-    }
-
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
-    }
-
     public Long getWarehouseId() {
         return warehouseId;
     }
@@ -94,6 +78,22 @@ public class SalesOrderDTO implements Serializable {
 
     public void setWarehouseName(String warehouseName) {
         this.warehouseName = warehouseName;
+    }
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long employeeId) {
+        this.sellerId = employeeId;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     @Override

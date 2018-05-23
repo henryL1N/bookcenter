@@ -9,8 +9,8 @@ import { BookCenterTestModule } from '../../../test.module';
 import { PurchaseOrderDialogComponent } from '../../../../../../main/webapp/app/entities/purchase-order/purchase-order-dialog.component';
 import { PurchaseOrderService } from '../../../../../../main/webapp/app/entities/purchase-order/purchase-order.service';
 import { PurchaseOrder } from '../../../../../../main/webapp/app/entities/purchase-order/purchase-order.model';
-import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee';
 import { WarehouseService } from '../../../../../../main/webapp/app/entities/warehouse';
+import { EmployeeService } from '../../../../../../main/webapp/app/entities/employee';
 
 describe('Component Tests', () => {
 
@@ -26,8 +26,8 @@ describe('Component Tests', () => {
                 imports: [BookCenterTestModule],
                 declarations: [PurchaseOrderDialogComponent],
                 providers: [
-                    EmployeeService,
                     WarehouseService,
+                    EmployeeService,
                     PurchaseOrderService
                 ]
             })

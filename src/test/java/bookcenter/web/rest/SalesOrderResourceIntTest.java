@@ -3,8 +3,8 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.SalesOrder;
-import bookcenter.domain.Employee;
 import bookcenter.domain.Warehouse;
+import bookcenter.domain.Employee;
 import bookcenter.repository.SalesOrderRepository;
 import bookcenter.service.SalesOrderService;
 import bookcenter.service.dto.SalesOrderDTO;
@@ -103,15 +103,15 @@ public class SalesOrderResourceIntTest {
             .customer(DEFAULT_CUSTOMER)
             .totalAmount(DEFAULT_TOTAL_AMOUNT);
         // Add required entity
-        Employee seller = EmployeeResourceIntTest.createEntity(em);
-        em.persist(seller);
-        em.flush();
-        salesOrder.setSeller(seller);
-        // Add required entity
         Warehouse warehouse = WarehouseResourceIntTest.createEntity(em);
         em.persist(warehouse);
         em.flush();
         salesOrder.setWarehouse(warehouse);
+        // Add required entity
+        Employee seller = EmployeeResourceIntTest.createEntity(em);
+        em.persist(seller);
+        em.flush();
+        salesOrder.setSeller(seller);
         return salesOrder;
     }
 

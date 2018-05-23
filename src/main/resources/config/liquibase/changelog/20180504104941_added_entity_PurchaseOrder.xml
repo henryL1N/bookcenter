@@ -32,10 +32,12 @@
             <column name="total_amount" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
-            <column name="buyer_id" type="bigint">
-                <constraints unique="true" nullable="false" />
-            </column>
+
             <column name="warehouse_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="buyer_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 

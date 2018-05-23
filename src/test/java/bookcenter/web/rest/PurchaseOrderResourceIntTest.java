@@ -3,8 +3,8 @@ package bookcenter.web.rest;
 import bookcenter.BookCenterApp;
 
 import bookcenter.domain.PurchaseOrder;
-import bookcenter.domain.Employee;
 import bookcenter.domain.Warehouse;
+import bookcenter.domain.Employee;
 import bookcenter.repository.PurchaseOrderRepository;
 import bookcenter.service.PurchaseOrderService;
 import bookcenter.service.dto.PurchaseOrderDTO;
@@ -103,15 +103,15 @@ public class PurchaseOrderResourceIntTest {
             .supplier(DEFAULT_SUPPLIER)
             .totalAmount(DEFAULT_TOTAL_AMOUNT);
         // Add required entity
-        Employee buyer = EmployeeResourceIntTest.createEntity(em);
-        em.persist(buyer);
-        em.flush();
-        purchaseOrder.setBuyer(buyer);
-        // Add required entity
         Warehouse warehouse = WarehouseResourceIntTest.createEntity(em);
         em.persist(warehouse);
         em.flush();
         purchaseOrder.setWarehouse(warehouse);
+        // Add required entity
+        Employee buyer = EmployeeResourceIntTest.createEntity(em);
+        em.persist(buyer);
+        em.flush();
+        purchaseOrder.setBuyer(buyer);
         return purchaseOrder;
     }
 

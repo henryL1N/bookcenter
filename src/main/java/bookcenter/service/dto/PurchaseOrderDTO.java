@@ -24,13 +24,13 @@ public class PurchaseOrderDTO implements Serializable {
     @NotNull
     private BigDecimal totalAmount;
 
-    private Long buyerId;
-
-    private String buyerName;
-
     private Long warehouseId;
 
     private String warehouseName;
+
+    private Long buyerId;
+
+    private String buyerName;
 
     public Long getId() {
         return id;
@@ -64,22 +64,6 @@ public class PurchaseOrderDTO implements Serializable {
         this.totalAmount = totalAmount;
     }
 
-    public Long getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(Long employeeId) {
-        this.buyerId = employeeId;
-    }
-
-    public String getBuyerName() {
-        return buyerName;
-    }
-
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
-
     public Long getWarehouseId() {
         return warehouseId;
     }
@@ -94,6 +78,22 @@ public class PurchaseOrderDTO implements Serializable {
 
     public void setWarehouseName(String warehouseName) {
         this.warehouseName = warehouseName;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    public void setBuyerId(Long employeeId) {
+        this.buyerId = employeeId;
     }
 
     @Override
