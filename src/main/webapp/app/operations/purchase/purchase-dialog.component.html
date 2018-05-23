@@ -76,6 +76,51 @@
                 This field is required.
             </small>
         </div>
+        <div class="table-responsive" *ngIf="purchase.orderItems">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span> <span class="fa fa-sort"></span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span> <span class="fa fa-sort"></span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let orderItem of purchase.orderItems ;trackBy: trackOrderItemId">
+                    <td>{{orderItem.id}}</td>
+                    <td>
+                        <div *ngIf="orderItem.bookId">
+                            <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookName}}</a>
+                        </div>
+                    </td>
+                    <td>{{orderItem.price}}</td>
+                    <td>{{orderItem.quantity}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/edit'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

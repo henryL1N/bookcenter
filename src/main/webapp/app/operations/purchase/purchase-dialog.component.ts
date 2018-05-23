@@ -11,6 +11,8 @@ import { PurchasePopupService } from './purchase-popup.service';
 import { PurchaseService } from './purchase.service';
 import { Employee, EmployeeService } from '../../entities/employee';
 import { Warehouse, WarehouseService } from '../../entities/warehouse';
+import {Book, BookService} from '../../entities/book';
+import {OrderItem} from '../../entities/order-item/order-item.model';
 
 @Component({
     selector: 'jhi-purchase-dialog',
@@ -25,12 +27,15 @@ export class PurchaseDialogComponent implements OnInit {
 
     warehouses: Warehouse[];
 
+    books: Book[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private purchaseService: PurchaseService,
         private employeeService: EmployeeService,
         private warehouseService: WarehouseService,
+        private bookService: BookService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -52,6 +57,8 @@ export class PurchaseDialogComponent implements OnInit {
             }, (res: HttpErrorResponse) => this.onError(res.message));
         this.warehouseService.query()
             .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.bookService.query()
+            .subscribe((res: HttpResponse<Book[]>) => { this.books = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -93,6 +100,14 @@ export class PurchaseDialogComponent implements OnInit {
     }
 
     trackWarehouseById(index: number, item: Warehouse) {
+        return item.id;
+    }
+
+    trackBookById(index: number, item: Book) {
+        return item.id;
+    }
+
+    trackOrderItemId(index: number, item: OrderItem) {
         return item.id;
     }
 }

@@ -16,6 +16,9 @@
             "detail": {
                 "title": "采购单"
             },
+            "dialog": {
+                "newOrderItem": "增加订单项目"
+            },
             "date": "日期",
             "supplier": "供应商",
             "totalAmount": "总金额",

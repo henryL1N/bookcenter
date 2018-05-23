@@ -6,6 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
+import {OrderItem} from '../../entities/order-item/order-item.model';
 
 @Component({
     selector: 'jhi-purchase-detail',
@@ -51,5 +52,9 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
             'purchaseListModification',
             (response) => this.load(this.purchase.id)
         );
+    }
+
+    trackOrderItemId(index: number, item: OrderItem) {
+        return item.id;
     }
 }

@@ -28,6 +28,33 @@
                 <a [routerLink]="['/warehouse', purchase.warehouseId]">{{purchase.warehouseName}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="bookCenterApp.purchase.orderItem">Order Items</span></dt>
+        <dd>
+            <div class="table-responsive" *ngIf="purchase.orderItems">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let orderItem of purchase.orderItems ;trackBy: trackOrderItemId">
+                    <td><a [routerLink]="['../order-item', orderItem.id ]">{{orderItem.id}}</a></td>
+                    <td>
+                        <div *ngIf="orderItem.bookId">
+                            <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookName}}</a>
+                        </div>
+                    </td>
+                    <td>{{orderItem.price}}</td>
+                    <td>{{orderItem.quantity}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </dd>
     </dl>
 
     <button type="submit"
