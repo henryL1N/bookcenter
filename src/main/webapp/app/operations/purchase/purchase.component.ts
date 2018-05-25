@@ -15,7 +15,7 @@ import { ITEMS_PER_PAGE, Principal } from '../../shared';
 export class PurchaseComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
-    purchase: Purchase[];
+    purchases: Purchase[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -113,7 +113,7 @@ currentAccount: any;
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
-        this.purchase = data;
+        this.purchases = data;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);

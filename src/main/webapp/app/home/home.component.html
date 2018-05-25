@@ -8,7 +8,7 @@
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account" jhiTranslate="home.logged.messageHello"
+                <span *ngIf="employee" jhiTranslate="home.logged.messageHello"
                     translateValues="{name: '{{employee.name}}'}"> Hello! "{{employee.name}}". </span>
                 <br/>
                 <span *ngIf="account" jhiTranslate="home.logged.message"
