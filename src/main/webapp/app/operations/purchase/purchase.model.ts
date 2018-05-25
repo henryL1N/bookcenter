@@ -1,4 +1,5 @@
 import { BaseEntity } from './../../shared';
+import {OrderItem} from '../../entities/order-item/order-item.model';
 
 export class Purchase implements BaseEntity {
     constructor(
@@ -8,7 +9,7 @@ export class Purchase implements BaseEntity {
         public totalAmount?: number,
         public buyerId?: number,
         public buyerName?: string,
-        public orderItems?: BaseEntity[],
+        public orderItems?: OrderItem[],
         public warehouseId?: number,
         public warehouseName?: string,
     ) {

@@ -1,11 +1,11 @@
 package bookcenter.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import bookcenter.service.EmployeeService;
+import bookcenter.service.dto.EmployeeDTO;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
-import bookcenter.service.dto.EmployeeDTO;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -123,5 +122,13 @@ public class EmployeeResource {
         log.debug("REST request to delete Employee : {}", id);
         employeeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/employees/user/{id}")
+    @Timed
+    public ResponseEntity<EmployeeDTO> getEmployeeByUserId(@PathVariable Long id) {
+        log.debug("REST request to get Employee by User id : {}", id);
+        EmployeeDTO employeeDTO = employeeService.findOneByUserId(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(employeeDTO));
     }
 }

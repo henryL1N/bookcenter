@@ -29,3 +29,5 @@ id;name;age;gender;position;salary;user_id;book_center_id;department_id
 28;王强;20;MALE;销售员;3000;128;1;5
 29;李娟;20;FEMALE;销售员;3000;129;1;5
 30;王军;20;MALE;销售员;3000;130;1;5
+31;系统管理员;20;MALE;系统管理员;5000;3;1;NULL
+32;测试用户;20;FEMALE;普通员工;3000;4;1;NULL

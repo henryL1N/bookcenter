@@ -1,8 +1,10 @@
 package bookcenter.service.impl;
 
-import bookcenter.service.EmployeeService;
 import bookcenter.domain.Employee;
+import bookcenter.domain.User;
 import bookcenter.repository.EmployeeRepository;
+import bookcenter.repository.UserRepository;
+import bookcenter.service.EmployeeService;
 import bookcenter.service.dto.EmployeeDTO;
 import bookcenter.service.mapper.EmployeeMapper;
 import org.slf4j.Logger;
@@ -26,9 +28,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
+    private final UserRepository userRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository,
+                               EmployeeMapper employeeMapper,
+                               UserRepository userRepository) {
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -82,5 +89,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void delete(Long id) {
         log.debug("Request to delete Employee : {}", id);
         employeeRepository.delete(id);
+    }
+
+    @Override
+    public EmployeeDTO findOneByUser(User user) {
+        log.debug("Request to get Employee by User : {}", user);
+        Employee employee = employeeRepository.findFirstByUser(user);
+        return employeeMapper.toDto(employee);
+    }
+
+    @Override
+    public EmployeeDTO findOneByUserId(Long id) {
+        log.debug("Request to get Employee by User id : {}", id);
+        User user = userRepository.findOne(id);
+        Employee employee = employeeRepository.findFirstByUser(user);
+        return employeeMapper.toDto(employee);
     }
 }

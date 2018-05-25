@@ -13,6 +13,7 @@ import { Employee, EmployeeService } from '../../entities/employee';
 import { Warehouse, WarehouseService } from '../../entities/warehouse';
 import {Book, BookService} from '../../entities/book';
 import {OrderItem} from '../../entities/order-item/order-item.model';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'jhi-purchase-dialog',
@@ -30,6 +31,7 @@ export class PurchaseDialogComponent implements OnInit {
     books: Book[];
 
     constructor(
+        private datePipe: DatePipe,
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private purchaseService: PurchaseService,
@@ -59,6 +61,10 @@ export class PurchaseDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.bookService.query()
             .subscribe((res: HttpResponse<Book[]>) => { this.books = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        if (!this.purchase.date) {
+            this.purchase.date = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        }
+        this.updateTotalAmount();
     }
 
     clear() {
@@ -109,6 +115,31 @@ export class PurchaseDialogComponent implements OnInit {
 
     trackOrderItemId(index: number, item: OrderItem) {
         return item.id;
+    }
+
+    trackOrderItemIndex(index: number, item: number) {
+        return item;
+    }
+
+    addOrderItem() {
+        if (!this.purchase.orderItems) {
+            this.purchase.orderItems = [];
+        }
+        this.purchase.orderItems.push(new OrderItem);
+    }
+
+    removeOrderItem(index: number) {
+        this.purchase.orderItems.splice(index, 1);
+        this.updateTotalAmount();
+    }
+
+    updateTotalAmount() {
+        this.purchase.totalAmount = 0;
+        for (const orderItem of this.purchase.orderItems) {
+            if (orderItem.price > 0 && orderItem.quantity > 0) {
+                this.purchase.totalAmount += orderItem.price * orderItem.quantity;
+            }
+        }
     }
 }
 

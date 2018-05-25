@@ -1,12 +1,12 @@
 package bookcenter.service.impl;
 
-import bookcenter.domain.OrderItem;
-import bookcenter.domain.PurchaseOrder;
-import bookcenter.domain.StockItem;
+import bookcenter.domain.*;
+import bookcenter.repository.EmployeeRepository;
 import bookcenter.repository.OrderItemRepository;
 import bookcenter.repository.PurchaseOrderRepository;
 import bookcenter.repository.StockItemRepository;
 import bookcenter.service.PurchaseService;
+import bookcenter.service.UserService;
 import bookcenter.service.dto.PurchaseDTO;
 import bookcenter.service.mapper.PurchaseMapper;
 import org.slf4j.Logger;
@@ -15,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Henry Lin badcop@163.com
@@ -31,15 +34,23 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     private final StockItemRepository stockItemRepository;
 
+    private final EmployeeRepository employeeRepository;
+
+    private final UserService userService;
+
     private final PurchaseMapper purchaseMapper;
 
     public PurchaseServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
                                OrderItemRepository orderItemRepository,
                                StockItemRepository stockItemRepository,
+                               EmployeeRepository employeeRepository,
+                               UserService userService,
                                PurchaseMapper purchaseMapper) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.orderItemRepository = orderItemRepository;
         this.stockItemRepository = stockItemRepository;
+        this.employeeRepository =employeeRepository;
+        this.userService=userService;
         this.purchaseMapper = purchaseMapper;
     }
 
@@ -47,7 +58,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     public PurchaseDTO save(PurchaseDTO purchaseDTO) {
         log.debug("Request to save Purchase : {}", purchaseDTO);
         PurchaseOrder purchaseOrder = purchaseMapper.toEntity(purchaseDTO);
+        User currentUser=userService.getUserWithAuthorities().get();
+        Employee currentEmployee = employeeRepository.findFirstByUser(currentUser);
+        purchaseOrder.setBuyer(currentEmployee);
         purchaseOrder = purchaseOrderRepository.save(purchaseOrder);
+        if (null == purchaseOrder.getOrderItems()) {
+            purchaseOrder.setOrderItems(new HashSet<>());
+        }
         for (OrderItem orderItem : purchaseOrder.getOrderItems()) {
             orderItem.setPurchaseOrder(purchaseOrder);
             orderItem.setSalesOrder(null);

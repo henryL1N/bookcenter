@@ -16,7 +16,7 @@
             <label class="form-control-label" jhiTranslate="bookCenterApp.purchase.date" for="field_date">Date</label>
             <div class="d-flex">
                 <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="purchase.date"
-                required/>
+                required [readonly]="purchase.id"/>
             </div>
             <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
                 <small class="form-text text-danger"
@@ -37,7 +37,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.purchase.totalAmount" for="field_totalAmount">Total Amount</label>
             <input type="number" class="form-control" name="totalAmount" id="field_totalAmount"
-                [(ngModel)]="purchase.totalAmount" required/>
+                [(ngModel)]="purchase.totalAmount" required readonly/>
             <div [hidden]="!(editForm.controls.totalAmount?.dirty && editForm.controls.totalAmount?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.totalAmount?.errors?.required" jhiTranslate="entity.validation.required">
@@ -50,9 +50,9 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [hidden]="!purchase.id">
             <label class="form-control-label" jhiTranslate="bookCenterApp.purchase.buyer" for="field_buyer">Buyer</label>
-            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="purchase.buyerId" required>
+            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="purchase.buyerId" readonly>
                 <option *ngIf="!editForm.value.buyer" [ngValue]="null" selected></option>
                 <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of buyers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
             </select>
@@ -65,7 +65,7 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.purchase.warehouse" for="field_warehouse">Warehouse</label>
-            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="purchase.warehouseId"  required>
+            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="purchase.warehouseId"  required [disabled]="purchase.id">
                 <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
                 <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
             </select>
@@ -76,49 +76,99 @@
                 This field is required.
             </small>
         </div>
-        <div class="table-responsive" *ngIf="purchase.orderItems">
-            <table class="table table-striped">
+        <div class="table-responsive">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.purchase.orderItem" for="field_orderItem">Order Items</label>
+            <table class="table table-striped" id="field_orderItem">
                 <thead>
                 <tr>
-                    <th><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span> <span class="fa fa-sort"></span></th>
-                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span> <span class="fa fa-sort"></span></th>
-                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span> <span class="fa fa-sort"></span></th>
+                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let orderItem of purchase.orderItems ;trackBy: trackOrderItemId">
-                    <td>{{orderItem.id}}</td>
+                <tr *ngFor="let orderItem of purchase.orderItems ; index as i ;trackBy: trackOrderItemId">
                     <td>
-                        <div *ngIf="orderItem.bookId">
-                            <a [routerLink]="['../book', orderItem.bookId  ]" >{{orderItem.bookName}}</a>
+                        <div *ngIf="orderItem.id">{{orderItem.id}}</div>
+                        <div *ngIf="!orderItem.id">{{i+1}}</div>
+                    </td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.bookName}}
+                        </div>
+                        <div *ngIf="!orderItem.id">
+                            <div class="form-group">
+                                <select class="form-control" id="field_book" name="book{{i}}" [(ngModel)]="orderItem.bookId"  required>
+                                    <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
+                                    <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.name}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.book?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
                         </div>
                     </td>
-                    <td>{{orderItem.price}}</td>
-                    <td>{{orderItem.quantity}}</td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.price}}
+                        </div>
+                        <div class="form-group" *ngIf="!orderItem.id">
+                            <input type="number" class="form-control" name="price{{i}}" id="field_price"
+                                   [(ngModel)]="orderItem.price" required (change)="updateTotalAmount()"/>
+                            <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.quantity}}
+                        </div>
+                        <div class="form-group" *ngIf="!orderItem.id">
+                            <input type="number" class="form-control" name="quantity{{i}}" id="field_quantity"
+                                   [(ngModel)]="orderItem.quantity" required (change)="updateTotalAmount()"/>
+                            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </td>
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/edit'} }]"
-                                    replaceUrl="true"
-                                    queryParamsHandling="merge"
-                                    class="btn btn-primary btn-sm">
-                                <span class="fa fa-pencil"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-                            <button type="submit"
-                                    [routerLink]="['/', { outlets: { popup: 'order-item/'+ orderItem.id + '/delete'} }]"
-                                    replaceUrl="true"
-                                    queryParamsHandling="merge"
+                        <div class="btn-group flex-btn-group-container" [hidden]="purchase.id">
+                            <button type="button"
+                                    (click)="removeOrderItem(i)"
                                     class="btn btn-danger btn-sm">
                                 <span class="fa fa-remove"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                <span class="d-none d-md-inline"></span>
                             </button>
                         </div>
                     </td>
                 </tr>
                 </tbody>
+                <button type="button" class="btn btn-primary" (click)="addOrderItem()" [hidden]="purchase.id">
+                    <span class="fa fa-plus"></span>
+                    <span  jhiTranslate="bookCenterApp.purchase.dialog.addOrderItem">
+                    Add Order Item
+                    </span>
+                </button>
             </table>
         </div>
     </div>
@@ -126,7 +176,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !purchase.totalAmount" class="btn btn-primary">
             <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
     </div>

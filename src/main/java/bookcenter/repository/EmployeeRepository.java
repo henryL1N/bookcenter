@@ -1,6 +1,7 @@
 package bookcenter.repository;
 
 import bookcenter.domain.Employee;
+import bookcenter.domain.User;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -13,4 +14,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+    Employee findFirstByUser(User user);
 }
