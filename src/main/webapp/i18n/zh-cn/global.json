@@ -11,6 +11,14 @@
                 "sale": "销售",
                 "stock": "盘点"
             },
+            "reports": {
+                "main": "报表",
+                "profit": "利润",
+                "salary": "工资",
+                "sale": "销售",
+                "stock": "库存",
+                "expense": "开销"
+            },
             "entities": {
                 "main": "数据",
                 "book": "书籍管理",
