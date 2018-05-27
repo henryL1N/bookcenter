@@ -39,4 +39,6 @@ public interface StockItemService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    Page<StockItemDTO> findAllByWarehouseId(Long id, Pageable pageable);
 }

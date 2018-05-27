@@ -1,5 +1,7 @@
 package bookcenter.service.impl;
 
+import bookcenter.domain.Warehouse;
+import bookcenter.repository.WarehouseRepository;
 import bookcenter.service.StockItemService;
 import bookcenter.domain.StockItem;
 import bookcenter.repository.StockItemRepository;
@@ -24,10 +26,15 @@ public class StockItemServiceImpl implements StockItemService {
 
     private final StockItemRepository stockItemRepository;
 
+    private final WarehouseRepository warehouseRepository;
+
     private final StockItemMapper stockItemMapper;
 
-    public StockItemServiceImpl(StockItemRepository stockItemRepository, StockItemMapper stockItemMapper) {
+    public StockItemServiceImpl(StockItemRepository stockItemRepository,
+                                WarehouseRepository warehouseRepository,
+                                StockItemMapper stockItemMapper) {
         this.stockItemRepository = stockItemRepository;
+        this.warehouseRepository = warehouseRepository;
         this.stockItemMapper = stockItemMapper;
     }
 
@@ -82,5 +89,14 @@ public class StockItemServiceImpl implements StockItemService {
     public void delete(Long id) {
         log.debug("Request to delete StockItem : {}", id);
         stockItemRepository.delete(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<StockItemDTO> findAllByWarehouseId(Long id, Pageable pageable) {
+        log.debug("Request to get all StockItems by Warehouse id");
+        Warehouse warehouse = warehouseRepository.findOne(id);
+        return stockItemRepository.findAllByWarehouse(warehouse, pageable)
+            .map(stockItemMapper::toDto);
     }
 }

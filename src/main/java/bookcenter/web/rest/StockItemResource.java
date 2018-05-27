@@ -1,11 +1,12 @@
 package bookcenter.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+import bookcenter.domain.StockItem;
 import bookcenter.service.StockItemService;
+import bookcenter.service.dto.StockItemDTO;
 import bookcenter.web.rest.errors.BadRequestAlertException;
 import bookcenter.web.rest.util.HeaderUtil;
 import bookcenter.web.rest.util.PaginationUtil;
-import bookcenter.service.dto.StockItemDTO;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -123,5 +123,14 @@ public class StockItemResource {
         log.debug("REST request to delete StockItem : {}", id);
         stockItemService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/stock-items/warehouseId/{id}")
+    @Timed
+    public ResponseEntity<List<StockItemDTO>> getStockItemsByWarehouseId(@PathVariable Long id, Pageable pageable) {
+        log.debug("REST request to get StockItem by Warehouse id : {}", id);
+        Page<StockItemDTO> page = stockItemService.findAllByWarehouseId(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stock-items");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }
