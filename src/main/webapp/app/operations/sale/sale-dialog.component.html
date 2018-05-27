@@ -1,0 +1,183 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySaleLabel" jhiTranslate="bookCenterApp.sale.home.createOrEditLabel">Create or edit a Sale</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!sale.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="sale.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="sale.date"
+                required [readonly]="sale.id"/>
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.supplier" for="field_supplier">Supplier</label>
+            <input type="text" class="form-control" name="supplier" id="field_supplier"
+                [(ngModel)]="sale.supplier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.totalAmount" for="field_totalAmount">Total Amount</label>
+            <input type="number" class="form-control" name="totalAmount" id="field_totalAmount"
+                [(ngModel)]="sale.totalAmount" required readonly/>
+            <div [hidden]="!(editForm.controls.totalAmount?.dirty && editForm.controls.totalAmount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group" [hidden]="!sale.id">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.buyer" for="field_buyer">Buyer</label>
+            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="sale.buyerId" readonly>
+                <option *ngIf="!editForm.value.buyer" [ngValue]="null" selected></option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of buyers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.buyer?.dirty && editForm.controls.buyer?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.buyer?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.warehouse" for="field_warehouse">Warehouse</label>
+            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="sale.warehouseId"  required [disabled]="sale.id">
+                <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
+                <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.warehouse?.dirty && editForm.controls.warehouse?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.warehouse?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="table-responsive">
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.orderItem" for="field_orderItem">Order Items</label>
+            <table class="table table-striped" id="field_orderItem">
+                <thead>
+                <tr>
+                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let orderItem of sale.orderItems ; index as i ;trackBy: trackOrderItemId">
+                    <td>
+                        <div *ngIf="orderItem.id">{{orderItem.id}}</div>
+                        <div *ngIf="!orderItem.id">{{i+1}}</div>
+                    </td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.bookName}}
+                        </div>
+                        <div *ngIf="!orderItem.id">
+                            <div class="form-group">
+                                <select class="form-control" id="field_book" name="book{{i}}" [(ngModel)]="orderItem.bookId"  required>
+                                    <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
+                                    <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.name}}</option>
+                                </select>
+                                <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.book?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.price}}
+                        </div>
+                        <div class="form-group" *ngIf="!orderItem.id">
+                            <input type="number" class="form-control" name="price{{i}}" id="field_price"
+                                   [(ngModel)]="orderItem.price" required (change)="updateTotalAmount()"/>
+                            <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="orderItem.id">
+                            {{orderItem.quantity}}
+                        </div>
+                        <div class="form-group" *ngIf="!orderItem.id">
+                            <input type="number" class="form-control" name="quantity{{i}}" id="field_quantity"
+                                   [(ngModel)]="orderItem.quantity" required (change)="updateTotalAmount()"/>
+                            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container" [hidden]="sale.id">
+                            <button type="button"
+                                    (click)="removeOrderItem(i)"
+                                    class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <span class="d-none d-md-inline"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <button type="button" class="btn btn-primary" (click)="addOrderItem()" [hidden]="sale.id">
+                    <span class="fa fa-plus"></span>
+                    <span  jhiTranslate="bookCenterApp.sale.dialog.addOrderItem">
+                    Add Order Item
+                    </span>
+                </button>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || !sale.totalAmount" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

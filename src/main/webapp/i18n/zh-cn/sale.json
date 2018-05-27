@@ -1,0 +1,30 @@
+
+{
+    "bookCenterApp": {
+        "sale" : {
+            "home": {
+                "title": "销售单",
+                "createLabel": "创建新销售单",
+                "createOrEditLabel": "创建或编辑销售单"
+            },
+            "created": "销售单 {{ param }} 创建成功",
+            "updated": "销售单 {{ param }} 更新成功",
+            "deleted": "销售单 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 {{ id }} 号销售单吗？"
+            },
+            "detail": {
+                "title": "销售单"
+            },
+            "dialog": {
+                "addOrderItem": "增加订单项目"
+            },
+            "date": "日期",
+            "supplier": "客户",
+            "totalAmount": "总金额",
+            "buyer": "销售员",
+            "orderItem": "订单项目",
+            "warehouse": "仓库"
+        }
+    }
+}

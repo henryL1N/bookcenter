@@ -1,0 +1,73 @@
+
+<div *ngIf="sale">
+    <h2><span jhiTranslate="bookCenterApp.sale.detail.title">Sale</span> {{sale.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bookCenterApp.sale.date">Date</span></dt>
+        <dd>
+            <span>{{sale.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.sale.supplier">Supplier</span></dt>
+        <dd>
+            <span>{{sale.supplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.sale.totalAmount">Total Amount</span></dt>
+        <dd>
+            <span>{{sale.totalAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.sale.buyer">Buyer</span></dt>
+        <dd>
+            <div *ngIf="sale.buyerId">
+                <a [routerLink]="['/employee', sale.buyerId]">{{sale.buyerName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.sale.warehouse">Warehouse</span></dt>
+        <dd>
+            <div *ngIf="sale.warehouseId">
+                <a [routerLink]="['/warehouse', sale.warehouseId]">{{sale.warehouseName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="bookCenterApp.sale.orderItem">Order Items</span></dt>
+        <dd>
+            <div class="table-responsive" *ngIf="sale.orderItems">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.book">Book</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.price">Price</span></th>
+                    <th><span jhiTranslate="bookCenterApp.orderItem.quantity">Quantity</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let orderItem of sale.orderItems ;trackBy: trackOrderItemId">
+                    <td><a [routerLink]="['/order-item', orderItem.id ]">{{orderItem.id}}</a></td>
+                    <td>
+                        <div *ngIf="orderItem.bookId">
+                            <a [routerLink]="['/book', orderItem.bookId  ]" >{{orderItem.bookName}}</a>
+                        </div>
+                    </td>
+                    <td>{{orderItem.price}}</td>
+                    <td>{{orderItem.quantity}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'sale/'+ sale.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
