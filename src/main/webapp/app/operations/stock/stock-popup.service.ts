@@ -2,8 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { StockItem } from './stock-item.model';
-import { StockItemService } from './stock-item.service';
+import { StockItem } from './stock.model';
+import { StockItemService } from './stock.service';
 
 @Injectable()
 export class StockItemPopupService {

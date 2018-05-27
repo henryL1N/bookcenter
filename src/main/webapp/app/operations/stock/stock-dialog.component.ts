@@ -6,15 +6,15 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { StockItem } from './stock-item.model';
-import { StockItemPopupService } from './stock-item-popup.service';
-import { StockItemService } from './stock-item.service';
+import { StockItem } from './stock.model';
+import { StockItemPopupService } from './stock-popup.service';
+import { StockItemService } from './stock.service';
 import { Book, BookService } from '../book';
 import { Warehouse, WarehouseService } from '../warehouse';
 
 @Component({
     selector: 'jhi-stock-item-dialog',
-    templateUrl: './stock-item-dialog.component.html'
+    templateUrl: './stock-dialog.component.html'
 })
 export class StockItemDialogComponent implements OnInit {
 

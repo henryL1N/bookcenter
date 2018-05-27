@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
-import { StockItem } from './stock-item.model';
+import { StockItem } from './stock.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<StockItem>;

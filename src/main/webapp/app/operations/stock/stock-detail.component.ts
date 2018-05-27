@@ -4,12 +4,12 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { StockItem } from './stock-item.model';
-import { StockItemService } from './stock-item.service';
+import { StockItem } from './stock.model';
+import { StockItemService } from './stock.service';
 
 @Component({
     selector: 'jhi-stock-item-detail',
-    templateUrl: './stock-item-detail.component.html'
+    templateUrl: './stock-detail.component.html'
 })
 export class StockItemDetailComponent implements OnInit, OnDestroy {
 

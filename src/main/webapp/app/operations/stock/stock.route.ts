@@ -3,10 +3,10 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
 import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { UserRouteAccessService } from '../../shared';
-import { StockItemComponent } from './stock-item.component';
-import { StockItemDetailComponent } from './stock-item-detail.component';
-import { StockItemPopupComponent } from './stock-item-dialog.component';
-import { StockItemDeletePopupComponent } from './stock-item-delete-dialog.component';
+import { StockItemComponent } from './stock.component';
+import { StockItemDetailComponent } from './stock-detail.component';
+import { StockItemPopupComponent } from './stock-dialog.component';
+import { StockItemDeletePopupComponent } from './stock-delete-dialog.component';
 
 @Injectable()
 export class StockItemResolvePagingParams implements Resolve<any> {

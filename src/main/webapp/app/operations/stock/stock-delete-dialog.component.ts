@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { StockItem } from './stock-item.model';
-import { StockItemPopupService } from './stock-item-popup.service';
-import { StockItemService } from './stock-item.service';
+import { StockItem } from './stock.model';
+import { StockItemPopupService } from './stock-popup.service';
+import { StockItemService } from './stock.service';
 
 @Component({
     selector: 'jhi-stock-item-delete-dialog',
-    templateUrl: './stock-item-delete-dialog.component.html'
+    templateUrl: './stock-delete-dialog.component.html'
 })
 export class StockItemDeleteDialogComponent {
 
