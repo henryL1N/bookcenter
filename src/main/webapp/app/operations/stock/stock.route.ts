@@ -26,7 +26,7 @@ export class StockItemResolvePagingParams implements Resolve<any> {
 
 export const stockItemRoute: Routes = [
     {
-        path: 'stock-item',
+        path: 'stock',
         component: StockItemComponent,
         resolve: {
             'pagingParams': StockItemResolvePagingParams
@@ -49,7 +49,7 @@ export const stockItemRoute: Routes = [
 
 export const stockItemPopupRoute: Routes = [
     {
-        path: 'stock-item-new',
+        path: 'stock-new',
         component: StockItemPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -59,7 +59,7 @@ export const stockItemPopupRoute: Routes = [
         outlet: 'popup'
     },
     {
-        path: 'stock-item/:id/edit',
+        path: 'stock/:id/edit',
         component: StockItemPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -69,7 +69,7 @@ export const stockItemPopupRoute: Routes = [
         outlet: 'popup'
     },
     {
-        path: 'stock-item/:id/delete',
+        path: 'stock/:id/delete',
         component: StockItemDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
