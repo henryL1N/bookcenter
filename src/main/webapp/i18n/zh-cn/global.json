@@ -9,7 +9,7 @@
                 "main": "操作",
                 "purchase": "采购",
                 "sale": "销售",
-                "inventory": "盘点"
+                "stock": "盘点"
             },
             "entities": {
                 "main": "数据",

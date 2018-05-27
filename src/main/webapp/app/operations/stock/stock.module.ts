@@ -3,18 +3,20 @@ import { RouterModule } from '@angular/router';
 
 import { BookCenterSharedModule } from '../../shared';
 import {
+    StockComponent,
+    stockItemRoute,
+    stockItemPopupRoute,
+} from './';
+import {
     StockItemService,
     StockItemPopupService,
-    StockItemComponent,
     StockItemDetailComponent,
     StockItemDialogComponent,
     StockItemPopupComponent,
     StockItemDeletePopupComponent,
     StockItemDeleteDialogComponent,
-    stockItemRoute,
-    stockItemPopupRoute,
     StockItemResolvePagingParams,
-} from './';
+} from '../../entities/stock-item';
 
 const ENTITY_STATES = [
     ...stockItemRoute,
@@ -27,15 +29,15 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
-        StockItemComponent,
-        StockItemDetailComponent,
-        StockItemDialogComponent,
-        StockItemDeleteDialogComponent,
-        StockItemPopupComponent,
-        StockItemDeletePopupComponent,
+        StockComponent,
+        // StockItemDetailComponent,
+        // StockItemDialogComponent,
+        // StockItemDeleteDialogComponent,
+        // StockItemPopupComponent,
+        // StockItemDeletePopupComponent,
     ],
     entryComponents: [
-        StockItemComponent,
+        StockComponent,
         StockItemDialogComponent,
         StockItemPopupComponent,
         StockItemDeleteDialogComponent,
@@ -48,4 +50,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class BookCenterStockItemModule {}
+export class BookCenterStockModule {}

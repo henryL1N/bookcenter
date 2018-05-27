@@ -4,15 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { StockItem } from './stock.model';
-import { StockItemService } from './stock.service';
+import { StockItem } from '../../entities/stock-item/stock-item.model';
+import { StockItemService } from '../../entities/stock-item/stock-item.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-stock-item',
     templateUrl: './stock.component.html'
 })
-export class StockItemComponent implements OnInit, OnDestroy {
+export class StockComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
     stockItems: StockItem[];
