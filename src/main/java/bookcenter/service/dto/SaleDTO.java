@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * @author Henry Lin badcop@163.com
  */
-public class PurchaseDTO extends PurchaseOrderDTO implements Serializable{
+public class SaleDTO extends SalesOrderDTO implements Serializable{
 
     private Set<OrderItemDTO> orderItems;
 
@@ -29,11 +29,11 @@ public class PurchaseDTO extends PurchaseOrderDTO implements Serializable{
             return false;
         }
 
-        PurchaseDTO purchaseDTO = (PurchaseDTO) o;
-        if(purchaseDTO.getId() == null || getId() == null) {
+        SaleDTO saleDTO = (SaleDTO) o;
+        if(saleDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), purchaseDTO.getId());
+        return Objects.equals(getId(), saleDTO.getId());
     }
 
     @Override
@@ -43,10 +43,10 @@ public class PurchaseDTO extends PurchaseOrderDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "PurchaseDTO{" +
+        return "SaleDTO{" +
             "id=" + getId() +
             ", date='" + getDate() + "'" +
-            ", supplier='" + getSupplier() + "'" +
+            ", customer='" + getCustomer() + "'" +
             ", totalAmount=" + getTotalAmount() +
             "}";
     }

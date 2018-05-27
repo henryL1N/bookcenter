@@ -2,7 +2,6 @@ package bookcenter.service.mapper;
 
 import bookcenter.domain.PurchaseOrder;
 import bookcenter.service.dto.PurchaseDTO;
-import bookcenter.service.dto.PurchaseOrderDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
