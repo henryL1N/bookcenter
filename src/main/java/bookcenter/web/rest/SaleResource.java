@@ -46,7 +46,7 @@ public class SaleResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new salesOrderDTO, or with status 400 (Bad Request) if the salesOrder has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/sale")
+    @PostMapping("/sales")
     @Timed
     public ResponseEntity<SaleDTO> createSale(@Valid @RequestBody SaleDTO saleDTO) throws URISyntaxException {
         log.debug("REST request to save Sale : {}", saleDTO);
@@ -68,7 +68,7 @@ public class SaleResource {
      * or with status 500 (Internal Server Error) if the salesOrderDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/sale")
+    @PutMapping("/sales")
     @Timed
     public ResponseEntity<SaleDTO> updateSale(@Valid @RequestBody SaleDTO saleDTO) throws URISyntaxException {
         log.debug("REST request to update Sale : {}", saleDTO);
@@ -87,7 +87,7 @@ public class SaleResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of salesOrders in body
      */
-    @GetMapping("/sale")
+    @GetMapping("/sales")
     @Timed
     public ResponseEntity<List<SaleDTO>> getAllSales(Pageable pageable) {
         log.debug("REST request to get a page of Sales");
@@ -102,7 +102,7 @@ public class SaleResource {
      * @param id the id of the salesOrderDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the salesOrderDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/sale/{id}")
+    @GetMapping("/sales/{id}")
     @Timed
     public ResponseEntity<SaleDTO> getSaleOrder(@PathVariable Long id) {
         log.debug("REST request to get Sale : {}", id);
@@ -116,7 +116,7 @@ public class SaleResource {
      * @param id the id of the salesOrderDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/sale/{id}")
+    @DeleteMapping("/sales/{id}")
     @Timed
     public ResponseEntity<Void> deleteSale(@PathVariable Long id) {
         log.debug("REST request to delete Sale : {}", id);

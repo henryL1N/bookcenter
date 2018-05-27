@@ -95,8 +95,7 @@ public class StockItemServiceImpl implements StockItemService {
     @Transactional(readOnly = true)
     public Page<StockItemDTO> findAllByWarehouseId(Long id, Pageable pageable) {
         log.debug("Request to get all StockItems by Warehouse id");
-        Warehouse warehouse = warehouseRepository.findOne(id);
-        return stockItemRepository.findAllByWarehouse(warehouse, pageable)
+        return stockItemRepository.findAllByWarehouseIdAndQuantityGreaterThan(id, 0L, pageable)
             .map(stockItemMapper::toDto);
     }
 }

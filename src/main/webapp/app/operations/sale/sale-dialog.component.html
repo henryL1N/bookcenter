@@ -51,21 +51,21 @@
         </div>
 
         <div class="form-group" [hidden]="!sale.id">
-            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.buyer" for="field_buyer">Buyer</label>
-            <select class="form-control" id="field_buyer" name="buyer" [(ngModel)]="sale.buyerId" readonly>
-                <option *ngIf="!editForm.value.buyer" [ngValue]="null" selected></option>
-                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of buyers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
+            <label class="form-control-label" jhiTranslate="bookCenterApp.sale.seller" for="field_seller">Seller</label>
+            <select class="form-control" id="field_seller" name="seller" [(ngModel)]="sale.sellerId" readonly>
+                <option *ngIf="!editForm.value.seller" [ngValue]="null" selected></option>
+                <option [ngValue]="employeeOption.id" *ngFor="let employeeOption of sellers; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.buyer?.dirty && editForm.controls.buyer?.invalid)">
+        <div [hidden]="!(editForm.controls.seller?.dirty && editForm.controls.seller?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.buyer?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.seller?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="bookCenterApp.sale.warehouse" for="field_warehouse">Warehouse</label>
-            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="sale.warehouseId"  required [disabled]="sale.id">
+            <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="sale.warehouseId"  required [disabled]="sale.id" (change)="updateStockItems()">
                 <option *ngIf="!editForm.value.warehouse" [ngValue]="null" selected></option>
                 <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
             </select>
@@ -102,7 +102,7 @@
                             <div class="form-group">
                                 <select class="form-control" id="field_book" name="book{{i}}" [(ngModel)]="orderItem.bookId"  required>
                                     <option *ngIf="!editForm.value.book" [ngValue]="null" selected></option>
-                                    <option [ngValue]="bookOption.id" *ngFor="let bookOption of books; trackBy: trackBookById">{{bookOption.name}}</option>
+                                    <option [ngValue]="stockItemOption.bookId" *ngFor="let stockItemOption of stockItems; trackBy: trackStockItemById">{{stockItemOption.bookName}}({{stockItemOption.quantity}})</option>
                                 </select>
                                 <div [hidden]="!(editForm.controls.book?.dirty && editForm.controls.book?.invalid)">
                                     <small class="form-text text-danger"

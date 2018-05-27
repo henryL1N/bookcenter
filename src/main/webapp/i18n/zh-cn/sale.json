@@ -22,7 +22,7 @@
             "date": "日期",
             "supplier": "客户",
             "totalAmount": "总金额",
-            "buyer": "销售员",
+            "seller": "销售员",
             "orderItem": "订单项目",
             "warehouse": "仓库"
         }

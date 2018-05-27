@@ -71,4 +71,10 @@ export class StockItemService {
         const copy: StockItem = Object.assign({}, stockItem);
         return copy;
     }
+
+    getAllStockItemsByWarehouseId(id: number, req?: any): Observable<HttpResponse<StockItem[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<StockItem[]>(`${this.resourceUrl}/warehouseId/${id}`, { params: options, observe: 'response' })
+            .map((res: HttpResponse<StockItem[]>) => this.convertArrayResponse(res));
+    }
 }

@@ -14,6 +14,8 @@ import { Warehouse, WarehouseService } from '../../entities/warehouse';
 import {Book, BookService} from '../../entities/book';
 import {OrderItem} from '../../entities/order-item/order-item.model';
 import {DatePipe} from '@angular/common';
+import {StockItemService} from '../../entities/stock-item/stock-item.service';
+import {StockItem} from '../../entities/stock-item/stock-item.model';
 
 @Component({
     selector: 'jhi-sale-dialog',
@@ -28,7 +30,7 @@ export class SaleDialogComponent implements OnInit {
 
     warehouses: Warehouse[];
 
-    books: Book[];
+    stockItems: StockItem[];
 
     constructor(
         private datePipe: DatePipe,
@@ -37,6 +39,7 @@ export class SaleDialogComponent implements OnInit {
         private saleService: SaleService,
         private employeeService: EmployeeService,
         private warehouseService: WarehouseService,
+        private stockItemService: StockItemService,
         private bookService: BookService,
         private eventManager: JhiEventManager
     ) {
@@ -59,8 +62,6 @@ export class SaleDialogComponent implements OnInit {
             }, (res: HttpErrorResponse) => this.onError(res.message));
         this.warehouseService.query()
             .subscribe((res: HttpResponse<Warehouse[]>) => { this.warehouses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.bookService.query()
-            .subscribe((res: HttpResponse<Book[]>) => { this.books = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         if (!this.sale.date) {
             this.sale.date = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss');
         }
@@ -109,7 +110,7 @@ export class SaleDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackBookById(index: number, item: Book) {
+    trackStockItemById(index: number, item: StockItem) {
         return item.id;
     }
 
@@ -140,6 +141,11 @@ export class SaleDialogComponent implements OnInit {
                 this.sale.totalAmount += orderItem.price * orderItem.quantity;
             }
         }
+    }
+
+    updateStockItems() {
+        this.stockItemService.getAllStockItemsByWarehouseId(this.sale.warehouseId)
+            .subscribe((res: HttpResponse<StockItem[]>) => { this.stockItems = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 }
 
