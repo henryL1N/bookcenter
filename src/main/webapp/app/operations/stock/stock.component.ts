@@ -63,7 +63,7 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/stock-item'], {queryParams:
+        this.router.navigate(['/stock'], {queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
