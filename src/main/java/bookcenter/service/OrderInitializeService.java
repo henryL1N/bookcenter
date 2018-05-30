@@ -63,7 +63,7 @@ public class OrderInitializeService {
             initialize(
                 Instant.parse("2016-01-01T00:00:00.00Z"),
                 Instant.now(),
-                Period.ofDays(10),
+                Period.ofDays(5),
                 Period.ofDays(3),
                 30,
                 9,
@@ -149,14 +149,14 @@ public class OrderInitializeService {
         saleItemsAmount = (int) (purchaseItemsAmount * purchaseItemQuantity / purchaseSaleCycleRate / saleItemQuantity);
         if (saleItemsAmount < 1) {
             saleItemsAmount = 1;
-            saleCycle = Duration.ofSeconds(
-                (long) (
-                    1.0 * Instant.ofEpochSecond(0).plus(purchaseCycle).getEpochSecond()
-                        / (purchaseItemsAmount * purchaseItemQuantity)
-                        * saleItemQuantity
-                )
-            );
         }
+        saleCycle = Duration.ofSeconds(
+            (long) (
+                1.0 * Instant.ofEpochSecond(0).plus(purchaseCycle).getEpochSecond()
+                    / (purchaseItemsAmount * purchaseItemQuantity)
+                    * saleItemQuantity
+            )
+        );
         saleItemsAmountTolerance = saleItemsAmount - 1;
         LOGGER.debug("Order initialize from: " + from.toString()
             + " to: " + to.toString()
@@ -291,7 +291,7 @@ public class OrderInitializeService {
                         (
                             purchaseItemsAmountTolerance != 0
                                 ? RANDOM.nextInt()
-                                % purchaseItemsAmountTolerance
+                                % (purchaseItemsAmountTolerance + 1)
                                 : 0
                         ),
                     purchaseItemQuantity,
@@ -314,7 +314,8 @@ public class OrderInitializeService {
                     saleItemsAmount +
                         (
                             saleItemsAmountTolerance != 0
-                                ? RANDOM.nextInt() % saleItemsAmountTolerance
+                                ? RANDOM.nextInt()
+                                % (saleItemsAmountTolerance + 1)
                                 : 0
                         ),
                     saleItemQuantity,
@@ -392,7 +393,8 @@ public class OrderInitializeService {
                 purchaseItemQuantity +
                     (
                         purchaseItemQuantityTolerance != 0
-                            ? RANDOM.nextLong() % purchaseItemQuantityTolerance
+                            ? RANDOM.nextLong()
+                            % (purchaseItemQuantityTolerance + 1)
                             : 0
                     )
             );
@@ -503,7 +505,8 @@ public class OrderInitializeService {
                 saleItemQuantity +
                     (
                         saleItemQuantityTolerance != 0
-                            ? RANDOM.nextLong() % saleItemQuantityTolerance
+                            ? RANDOM.nextLong()
+                            % (saleItemQuantityTolerance + 1)
                             : 0
                     )
             );
