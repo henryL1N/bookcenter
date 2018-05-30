@@ -21,7 +21,7 @@ public interface StockItemRepository extends JpaRepository<StockItem, Long> {
 
     StockItem findFirstByBookAndWarehouse(Book book, Warehouse warehouse);
 
-    Page<StockItem> findAllByWarehouse(Warehouse warehouse, Pageable pageable);
+    List<StockItem> findAllByWarehouseAndQuantityGreaterThan(Warehouse warehouse, Long quantityGreaterThan);
 
     Page<StockItem> findAllByWarehouseIdAndQuantityGreaterThan(Long warehouseId, Long quantityGreaterThan, Pageable pageable);
 }
