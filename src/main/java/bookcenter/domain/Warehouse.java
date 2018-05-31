@@ -1,6 +1,8 @@
 package bookcenter.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,6 +17,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "warehouse")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Warehouse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +40,7 @@ public class Warehouse implements Serializable {
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<StockItem> stockItems = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

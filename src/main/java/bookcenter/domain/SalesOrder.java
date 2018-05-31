@@ -1,6 +1,8 @@
 package bookcenter.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,6 +19,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "sales_order")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class SalesOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +42,7 @@ public class SalesOrder implements Serializable {
 
     @OneToMany(mappedBy = "salesOrder")
     @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne(optional = false)
