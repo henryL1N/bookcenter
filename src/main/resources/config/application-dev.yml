@@ -20,6 +20,7 @@ logging:
         io.github.jhipster: DEBUG
         log4jdbc: off
         jdbc: off
+#        jdbc.sqltiming: info
 #        jdbc.sqlonly: info
 #        jdbc.resultsettable: info
 
