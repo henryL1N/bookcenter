@@ -1,9 +1,11 @@
 package bookcenter.repository;
 
 import bookcenter.domain.SalesOrder;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
+import java.time.Instant;
+import java.util.List;
 
 
 /**
@@ -13,4 +15,9 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
 
+    List<SalesOrder> findAllByDateBetween(Instant from, Instant to);
+
+    SalesOrder findFirstByOrderByDateAsc();
+
+    SalesOrder findFirstByOrderByDateDesc();
 }

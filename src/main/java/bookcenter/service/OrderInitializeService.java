@@ -55,7 +55,7 @@ public class OrderInitializeService {
         this.employeeRepository = employeeRepository;
         this.bookRepository = bookRepository;
         this.stockItemRepository = stockItemRepository;
-        initialize();
+//        initialize();
     }
 
     public void initialize() {
