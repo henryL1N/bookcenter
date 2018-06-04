@@ -433,7 +433,7 @@ public class OrderInitializeService {
             stockItems.add(stockItem);
         }
         stockItemRepository.save(stockItems);
-        LOGGER.debug(purchaseOrder.toString());
+//        LOGGER.debug(purchaseOrder.toString());
     }
 
     private void sale(Instant saleTime,
@@ -533,6 +533,6 @@ public class OrderInitializeService {
         }
         orderItemRepository.save(orderItems);
         stockItemRepository.save(stockItemsToUpdate);
-        LOGGER.debug(salesOrder.toString());
+//        LOGGER.debug(salesOrder.toString());
     }
 }
