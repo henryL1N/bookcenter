@@ -20,7 +20,7 @@
                 "addOrderItem": "增加订单项目"
             },
             "date": "日期",
-            "supplier": "客户",
+            "customer": "客户",
             "totalAmount": "总金额",
             "seller": "销售员",
             "orderItem": "订单项目",

@@ -8,18 +8,18 @@
         <dd>
             <span>{{sale.date | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.sale.supplier">Supplier</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.sale.customer">Customer</span></dt>
         <dd>
-            <span>{{sale.supplier}}</span>
+            <span>{{sale.customer}}</span>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.sale.totalAmount">Total Amount</span></dt>
         <dd>
             <span>{{sale.totalAmount}}</span>
         </dd>
-        <dt><span jhiTranslate="bookCenterApp.sale.buyer">Buyer</span></dt>
+        <dt><span jhiTranslate="bookCenterApp.sale.seller">Seller</span></dt>
         <dd>
-            <div *ngIf="sale.buyerId">
-                <a [routerLink]="['/employee', sale.buyerId]">{{sale.buyerName}}</a>
+            <div *ngIf="sale.sellerId">
+                <a [routerLink]="['/employee', sale.sellerId]">{{sale.sellerName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="bookCenterApp.sale.warehouse">Warehouse</span></dt>

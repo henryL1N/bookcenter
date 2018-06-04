@@ -18,7 +18,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="date"><span jhiTranslate="bookCenterApp.sale.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.sale.supplier">Supplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="supplier"><span jhiTranslate="bookCenterApp.sale.customer">Customer</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="totalAmount"><span jhiTranslate="bookCenterApp.sale.totalAmount">Total Amount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="buyerName"><span jhiTranslate="bookCenterApp.sale.seller">Seller</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="warehouseName"><span jhiTranslate="bookCenterApp.sale.warehouse">Warehouse</span> <span class="fa fa-sort"></span></th>
@@ -29,7 +29,7 @@
             <tr *ngFor="let sale of sales ;trackBy: trackId">
                 <td><a [routerLink]="['../sale', sale.id ]">{{sale.id}}</a></td>
                 <td>{{sale.date | date:'medium'}}</td>
-                <td>{{sale.supplier}}</td>
+                <td>{{sale.customer}}</td>
                 <td>{{sale.totalAmount}}</td>
                 <td>
                     <div *ngIf="sale.sellerId">
