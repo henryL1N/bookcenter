@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import {ProfitReport} from './profit-report.model';
+import {ProfitReportService} from './profit-report.service';
 
 @Component({
     selector: 'jhi-profit-report',
@@ -13,7 +15,7 @@ import { ITEMS_PER_PAGE, Principal } from '../../shared';
 export class ProfitReportComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
-    // books: Book[];
+    profitReports: ProfitReport[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -26,9 +28,13 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    year: number;
+    month: number;
+    years: number[];
+    months: number[];
 
     constructor(
-        // private bookService: BookService,
+        private profitReportService: ProfitReportService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -46,13 +52,17 @@ currentAccount: any;
     }
 
     loadAll() {
-        // this.bookService.query({
+        // this.profitReportService.query({
         //     page: this.page - 1,
         //     size: this.itemsPerPage,
         //     sort: this.sort()}).subscribe(
-        //         (res: HttpResponse<Book[]>) => this.onSuccess(res.body, res.headers),
+        //         (res: HttpResponse<ProfitReport[]>) => this.onSuccess(res.body, res.headers),
         //         (res: HttpErrorResponse) => this.onError(res.message)
         // );
+        this.profitReportService.query({}).subscribe(
+            (res: HttpResponse<ProfitReport[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
     loadPage(page: number) {
         if (page !== this.previousPage) {
@@ -80,7 +90,7 @@ currentAccount: any;
         this.loadAll();
     }
     ngOnInit() {
-        // this.loadAll();
+        this.loadAll();
         // this.principal.identity().then((account) => {
         //     this.currentAccount = account;
         // });
@@ -91,9 +101,9 @@ currentAccount: any;
         // this.eventManager.destroy(this.eventSubscriber);
     }
 
-    // trackId(index: number, item: Book) {
-    //     return item.id;
-    // }
+    trackId(index: number, item: ProfitReport) {
+        return item.id;
+    }
     // registerChangeInBooks() {
     //     this.eventSubscriber = this.eventManager.subscribe('bookListModification', (response) => this.loadAll());
     // }
@@ -107,11 +117,11 @@ currentAccount: any;
     }
 
     private onSuccess(data, headers) {
-        this.links = this.parseLinks.parse(headers.get('link'));
-        this.totalItems = headers.get('X-Total-Count');
-        this.queryCount = this.totalItems;
+        // this.links = this.parseLinks.parse(headers.get('link'));
+        // this.totalItems = headers.get('X-Total-Count');
+        // this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
-        // this.books = data;
+        this.profitReports = data;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);

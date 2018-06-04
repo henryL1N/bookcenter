@@ -6,6 +6,7 @@ import {
     ProfitReportComponent,
     profitReportRoute,
     ProfitReportResolvePagingParams,
+    ProfitReportService
 } from './';
 
 const ENTITY_STATES = [
@@ -33,9 +34,9 @@ const ENTITY_STATES = [
         // BookDeletePopupComponent,
     ],
     providers: [
-        // BookService,
+        ProfitReportService,
         // BookPopupService,
-        // BookResolvePagingParams,
+        ProfitReportResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

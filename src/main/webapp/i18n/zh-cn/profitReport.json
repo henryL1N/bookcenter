@@ -1,0 +1,24 @@
+
+{
+    "bookCenterApp": {
+        "profitReport" : {
+            "home": {
+                "title": "利润报表",
+                "createLabel": "创建新 利润报表",
+                "createOrEditLabel": "创建或编辑 利润报表"
+            },
+            "created": "利润报表 {{ param }} 创建成功",
+            "updated": "利润报表 {{ param }} 更新成功",
+            "deleted": "利润报表 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 利润报表 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "利润报表"
+            },
+            "year": "年",
+            "month": "月",
+            "profit": "利润"
+        }
+    }
+}
