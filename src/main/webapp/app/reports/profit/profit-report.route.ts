@@ -34,46 +34,4 @@ export const profitReportRoute: Routes = [
         },
         canActivate: [UserRouteAccessService]
     }
-    // }, {
-    //     path: 'book/:id',
-    //     component: BookDetailComponent,
-    //     data: {
-    //         authorities: ['ROLE_USER'],
-    //         pageTitle: 'bookCenterApp.book.home.title'
-    //     },
-    //     canActivate: [UserRouteAccessService]
-    // }
 ];
-
-// export const bookPopupRoute: Routes = [
-//     {
-//         path: 'book-new',
-//         component: BookPopupComponent,
-//         data: {
-//             authorities: ['ROLE_USER'],
-//             pageTitle: 'bookCenterApp.book.home.title'
-//         },
-//         canActivate: [UserRouteAccessService],
-//         outlet: 'popup'
-//     },
-//     {
-//         path: 'book/:id/edit',
-//         component: BookPopupComponent,
-//         data: {
-//             authorities: ['ROLE_USER'],
-//             pageTitle: 'bookCenterApp.book.home.title'
-//         },
-//         canActivate: [UserRouteAccessService],
-//         outlet: 'popup'
-//     },
-//     {
-//         path: 'book/:id/delete',
-//         component: BookDeletePopupComponent,
-//         data: {
-//             authorities: ['ROLE_USER'],
-//             pageTitle: 'bookCenterApp.book.home.title'
-//         },
-//         canActivate: [UserRouteAccessService],
-//         outlet: 'popup'
-//     }
-// ];

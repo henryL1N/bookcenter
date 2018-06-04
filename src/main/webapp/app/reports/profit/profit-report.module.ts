@@ -20,22 +20,12 @@ const ENTITY_STATES = [
     ],
     declarations: [
         ProfitReportComponent,
-        // BookDetailComponent,
-        // BookDialogComponent,
-        // BookDeleteDialogComponent,
-        // BookPopupComponent,
-        // BookDeletePopupComponent,
     ],
     entryComponents: [
         ProfitReportComponent,
-        // BookDialogComponent,
-        // BookPopupComponent,
-        // BookDeleteDialogComponent,
-        // BookDeletePopupComponent,
     ],
     providers: [
         ProfitReportService,
-        // BookPopupService,
         ProfitReportResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
