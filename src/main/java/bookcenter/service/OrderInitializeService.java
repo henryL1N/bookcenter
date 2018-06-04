@@ -21,8 +21,6 @@ import java.util.function.Consumer;
 @Service
 public class OrderInitializeService {
 
-    static private Boolean initialized = Boolean.FALSE;
-
     private static final Random RANDOM = new Random(Instant.now().toEpochMilli());
 
     private final PurchaseOrderRepository purchaseOrderRepository;
@@ -55,11 +53,13 @@ public class OrderInitializeService {
         this.employeeRepository = employeeRepository;
         this.bookRepository = bookRepository;
         this.stockItemRepository = stockItemRepository;
-//        initialize();
+        initialize();
     }
 
     public void initialize() {
-        if (!initialized) {
+        if (purchaseOrderRepository.count() == 0 &&
+            salesOrderRepository.count() == 0 &&
+            orderItemRepository.count() == 0) {
             initialize(
                 Instant.parse("2016-01-01T00:00:00.00Z"),
                 Instant.now(),
@@ -69,7 +69,7 @@ public class OrderInitializeService {
                 9,
                 100L,
                 50L,
-                Duration.ofMinutes(60),
+                Duration.ofMinutes(600),
                 Duration.ofMinutes(30)
             );
         }
@@ -144,7 +144,7 @@ public class OrderInitializeService {
         Double purchaseSaleCycleRate =
             1.0 * Instant.ofEpochSecond(0).plus(purchaseCycle).getEpochSecond()
                 / Instant.ofEpochSecond(0).plus(saleCycle).getEpochSecond();
-        saleItemQuantity = 5L;
+        saleItemQuantity = 50L;
         saleItemQuantityTolerance = saleItemQuantity - 1L;
         saleItemsAmount = (int) (purchaseItemsAmount * purchaseItemQuantity / purchaseSaleCycleRate / saleItemQuantity);
         if (saleItemsAmount < 1) {
