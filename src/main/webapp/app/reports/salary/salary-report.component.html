@@ -1,0 +1,27 @@
+<div>
+    <h2>
+        <span jhiTranslate="bookCenterApp.salaryReport.home.title">ProfitReports</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="salaryReports">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="bookCenterApp.salaryReport.year">Year</span></th>
+            <th><span jhiTranslate="bookCenterApp.salaryReport.month">Month</span></th>
+            <th><span jhiTranslate="bookCenterApp.salaryReport.salary">Salary</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let salaryReport of salaryReports ;trackBy: trackId">
+                <td>{{salaryReport.year}}</td>
+                <td>{{salaryReport.month}}</td>
+                <td>{{salaryReport.salary}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

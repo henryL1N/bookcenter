@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { BookCenterProfitReportModule } from './profit/profit-report.module';
-// import { BookCenterSalaryReportModule } from './salary/salary-report.module';
+import { BookCenterSalaryReportModule } from './salary/salary-report.module';
 // import { BookCenterSaleReportModule } from './sale/sale-report.module';
 // import { BookCenterStockReportModule } from './stock/stock-report.module';
 // import { BookCenterExpenseReportModule } from './expense/stock-report.module';
@@ -10,7 +10,7 @@ import { BookCenterProfitReportModule } from './profit/profit-report.module';
 @NgModule({
     imports: [
         BookCenterProfitReportModule,
-        // BookCenterSalaryReportModule,
+        BookCenterSalaryReportModule,
         // BookCenterSaleReportModule,
         // BookCenterStockReportModule,
         // BookCenterExpenseReportModule
