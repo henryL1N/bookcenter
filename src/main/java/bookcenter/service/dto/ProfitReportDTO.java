@@ -11,10 +11,6 @@ public class ProfitReportDTO implements Serializable {
 
     private Long id;
 
-    private Long bookCenterId;
-
-    private String bookCenterName;
-
     private Integer year;
 
     private Integer month;
@@ -27,22 +23,6 @@ public class ProfitReportDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBookCenterId() {
-        return bookCenterId;
-    }
-
-    public void setBookCenterId(Long bookCenterId) {
-        this.bookCenterId = bookCenterId;
-    }
-
-    public String getBookCenterName() {
-        return bookCenterName;
-    }
-
-    public void setBookCenterName(String bookCenterName) {
-        this.bookCenterName = bookCenterName;
     }
 
     public Integer getYear() {
@@ -94,7 +74,6 @@ public class ProfitReportDTO implements Serializable {
     public String toString() {
         return "ProfitReportDTO{" +
             "id=" + getId() +
-            ", bookCenterId=" + getBookCenterId() +
             ", year=" + getYear() +
             ", month=" + getMonth() +
             ", profit=" + getProfit() +

@@ -27,18 +27,14 @@ import java.util.Set;
 @Transactional
 public class ProfitReportServiceImpl implements ProfitReportService {
 
-    private final Logger log = LoggerFactory.getLogger(PurchaseOrderServiceImpl.class);
-
-    private final PurchaseOrderRepository purchaseOrderRepository;
+    private final Logger log = LoggerFactory.getLogger(ProfitReportServiceImpl.class);
 
     private final SalesOrderRepository salesOrderRepository;
 
     private final EmployeeRepository employeeRepository;
 
-    public ProfitReportServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
-                                   SalesOrderRepository salesOrderRepository,
+    public ProfitReportServiceImpl(SalesOrderRepository salesOrderRepository,
                                    EmployeeRepository employeeRepository) {
-        this.purchaseOrderRepository = purchaseOrderRepository;
         this.salesOrderRepository = salesOrderRepository;
         this.employeeRepository = employeeRepository;
     }
@@ -63,8 +59,6 @@ public class ProfitReportServiceImpl implements ProfitReportService {
         } catch (Exception e) {
             return profitReportDTOS;
         }
-
-        Integer yearFrom, yearTo, monthFrom, monthTo;
 
         SalesOrder first = salesOrderRepository.findFirstByOrderByDateAsc();
         SalesOrder last = salesOrderRepository.findFirstByOrderByDateDesc();
@@ -101,7 +95,7 @@ public class ProfitReportServiceImpl implements ProfitReportService {
             f = ldt.atZone(ZoneId.systemDefault()).toInstant();
             t = ldt.plus(Period.ofMonths(1)).atZone(ZoneId.systemDefault()).toInstant();
             List<SalesOrder> salesOrders = salesOrderRepository.findAllByDateBetween(f, t);
-            log.debug("salesOrderRepository");
+//            log.debug("salesOrderRepository");
             BigDecimal profit = new BigDecimal(0);
             for (SalesOrder salesOrder : salesOrders) {
                 profit = profit.add(salesOrder.getTotalAmount());
@@ -121,7 +115,7 @@ public class ProfitReportServiceImpl implements ProfitReportService {
             profit = profit.subtract(totalSalary);
             profitReportDTO.setProfit(profit);
             profitReportDTOS.add(profitReportDTO);
-            log.debug("month");
+//            log.debug("month");
             if (t.equals(to) || t.isAfter(to)) {
                 break;
             }else{
