@@ -154,7 +154,7 @@ public class OrderInitializeService {
             (long) (
                 1.0 * Instant.ofEpochSecond(0).plus(purchaseCycle).getEpochSecond()
                     / (purchaseItemsAmount * purchaseItemQuantity)
-                    * saleItemQuantity
+                    * saleItemQuantity * saleItemsAmount
             )
         );
         saleItemsAmountTolerance = saleItemsAmount - 1;
