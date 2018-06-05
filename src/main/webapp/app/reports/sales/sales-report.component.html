@@ -1,0 +1,44 @@
+<div>
+    <h2>
+        <span jhiTranslate="bookCenterApp.salesReport.home.title">SalesReports</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div>
+        <button type="submit"
+                [routerLink]="['/salesReport/', departmentId, previousYear(), previouseMonth()]"
+                class="btn btn-outline-primary">
+            {{previousYear()}}/{{previouseMonth()}}
+            <span class="fa fa-chevron-left"></span>
+        </button>
+        <button type="submit"
+                class="btn btn-primary"
+                disabled>
+            {{year}}/{{month}}
+        </button>
+        <button type="submit"
+                [routerLink]="['/salesReport/', departmentId, nextYear(), nextMonth()]"
+                class="btn btn-outline-primary">
+            <span class="fa fa-chevron-right"></span>
+            {{nextYear()}}/{{nextMonth()}}
+        </button>
+    </div>
+    <div class="table-responsive" *ngIf="salesReports">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="bookCenterApp.salesReport.book">Book</span></th>
+            <th><span jhiTranslate="bookCenterApp.salesReport.quantity">Quantity</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let salesReport of salesReports ;trackBy: trackId">
+                <td>{{salesReport.bookName}}</td>
+                <td>{{salesReport.quantity}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

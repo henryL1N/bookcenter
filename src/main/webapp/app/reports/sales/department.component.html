@@ -1,0 +1,29 @@
+<div>
+    <h2>
+        <span jhiTranslate="bookCenterApp.salesReportDepartment.home.title">Departments</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="departments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="bookCenterApp.salesReportDepartment.name">Name</span></th>
+            <th><span jhiTranslate="bookCenterApp.salesReportDepartment.bookCenter">Book Center</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let department of departments ;trackBy: trackId">
+                <td>
+                    <div *ngIf="department.id">
+                        <a [routerLink]="['../salesReport', department.id ]" >{{department.name}}</a>
+                    </div>
+                </td>
+                <td>{{department.bookCenterName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

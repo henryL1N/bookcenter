@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { BookCenterProfitReportModule } from './profit/profit-report.module';
 import { BookCenterSalaryReportModule } from './salary/salary-report.module';
-// import { BookCenterSaleReportModule } from './sale/sale-report.module';
+import { BookCenterSalesReportModule } from './sales/sales-report.module';
 // import { BookCenterStockReportModule } from './stock/stock-report.module';
 // import { BookCenterExpenseReportModule } from './expense/stock-report.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
@@ -11,7 +11,7 @@ import { BookCenterSalaryReportModule } from './salary/salary-report.module';
     imports: [
         BookCenterProfitReportModule,
         BookCenterSalaryReportModule,
-        // BookCenterSaleReportModule,
+        BookCenterSalesReportModule,
         // BookCenterStockReportModule,
         // BookCenterExpenseReportModule
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */

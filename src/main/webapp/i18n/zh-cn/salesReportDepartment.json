@@ -1,0 +1,26 @@
+
+{
+    "bookCenterApp": {
+        "salesReportDepartment" : {
+            "home": {
+                "title": "选择部门以查看销售报表",
+                "createLabel": "创建新 部门",
+                "createOrEditLabel": "创建或编辑 部门"
+            },
+            "created": "部门 {{ param }} 创建成功",
+            "updated": "部门 {{ param }} 更新成功",
+            "deleted": "部门 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 部门 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "部门"
+            },
+            "name": "名称",
+            "address": "地址",
+            "bookCenter": "所属购书中心",
+            "manager": "经理",
+            "employee": "员工"
+        }
+    }
+}

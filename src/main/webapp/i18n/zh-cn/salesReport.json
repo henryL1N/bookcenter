@@ -1,0 +1,23 @@
+
+{
+    "bookCenterApp": {
+        "salesReport" : {
+            "home": {
+                "title": "销售报表",
+                "createLabel": "创建新 销售报表",
+                "createOrEditLabel": "创建或编辑 销售报表"
+            },
+            "created": "销售报表 {{ param }} 创建成功",
+            "updated": "销售报表 {{ param }} 更新成功",
+            "deleted": "销售报表 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 销售报表 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "销售报表"
+            },
+            "book": "书籍",
+            "quantity": "数量"
+        }
+    }
+}
