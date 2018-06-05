@@ -79,13 +79,13 @@ currentAccount: any;
 
     load(departmentId, year, month) {
         if (null == year || null == month) {
-            let today = new Date();
-            year=today.getFullYear();
-            month=today.getMonth();
+            const today = new Date();
+            year = today.getFullYear();
+            month = today.getMonth();
         }
-        this.departmentId=+departmentId;
-        this.year=+year;
-        this.month=+month;
+        this.departmentId = +departmentId;
+        this.year = +year;
+        this.month = +month;
         this.salesReportService.find(departmentId, year, month).subscribe(
             (res: HttpResponse<SalesReport[]>) => this.onSuccess(res.body, res.headers),
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -107,34 +107,34 @@ currentAccount: any;
     }
 
     previousYear() {
-        if(this.month==1) {
-            return this.year-1;
-        }else{
+        if (this.month === 1) {
+            return this.year - 1;
+        }else {
             return this.year;
         }
     }
 
     previouseMonth() {
-        if(this.month==1) {
+        if (this.month === 1) {
             return 12;
-        }else{
-            return this.month-1;
+        }else {
+            return this.month - 1;
         }
     }
 
     nextYear() {
-        if(this.month==12) {
-            return this.year+1;
-        }else{
+        if (this.month === 12) {
+            return this.year + 1;
+        }else {
             return this.year;
         }
     }
 
     nextMonth() {
-        if(this.month==12) {
+        if (this.month === 12) {
             return 1;
-        }else{
-            return this.month+1;
+        }else {
+            return this.month + 1;
         }
     }
 }
