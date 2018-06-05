@@ -31,15 +31,11 @@ public class SalesReportServiceImpl implements SalesReportService {
 
     private final SalesOrderRepository salesOrderRepository;
 
-    private final EmployeeRepository employeeRepository;
-
     private final DepartmentRepository departmentRepository;
 
     public SalesReportServiceImpl(SalesOrderRepository salesOrderRepository,
-                                  EmployeeRepository employeeRepository,
                                   DepartmentRepository departmentRepository) {
         this.salesOrderRepository = salesOrderRepository;
-        this.employeeRepository = employeeRepository;
         this.departmentRepository = departmentRepository;
     }
 
