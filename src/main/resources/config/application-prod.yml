@@ -29,7 +29,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:sqlserver://localhost:1433;database=BookCenter
         username: SA
-        password: yourStrong(!)Password
+        password: <YourStrong!Passw0rd>
         hikari:
             data-source-properties:
                 cachePrepStmts: true
