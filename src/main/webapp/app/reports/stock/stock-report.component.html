@@ -1,0 +1,44 @@
+<div>
+    <h2>
+        <span jhiTranslate="bookCenterApp.stockReport.home.title">StockReports</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div>
+        <button type="submit"
+                [routerLink]="['/stockReport/', warehouseId, previousYear(), previouseMonth()]"
+                class="btn btn-outline-primary">
+            {{previousYear()}}/{{previouseMonth()}}
+            <span class="fa fa-chevron-left"></span>
+        </button>
+        <button type="submit"
+                class="btn btn-primary"
+                disabled>
+            {{year}}/{{month}}
+        </button>
+        <button type="submit"
+                [routerLink]="['/stockReport/', warehouseId, nextYear(), nextMonth()]"
+                class="btn btn-outline-primary">
+            <span class="fa fa-chevron-right"></span>
+            {{nextYear()}}/{{nextMonth()}}
+        </button>
+    </div>
+    <div class="table-responsive" *ngIf="stockReports">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="bookCenterApp.stockReport.book">Book</span></th>
+            <th><span jhiTranslate="bookCenterApp.stockReport.quantity">Quantity</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stockReport of stockReports ;trackBy: trackId">
+                <td>{{stockReport.bookName}}</td>
+                <td>{{stockReport.quantity}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

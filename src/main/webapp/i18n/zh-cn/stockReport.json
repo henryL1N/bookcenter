@@ -1,0 +1,23 @@
+
+{
+    "bookCenterApp": {
+        "stockReport" : {
+            "home": {
+                "title": "库存报表",
+                "createLabel": "创建新 库存报表",
+                "createOrEditLabel": "创建或编辑 库存报表"
+            },
+            "created": "库存报表 {{ param }} 创建成功",
+            "updated": "库存报表 {{ param }} 更新成功",
+            "deleted": "库存报表 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 库存报表 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "库存报表"
+            },
+            "book": "书籍",
+            "quantity": "数量"
+        }
+    }
+}

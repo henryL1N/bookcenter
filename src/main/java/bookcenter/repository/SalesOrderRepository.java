@@ -2,6 +2,7 @@ package bookcenter.repository;
 
 import bookcenter.domain.Employee;
 import bookcenter.domain.SalesOrder;
+import bookcenter.domain.Warehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +25,6 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
     SalesOrder findFirstByOrderByDateDesc();
 
     List<SalesOrder> findAllByDateBetweenAndSellerIn(Instant from, Instant to, Set<Employee> employees);
+
+    List<SalesOrder> findAllByWarehouseAndDateAfter(Warehouse warehouse, Instant after);
 }

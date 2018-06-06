@@ -1,0 +1,25 @@
+
+{
+    "bookCenterApp": {
+        "stockReportWarehouse" : {
+            "home": {
+                "title": "选择仓库以查看销售报表",
+                "createLabel": "创建新 仓库",
+                "createOrEditLabel": "创建或编辑 仓库"
+            },
+            "created": "仓库 {{ param }} 创建成功",
+            "updated": "仓库 {{ param }} 更新成功",
+            "deleted": "仓库 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 仓库 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "仓库"
+            },
+            "name": "名称",
+            "phone": "电话",
+            "keeper": "仓管员",
+            "stockItem": "库存项目"
+        }
+    }
+}
