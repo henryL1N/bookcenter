@@ -1,0 +1,23 @@
+
+{
+    "bookCenterApp": {
+        "expenseReport" : {
+            "home": {
+                "title": "开销报表",
+                "createLabel": "创建新 开销报表",
+                "createOrEditLabel": "创建或编辑 开销报表"
+            },
+            "created": "开销报表 {{ param }} 创建成功",
+            "updated": "开销报表 {{ param }} 更新成功",
+            "deleted": "开销报表 {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 开销报表 {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "开销报表"
+            },
+            "department": "部门",
+            "expense": "开销"
+        }
+    }
+}

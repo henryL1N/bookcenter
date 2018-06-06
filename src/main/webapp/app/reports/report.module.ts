@@ -4,7 +4,7 @@ import { BookCenterProfitReportModule } from './profit/profit-report.module';
 import { BookCenterSalaryReportModule } from './salary/salary-report.module';
 import { BookCenterSalesReportModule } from './sales/sales-report.module';
 import { BookCenterStockReportModule } from './stock/stock-report.module';
-// import { BookCenterExpenseReportModule } from './expense/stock-report.module';
+import { BookCenterExpenseReportModule } from './expense/expense-report.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -13,7 +13,7 @@ import { BookCenterStockReportModule } from './stock/stock-report.module';
         BookCenterSalaryReportModule,
         BookCenterSalesReportModule,
         BookCenterStockReportModule,
-        // BookCenterExpenseReportModule
+        BookCenterExpenseReportModule
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
