@@ -11,9 +11,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * @author Henry Lin badcop@163.com
@@ -36,6 +34,10 @@ public class OrderInitializeService {
     private final BookRepository bookRepository;
 
     private final StockItemRepository stockItemRepository;
+
+    private List<StockItem> stockItems;
+
+    private Long lastSum;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderInitializeService.class);
 
@@ -60,6 +62,7 @@ public class OrderInitializeService {
         if (purchaseOrderRepository.count() == 0 &&
             salesOrderRepository.count() == 0 &&
             orderItemRepository.count() == 0) {
+            this.stockItems = new ArrayList<>();
             initialize(
                 Instant.parse("2016-01-01T00:00:00.00Z"),
                 Instant.now(),
@@ -72,6 +75,8 @@ public class OrderInitializeService {
                 Duration.ofMinutes(600),
                 Duration.ofMinutes(30)
             );
+            stockItemRepository.save(this.stockItems);
+            this.stockItems.clear();
         }
     }
 
@@ -414,9 +419,8 @@ public class OrderInitializeService {
             orderItem.setPurchaseOrder(purchaseOrder);
         }
         orderItemRepository.save(orderItems);
-        ArrayList<StockItem> stockItems = new ArrayList<>();
         for (OrderItem orderItem : orderItems) {
-            StockItem stockItem = stockItemRepository.
+            StockItem stockItem = this.
                 findFirstByBookAndWarehouse(
                     orderItem.getBook(), purchaseOrder.getWarehouse()
                 );
@@ -425,14 +429,13 @@ public class OrderInitializeService {
                 stockItem.setBook(orderItem.getBook());
                 stockItem.setQuantity(orderItem.getQuantity());
                 stockItem.setWarehouse(purchaseOrder.getWarehouse());
+                stockItems.add(stockItem);
             } else {
                 stockItem.setQuantity(
                     stockItem.getQuantity() + orderItem.getQuantity()
                 );
             }
-            stockItems.add(stockItem);
         }
-        stockItemRepository.save(stockItems);
 //        LOGGER.debug(purchaseOrder.toString());
     }
 
@@ -461,7 +464,7 @@ public class OrderInitializeService {
         Iterator<Warehouse> warehouseIterator = warehouses.iterator();
         while (warehouseIterator.hasNext()) {
             stockItems =
-                stockItemRepository.findAllByWarehouseAndQuantityGreaterThan(
+                this.findAllByWarehouseAndQuantityGreaterThan(
                     warehouseIterator.next(), 0L
                 );
             if (stockItems.isEmpty()) {
@@ -487,7 +490,7 @@ public class OrderInitializeService {
 
         HashSet<OrderItem> orderItems = new HashSet<OrderItem>();
         stockItems =
-            stockItemRepository.findAllByWarehouseAndQuantityGreaterThan(
+            this.findAllByWarehouseAndQuantityGreaterThan(
                 salesOrder.getWarehouse(), 0L
             );
         ArrayList<StockItem> stockItemsToUpdate = new ArrayList<>();
@@ -532,7 +535,27 @@ public class OrderInitializeService {
             orderItem.setSalesOrder(salesOrder);
         }
         orderItemRepository.save(orderItems);
-        stockItemRepository.save(stockItemsToUpdate);
 //        LOGGER.debug(salesOrder.toString());
+    }
+
+    private List<StockItem> findAllByWarehouseAndQuantityGreaterThan(Warehouse warehouse, Long greaterThan) {
+        List<StockItem> stockItems = new ArrayList<>();
+        for (StockItem stockItem : this.stockItems) {
+            if (stockItem.getWarehouse().equals(warehouse) &&
+                !stockItem.getQuantity().equals(0L)) {
+                stockItems.add(stockItem);
+            }
+        }
+        return stockItems;
+    }
+
+    private StockItem findFirstByBookAndWarehouse(Book book, Warehouse warehouse) {
+        for (StockItem stockItem : this.stockItems) {
+            if (stockItem.getBook().equals(book) &&
+                stockItem.getWarehouse().equals(warehouse)) {
+                return stockItem;
+            }
+        }
+        return null;
     }
 }
