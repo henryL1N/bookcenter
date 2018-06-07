@@ -1,0 +1,134 @@
+@startuml
+scale 2
+:购书中心管理信息系统;
+split
+    :操作;
+    split
+        :采
+        购;
+        detach
+    split again
+        :销
+        售;
+        detach
+    split again
+        :盘
+        点;
+        detach
+    end split
+split again
+    :报表;
+    split
+        :利
+        润
+        报
+        表;
+        detach
+    split again
+        :工
+        资
+        报
+        表;
+        detach
+    split again
+        :销
+        售
+        报
+        表;
+        detach
+    split again
+        :库
+        存
+        报
+        表;
+        detach
+    split again
+        :开
+        销
+        报
+        表;
+        detach
+    end split
+split again
+    :数据;
+    split
+        :书
+        籍
+        管
+        理;
+        detach
+    split again
+        :购
+        书
+        中
+        心
+        管
+        理;
+        detach
+    split again
+        :分
+        类
+        管
+        理;
+        detach
+    split again
+        :部
+        门
+        管
+        理;
+        detach
+    split again
+        :员
+        工
+        管
+        理;
+        detach
+    split again
+        :出
+        版
+        商
+        管
+        理;
+        detach
+    split again
+        :库
+        存
+        项
+        目
+        管
+        理;
+        detach
+    split again
+        :仓
+        库
+        管
+        理;
+        detach
+    split again
+        :采
+        购
+        订
+        单
+        管
+        理;
+        detach
+    split again
+        :销
+        售
+        订
+        单
+        管
+        理;
+        detach
+    split again
+        :订
+        单
+        项
+        目
+        管
+        理;
+        detach
+    end split
+    detach
+end split
+@enduml
